@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import "../Footer/Footer.css";
 import { useI18n } from "../../../../hooks/useI18n";
 import LocalizedLink from "../../LocalizedLink/LocalizedLink";
+import MapComponent from "../../MapComponent/MapComponent";
 
 const Footer = () => {
   const { t: useTranslationT } = useTranslation();
@@ -101,15 +102,7 @@ const Footer = () => {
                 {useTranslationT("footer.mapTitle")}
               </p>
               <div className="map-wrapper">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1565.6549300951995!2d105.88089418363363!3d21.041648374720946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135a97c7dc6d877%3A0x1a140cbe4ea2cdd!2sCo.%20Management%20Engineering%20Flight!5e0!3m2!1sen!2sus!4v1741315536945!5m2!1sen!2sus"
-                  width="100%"
-                  height="180"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  title="ATTECH Map"
-                ></iframe>
+                <MapComponent lat={21.041648} lng={105.880894} zoom={15} height="180px" />
               </div>
             </div>
           </div>

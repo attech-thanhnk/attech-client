@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Development server với hot reload
+  frontend-dev:
+    image: node:18-alpine
+    container_name: attech-client-dev
+    working_dir: /app
+    volumes:
+      # Mount source code để hot reload
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      # Giữ node_modules trong container (không mount từ host)
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_PROTOCOL=http
+      - REACT_APP_API_HOST=localhost
+      - REACT_APP_API_PORT=8080
+      - CHOKIDAR_USEPOLLING=true  # Để hot reload hoạt động trên Windows
+    command: sh -c "npm install && npm start"
+    networks:
+      - dev-network
+
+  # Production build test (giống server thật)
+  frontend-prod-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: attech-client-prod-test
+    ports:
+      - "8080:80"
+    networks:
+      - dev-network
+    profiles:
+      - production-test  # Chỉ chạy khi gọi: docker-compose --profile production-test up
+
+networks:
+  dev-network:
+    driver: bridge
