@@ -41,40 +41,40 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             REACT_APP_API_PROTOCOL=https
-            REACT_APP_API_HOST=api.attech.space
+            REACT_APP_API_HOST=api.attech.online
             REACT_APP_API_PORT=
 
       # 5. Deploy lên server qua SSH
       - name: Deploy to Production Server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SERVER_PORT || 22 }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
-            # Login to registry trên server
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            set -e
 
-            # Pull image mới nhất
+            echo "=========================================="
+            echo "Deploying Frontend"
+            echo "=========================================="
+
+            cd /home/ncpt/projects/attech-server
+
+            # Pull latest image (already logged in via docker login)
             docker pull ghcr.io/attech-thanhnk/attech-client:latest
 
-            # Stop & remove container cũ
-            docker stop attechserver-frontend || true
-            docker rm attechserver-frontend || true
+            # Restart frontend service
+            docker-compose -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml up -d frontend
 
-            # Chạy container mới
-            docker run -d \
-              --name attechserver-frontend \
-              --network attechserver_attech-network \
-              --restart unless-stopped \
-              ghcr.io/attech-thanhnk/attech-client:latest
+            # Restart proxy to ensure routing is updated
+            docker-compose -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml restart proxy
 
-            # Dọn dẹp images cũ (giữ lại 24h)
-            docker image prune -af --filter "until=24h"
+            # Health check
+            sleep 10
+            curl -f https://attech.online || exit 1
 
-            # Verify container đang chạy
-            docker ps --filter "name=attechserver-frontend" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+            echo "✅ Frontend deployed successfully!"
 
       # 6. Thông báo thành công
       - name: Deployment Success
@@ -82,4 +82,4 @@ jobs:
         run: |
           echo "✅ Deployment thành công!"
           echo "🚀 Image: ghcr.io/attech-thanhnk/attech-client:${{ github.sha }}"
-          echo "🌐 Website: https://attech.space"
+          echo "🌐 Website: https://attech.online"
