@@ -83,6 +83,6 @@ jobs:
       - name: Deployment Success
         if: success()
         run: |
-          echo "✅ Deployment thành công!"
-          echo "🚀 Image: ghcr.io/attech-thanhnk/attech-client:${{ github.sha }}"
-          echo "🌐 Website: https://attech.online"
+          echo "Deployment thanh cong!"
+          echo "Image: ghcr.io/attech-thanhnk/attech-client:${{ github.sha }}"
+          echo "Website: https://attech.online"
