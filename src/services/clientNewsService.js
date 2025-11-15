@@ -4,23 +4,26 @@ import { processWysiwygContent } from "../utils/contentUtils";
 
 // Real category IDs from your database (updated based on API response)
 export const CATEGORY_IDS = {
-  COMPANY_ACTIVITIES: 1,        // "hoat-dong-cong-ty" / "company-activities"
-  COMPANY_PARTY: 2,             // "dang-bo-cong-ty" / "party-committee"  
-  COMPANY_UNION: 3,             // "cong-doan-cong-ty" / "company-union"
-  COMPANY_YOUTH_UNION: 4,       // "doan-thanh-nien-cong-ty" / "company-youth-union" (if exists)
+  ACTIVITY_NEWS: 1,             // "tin-hoat-dong" / "activity-news" (parent category)
+  COMPANY_ACTIVITIES: 2,        // "hoat-dong-cong-ty" / "company-activities"
+  COMPANY_PARTY: 3,             // "dang-bo-cong-ty" / "party-committee"
+  COMPANY_UNION: 4,             // "cong-doan-cong-ty" / "company-union"
+  COMPANY_YOUTH_UNION: 5,       // "doan-thanh-nien-cong-ty" / "company-youth-union"
   AVIATION_NEWS: 7              // "tin-nganh-hang-khong" / "aviation-news"
 };
 
 // Category slug to ID mapping
 export const CATEGORY_SLUG_TO_ID = {
   // Vietnamese slugs
+  "tin-hoat-dong": CATEGORY_IDS.ACTIVITY_NEWS,
   "hoat-dong-cong-ty": CATEGORY_IDS.COMPANY_ACTIVITIES,
   "dang-bo-cong-ty": CATEGORY_IDS.COMPANY_PARTY,
   "cong-doan-cong-ty": CATEGORY_IDS.COMPANY_UNION,
   "doan-thanh-nien-cong-ty": CATEGORY_IDS.COMPANY_YOUTH_UNION,
   "tin-nganh-hang-khong": CATEGORY_IDS.AVIATION_NEWS,
-  
+
   // English slugs
+  "activity-news": CATEGORY_IDS.ACTIVITY_NEWS,
   "company-activities": CATEGORY_IDS.COMPANY_ACTIVITIES,
   "party-committee": CATEGORY_IDS.COMPANY_PARTY,
   "company-union": CATEGORY_IDS.COMPANY_UNION,

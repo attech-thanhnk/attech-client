@@ -339,7 +339,21 @@ export const getBannerKeys = () => {
     { key: 'AboutCnhk5', label: 'Ảnh CNHK 5', description: 'Ảnh công nghệ hàng không số 5', category: 'homecontent' },
     { key: 'AboutCnhk6', label: 'Ảnh CNHK 6', description: 'Ảnh công nghệ hàng không số 6', category: 'homecontent' },
     { key: 'AboutCnhk7', label: 'Ảnh CNHK 7', description: 'Ảnh công nghệ hàng không số 7', category: 'homecontent' },
-    { key: 'AboutCnhk8', label: 'Ảnh CNHK 8', description: 'Ảnh công nghệ hàng không số 8', category: 'homecontent' }
+    { key: 'AboutCnhk8', label: 'Ảnh CNHK 8', description: 'Ảnh công nghệ hàng không số 8', category: 'homecontent' },
+
+    // Home Hero Background
+    { key: 'HomeHeroBackground', label: 'Ảnh nền trang chủ', description: 'Ảnh nền trang chủ', category: 'homecontent' },
+
+    // === COMPANY INFO - Tab "Thông tin công ty" ===
+    // Structure
+    { key: 'StructureChart', label: 'Sơ đồ cơ cấu tổ chức', description: 'Sơ đồ tổ chức công ty (SVG/PNG)', category: 'companyinfo' },
+
+    // Leadership
+    { key: 'LeaderChairman', label: 'Ảnh Chủ tịch công ty', description: 'Ảnh Chủ tịch công ty', category: 'companyinfo' },
+    { key: 'LeaderDirector', label: 'Ảnh Giám đốc', description: 'Ảnh Giám đốc công ty', category: 'companyinfo' },
+    { key: 'LeaderViceDirector1', label: 'Ảnh Phó Giám đốc 1', description: 'Ảnh Phó Giám đốc thứ nhất', category: 'companyinfo' },
+    { key: 'LeaderViceDirector2', label: 'Ảnh Phó Giám đốc 2', description: 'Ảnh Phó Giám đốc thứ hai', category: 'companyinfo' },
+    { key: 'LeaderViceDirector3', label: 'Ảnh Phó Giám đốc 3', description: 'Ảnh Phó Giám đốc thứ ba', category: 'companyinfo' }
   ];
 };
 

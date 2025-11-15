@@ -4,46 +4,50 @@ import { useLocation } from "react-router-dom";
 import "../Leadership/Leadership.css";
 import SEO from "../../../../components/SEO/SEO";
 import { useI18n } from "../../../../hooks/useI18n";
-
-const getLeadershipData = (t) => ({
-  chairman: [
-    {
-      name: "Lê Tiến Thịnh",
-      position: t("frontend.companyInfo.leadership.positions.chairman"),
-      image: "/assets/images/leadership/thinhlt.webp",
-    },
-  ],
-  director: [
-    {
-      name: "Nguyễn Hoàng Giang",
-      position: t("frontend.companyInfo.leadership.positions.director"),
-      image: "/assets/images/leadership/giangnh.webp",
-    },
-  ],
-  viceDirectors: [
-    {
-      name: "Đinh Nhật Minh",
-      position: t("frontend.companyInfo.leadership.positions.viceDirector"),
-      image: "/assets/images/leadership/minhdn.webp",
-    },
-    {
-      name: "Nguyễn Như Thành",
-      position: t("frontend.companyInfo.leadership.positions.viceDirector"),
-      image: "/assets/images/leadership/thanhnn.webp",
-    },
-    {
-      name: "Phan Quốc Hưng",
-      position: t("frontend.companyInfo.leadership.positions.viceDirector"),
-      image: "/assets/images/leadership/hungpq.webp",
-    },
-  ],
-});
+import { useBannerSettings } from "../../../../hooks/useBannerSettings";
 
 export default function Leadership() {
   const { t } = useTranslation();
   const { currentLanguage } = useI18n();
   const location = useLocation();
-  const leadershipData = getLeadershipData(t);
+  const { getLeadershipImages } = useBannerSettings();
+  const leaderImages = getLeadershipImages();
+
+  const getLeadershipData = (t, images) => ({
+    chairman: [
+      {
+        name: "Lê Tiến Thịnh",
+        position: t("frontend.companyInfo.leadership.positions.chairman"),
+        image: images.chairman || "/assets/images/leadership/thinhlt.webp",
+      },
+    ],
+    director: [
+      {
+        name: "Nguyễn Hoàng Giang",
+        position: t("frontend.companyInfo.leadership.positions.director"),
+        image: images.director || "/assets/images/leadership/giangnh.webp",
+      },
+    ],
+    viceDirectors: [
+      {
+        name: "Đinh Nhật Minh",
+        position: t("frontend.companyInfo.leadership.positions.viceDirector"),
+        image: images.viceDirector1 || "/assets/images/leadership/minhdn.webp",
+      },
+      {
+        name: "Nguyễn Như Thành",
+        position: t("frontend.companyInfo.leadership.positions.viceDirector"),
+        image: images.viceDirector2 || "/assets/images/leadership/thanhnn.webp",
+      },
+      {
+        name: "Phan Quốc Hưng",
+        position: t("frontend.companyInfo.leadership.positions.viceDirector"),
+        image: images.viceDirector3 || "/assets/images/leadership/hungpq.webp",
+      },
+    ],
+  });
+
+  const leadershipData = getLeadershipData(t, leaderImages);
 
   const seoContent = {
     vi: {

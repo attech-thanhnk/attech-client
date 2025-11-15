@@ -6,6 +6,7 @@ import ToastMessage from "../components/ToastMessage";
 import LoadingSpinner from "../components/LoadingSpinner";
 import BannerManager from "../components/BannerManager";
 import HomeContentBanner from "../components/HomeContentBanner";
+import CompanyInfoBanner from "../components/CompanyInfoBanner";
 import { 
   fetchBanners, 
   createBanner, 
@@ -577,12 +578,21 @@ const ConfigBanner = () => {const [activeMainTab, setActiveMainTab] = useState('
           <i className="bi bi-house"></i>
           Ảnh trang chủ
         </button>
+        <button
+          className={`tab-button ${activeMainTab === 'companyinfo' ? 'active' : ''}`}
+          onClick={() => setActiveMainTab('companyinfo')}
+        >
+          <i className="bi bi-building"></i>
+          Ảnh thông tin công ty
+        </button>
       </div>
       <div className="tab-description">
         {activeMainTab === 'settings' ? (
           <p>Quản lý logo và banner chính của website</p>
-        ) : (
+        ) : activeMainTab === 'homepage' ? (
           <p>Quản lý ảnh carousel, dịch vụ và sự kiện trên trang chủ</p>
+        ) : (
+          <p>Quản lý sơ đồ cơ cấu tổ chức và ảnh ban lãnh đạo</p>
         )}
       </div>
     </div>
@@ -596,8 +606,10 @@ const ConfigBanner = () => {const [activeMainTab, setActiveMainTab] = useState('
 
         {activeMainTab === 'settings' ? (
           <BannerManager />
-        ) : (
+        ) : activeMainTab === 'homepage' ? (
           <HomeContentBanner />
+        ) : (
+          <CompanyInfoBanner />
         )}
 
         {toast.show && (

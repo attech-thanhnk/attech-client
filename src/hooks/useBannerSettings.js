@@ -169,6 +169,33 @@ export const useBannerSettings = () => {
     };
   };
 
+  /**
+   * Get home hero background from API only
+   */
+  const getHomeHeroBackground = () => {
+    return getBannerUrl('HomeHeroBackground');
+  };
+
+  /**
+   * Get structure chart from API only
+   */
+  const getStructureChart = () => {
+    return getBannerUrl('StructureChart');
+  };
+
+  /**
+   * Get leadership images from API only
+   */
+  const getLeadershipImages = () => {
+    return {
+      chairman: getBannerUrl('LeaderChairman'),
+      director: getBannerUrl('LeaderDirector'),
+      viceDirector1: getBannerUrl('LeaderViceDirector1'),
+      viceDirector2: getBannerUrl('LeaderViceDirector2'),
+      viceDirector3: getBannerUrl('LeaderViceDirector3'),
+    };
+  };
+
   return {
     bannerSettings,
     loading,
@@ -178,6 +205,9 @@ export const useBannerSettings = () => {
     getFeatureBackgrounds,
     getFactImage,
     getAboutGalleries,
+    getHomeHeroBackground,
+    getStructureChart,
+    getLeadershipImages,
   };
 };
 

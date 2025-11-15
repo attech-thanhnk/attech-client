@@ -99,7 +99,7 @@ const SearchBox = ({
   }, []);
 
   const defaultStyle = {
-    padding: "7px 14px",
+    padding: "8px 14px",
     borderRadius: 20,
     border: "1.5px solid #e0e7ef",
     fontSize: 15,

@@ -14,8 +14,8 @@ import {
 // Dùng ID thực từ database cho các danh mục con
 const childCategoryIds = [
   CATEGORY_IDS.COMPANY_PARTY, // Đảng bộ công ty
-  CATEGORY_IDS.COMPANY_YOUTH_UNION, // Đoàn thanh niên công ty
   CATEGORY_IDS.COMPANY_UNION, // Công đoàn công ty
+  CATEGORY_IDS.COMPANY_YOUTH_UNION, // Đoàn thanh niên công ty
 ];
 
 // Helper functions for fallback data
@@ -36,11 +36,11 @@ const getCategorySlugById = (id, lang) => {
 const getCategoryTitleById = (id, lang) => {
   const mapping = {
     [CATEGORY_IDS.COMPANY_PARTY]:
-      lang === "vi" ? "Đảng bộ công ty" : "Company Party",
-    [CATEGORY_IDS.COMPANY_YOUTH_UNION]:
-      lang === "vi" ? "Đoàn thanh niên công ty" : "Company Youth Union",
+      lang === "vi" ? "Đảng bộ công ty" : "Company Party Committee",
     [CATEGORY_IDS.COMPANY_UNION]:
       lang === "vi" ? "Công đoàn công ty" : "Company Union",
+    [CATEGORY_IDS.COMPANY_YOUTH_UNION]:
+      lang === "vi" ? "Đoàn thanh niên công ty" : "Company Youth Union",
   };
   return mapping[id] || "";
 };
@@ -115,8 +115,14 @@ const WeeklyNews = () => {
     <div className="weekly-news-area">
       <div className="container">
         <div className="weekly-news-child-categories">
-          {Object.keys(groupedNews).map((categorySlug) => {
+          {childCategoryIds.map((categoryId) => {
+            // Find the category data by matching category ID
+            const categorySlug = getCategorySlugById(categoryId, "vi");
             const categoryData = groupedNews[categorySlug];
+
+            // Skip if no data for this category
+            if (!categoryData) return null;
+
             const newsList = categoryData.news.slice(0, 4);
             if (newsList.length === 0) return null;
 

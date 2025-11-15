@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Media.css";
+import { useBannerSettings } from "../../../../hooks/useBannerSettings";
 
 const rotatingWords = ["An toàn", "Điều hòa", "Hiệu quả"];
 
@@ -7,6 +8,8 @@ const Media = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isVideo1Playing, setIsVideo1Playing] = useState(false);
   const [isVideo2Playing, setIsVideo2Playing] = useState(false);
+  const { getHomeHeroBackground } = useBannerSettings();
+  const heroBackground = getHomeHeroBackground();
 
   // Rotate words one at a time
   useEffect(() => {
@@ -30,7 +33,9 @@ const Media = () => {
     <section
       className="hero-section"
       id="section_1"
-      style={{ backgroundImage: `url(assets/images/media_bg/media_bg_1.webp)` }}
+      style={{
+        backgroundImage: `url(${heroBackground || 'assets/images/media_bg/media_bg_1.webp'})`
+      }}
     >
       <div className="section-overlay"></div>
 

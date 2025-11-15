@@ -111,15 +111,6 @@
   background-color: rgba(37, 99, 235, 0.15);
 }
 
-.weekly-news-area .time-news::before {
-  content: "\f017";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 400;
-  font-size: 14px;
-  margin-right: 8px;
-  color: currentColor;
-  opacity: 0.8;
-}
 
 .weekly-news-area .weekly-caption h4 {
   margin: 0;

@@ -105,7 +105,7 @@ const SidebarCompanyInfo = ({ openSidebar, setOpenSidebar }) => {
             aria-label={currentLanguage === 'vi' ? item.labelVi : item.labelEn}
           >
             <i className={item.icon} aria-hidden="true"></i>
-            {!openSidebar && <span>{currentLanguage === 'vi' ? item.labelVi : item.labelEn}</span>}
+            <span>{currentLanguage === 'vi' ? item.labelVi : item.labelEn}</span>
           </LocalizedLink>
         ))}
       </div>
