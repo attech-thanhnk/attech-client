@@ -13,6 +13,7 @@ import {
   formatNewsForDisplay,
 } from "../../../../services/clientNewsService";
 import { useBannerSettings } from "../../../../hooks/useBannerSettings";
+import { DEFAULT_NEWS_IMAGE } from "../../../../constants/defaultImages";
 
 const Feature = () => {
   const { t, currentLanguage } = useI18n();
@@ -179,12 +180,12 @@ const Feature = () => {
                           <img
                             src={
                               formattedItem.imageUrl ||
-                              "/images/default-news.jpg"
+                              DEFAULT_NEWS_IMAGE
                             }
                             alt={formattedItem.title}
                             loading="lazy"
                             onError={(e) => {
-                              e.target.src = "/images/default-news.jpg";
+                              e.target.src = DEFAULT_NEWS_IMAGE;
                             }}
                           />
                           <span className="news-badge">

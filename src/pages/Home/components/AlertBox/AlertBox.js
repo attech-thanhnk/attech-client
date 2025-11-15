@@ -13,6 +13,7 @@ import {
   getNewsCategories,
   formatNewsForDisplay,
 } from "../../../../services/clientNewsService";
+import { DEFAULT_NEWS_IMAGE } from "../../../../constants/defaultImages";
 
 function formatDate(isoString, lang) {
   const d = new Date(isoString);
@@ -97,12 +98,12 @@ const AlertBox = () => {
                     <div className="item-img" title={formattedItem.title}>
                       <img
                         src={
-                          formattedItem.imageUrl || "/images/default-news.jpg"
+                          formattedItem.imageUrl || DEFAULT_NEWS_IMAGE
                         }
                         alt={formattedItem.title}
                         loading="lazy"
                         onError={(e) => {
-                          e.target.src = "/images/default-news.jpg";
+                          e.target.src = DEFAULT_NEWS_IMAGE;
                         }}
                       />
                     </div>

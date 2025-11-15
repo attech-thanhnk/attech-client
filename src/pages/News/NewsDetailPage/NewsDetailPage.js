@@ -17,6 +17,7 @@ import ErrorPage from "../../../components/Shared/ErrorPage";
 import SEO from "../../../components/SEO/SEO";
 import { useLocation } from "react-router-dom";
 import "./NewsDetailPage.css";
+import { DEFAULT_NEWS_IMAGE } from "../../../constants/defaultImages";
 
 const NewsDetailPage = () => {
   const { currentLanguage } = useI18n();
@@ -379,7 +380,7 @@ const NewsDetailPage = () => {
                         alt={getTitle()}
                         title={getTitle()}
                         onError={(e) => {
-                          e.target.src = "/images/default-news.jpg";
+                          e.target.src = DEFAULT_NEWS_IMAGE;
                         }}
                       />
                     </div>

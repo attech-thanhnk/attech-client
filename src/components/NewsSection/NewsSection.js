@@ -7,6 +7,7 @@ import {
 } from "../../services/clientNewsService";
 import { useI18n } from "../../hooks/useI18n";
 import LocalizedLink from "../Shared/LocalizedLink";
+import { DEFAULT_NEWS_IMAGE } from "../../constants/defaultImages";
 
 const NewsSection = () => {
   const { currentLanguage, t } = useI18n();
@@ -90,11 +91,11 @@ const NewsSection = () => {
                     }
                   >
                     <img
-                      src={formattedItem.imageUrl || "/images/default-news.jpg"}
+                      src={formattedItem.imageUrl || DEFAULT_NEWS_IMAGE}
                       alt={formattedItem.title}
                       title={formattedItem.title}
                       onError={(e) => {
-                        e.target.src = "/images/default-news.jpg";
+                        e.target.src = DEFAULT_NEWS_IMAGE;
                       }}
                     />
                   </LocalizedLink>

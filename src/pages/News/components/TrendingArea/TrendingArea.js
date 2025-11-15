@@ -15,6 +15,7 @@ import {
   formatNewsForDisplay,
   CATEGORY_IDS,
 } from "../../../../services/clientNewsService";
+import { DEFAULT_NEWS_IMAGE } from "../../../../constants/defaultImages";
 
 const TrendingArea = () => {
   const { t, currentLanguage } = useI18n();
@@ -114,12 +115,12 @@ const TrendingArea = () => {
                           <img
                             src={
                               formattedItem.imageUrl ||
-                              "/images/default-news.jpg"
+                              DEFAULT_NEWS_IMAGE
                             }
                             alt={formattedItem.title}
                             title={formattedItem.title}
                             onError={(e) => {
-                              e.target.src = "/images/default-news.jpg";
+                              e.target.src = DEFAULT_NEWS_IMAGE;
                             }}
                           />
                           <div className="trend-top-cap">
@@ -155,12 +156,12 @@ const TrendingArea = () => {
                             <img
                               src={
                                 formattedItem.imageUrl ||
-                                "/images/default-news.jpg"
+                                DEFAULT_NEWS_IMAGE
                               }
                               alt={formattedItem.title}
                               title={formattedItem.title}
                               onError={(e) => {
-                                e.target.src = "/images/default-news.jpg";
+                                e.target.src = DEFAULT_NEWS_IMAGE;
                               }}
                             />
                           </div>
@@ -223,12 +224,12 @@ const TrendingArea = () => {
                           <img
                             src={
                               formattedItem.imageUrl ||
-                              "/images/default-news.jpg"
+                              DEFAULT_NEWS_IMAGE
                             }
                             alt={formattedItem.title}
                             title={formattedItem.title}
                             onError={(e) => {
-                              e.target.src = "/images/default-news.jpg";
+                              e.target.src = DEFAULT_NEWS_IMAGE;
                             }}
                           />
                         </div>

@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import ViewAllButton from "../../../../components/ViewAllButton/ViewAllButton";
 import { useI18n } from "../../../../hooks/useI18n";
 import "./WhatsNews.css";
+import { DEFAULT_NEWS_IMAGE } from "../../../../constants/defaultImages";
 
 const WhatsNews = () => {
   const { currentLanguage, t } = useI18n();
@@ -135,11 +136,11 @@ const WhatsNews = () => {
                               <img
                                 src={
                                   formattedItem.imageUrl ||
-                                  "/images/default-news.jpg"
+                                  DEFAULT_NEWS_IMAGE
                                 }
                                 alt={formattedItem.title}
                                 onError={(e) => {
-                                  e.target.src = "/images/default-news.jpg";
+                                  e.target.src = DEFAULT_NEWS_IMAGE;
                                 }}
                               />
                             </div>

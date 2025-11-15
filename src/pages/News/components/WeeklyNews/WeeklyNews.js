@@ -10,6 +10,7 @@ import {
   formatNewsForDisplay,
   CATEGORY_IDS,
 } from "../../../../services/clientNewsService";
+import { DEFAULT_NEWS_IMAGE } from "../../../../constants/defaultImages";
 
 // Dùng ID thực từ database cho các danh mục con
 const childCategoryIds = [
@@ -155,12 +156,12 @@ const WeeklyNews = () => {
                           <img
                             src={
                               formattedItem.imageUrl ||
-                              "/images/default-news.jpg"
+                              DEFAULT_NEWS_IMAGE
                             }
                             alt={formattedItem.title}
                             title={formattedItem.title}
                             onError={(e) => {
-                              e.target.src = "/images/default-news.jpg";
+                              e.target.src = DEFAULT_NEWS_IMAGE;
                             }}
                           />
                         </div>
