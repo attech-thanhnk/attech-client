@@ -5,7 +5,6 @@ import {
   fetchTranslationsForI18next,
   clearTranslationsCache,
 } from "../services/languageContentService";
-import { isAuthenticated } from "../services/authService";
 
 // Import fallback language resources (in case API fails)
 import viTranslation from "./locales/vi.json";
@@ -26,31 +25,81 @@ class ApiBackend {
     // Always use fallback first to prevent showing keys
     const fallback = language === "vi" ? viTranslation : enTranslation;
 
-    // Return fallback immediately
-    callback(null, fallback);
+    // Try to get cached translations from localStorage
+    const cacheKey = `i18n_${language}_data`;
+    const timestampKey = `i18n_${language}_timestamp`;
+    let cachedTranslations = null;
 
-    // Then try to load from API if authenticated (async update)
-    if (isAuthenticated()) {
-      fetchTranslationsForI18next(language)
-        .then((translations) => {
-          // Only update if we actually got translations
-          if (translations && Object.keys(translations).length > 0) {
-            // Store timestamp to detect stale cache
-            const cacheKey = `i18n_${language}_timestamp`;
-            localStorage.setItem(cacheKey, Date.now().toString());
+    try {
+      const cached = localStorage.getItem(cacheKey);
+      const timestamp = localStorage.getItem(timestampKey);
 
-            // Update translations in background
-            i18n.addResourceBundle(
-              language,
-              namespace,
-              translations,
-              true,
-              true
-            );
-          }
-        })
-        .catch((error) => {});
+      // Use cache if it exists and is less than 1 hour old
+      if (cached && timestamp) {
+        const age = Date.now() - parseInt(timestamp);
+        if (age < 3600000) { // 1 hour
+          cachedTranslations = JSON.parse(cached);
+        }
+      }
+    } catch (error) {
+      console.error('[i18n] Error reading cache:', error);
     }
+
+    // Deep merge cached translations with fallback
+    // Use a simple deep merge to preserve nested objects
+    const deepMerge = (target, source) => {
+      const output = { ...target };
+      if (source) {
+        Object.keys(source).forEach(key => {
+          if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+            output[key] = deepMerge(target[key] || {}, source[key]);
+          } else {
+            output[key] = source[key];
+          }
+        });
+      }
+      return output;
+    };
+
+    const initialData = cachedTranslations
+      ? deepMerge(fallback, cachedTranslations)
+      : fallback;
+
+    // Return initial data (fallback + cache if available)
+    callback(null, initialData);
+
+    // Then fetch from API to update in background
+    // Load translations for all users, not just authenticated ones
+    fetchTranslationsForI18next(language)
+      .then((translations) => {
+        // Only update if we actually got translations
+        if (translations && Object.keys(translations).length > 0) {
+          // Store translations and timestamp in localStorage
+          try {
+            localStorage.setItem(cacheKey, JSON.stringify(translations));
+            localStorage.setItem(timestampKey, Date.now().toString());
+          } catch (error) {
+            console.error('[i18n] Failed to save to localStorage:', error);
+          }
+
+          // Update translations in i18n - deep merge is true, overwrite is true
+          i18n.addResourceBundle(
+            language,
+            namespace,
+            translations,
+            true,  // deep merge
+            true   // overwrite existing keys
+          );
+
+          // Force emit events to trigger component re-render
+          // This ensures ALL components using useTranslation will update
+          i18n.emit('languageChanged', language);
+          i18n.emit('loaded', { [language]: { [namespace]: translations } });
+        }
+      })
+      .catch((error) => {
+        console.error('[i18n] Failed to fetch translations from API:', error);
+      });
   }
 }
 
@@ -66,6 +115,7 @@ const resources = {
   },
 };
 
+// Initialize i18n with backend
 i18n
   // Use API backend to load translations
   .use(ApiBackend)
@@ -75,8 +125,8 @@ i18n
   .use(initReactI18next)
   // Initialize i18next
   .init({
-    // Use fallback resources to prevent showing keys
-    resources,
+    // DON'T include resources here - let backend load them
+    // This forces i18next to call our ApiBackend
 
     // Default language
     lng: "vi", // Vietnamese as default
@@ -111,8 +161,11 @@ i18n
     defaultNS: "translation",
     ns: ["translation"],
 
-    // Load immediately with fallback resources
-    initImmediate: true,
+    // IMPORTANT: Set to false to force backend loading
+    initImmediate: false,
+
+    // Partialness - allow fallback and backend to work together
+    partialBundledLanguages: true,
   });
 
 // Function to reload translations from API (call after admin changes)
@@ -123,10 +176,17 @@ export const reloadTranslations = async (language = null) => {
 
     const currentLang = language || i18n.language;
 
-    // Clear localStorage cache timestamps
+    // Clear localStorage cache (both timestamp and data)
     localStorage.removeItem(`i18n_${currentLang}_timestamp`);
+    localStorage.removeItem(`i18n_${currentLang}_data`);
 
     const translations = await fetchTranslationsForI18next(currentLang);
+
+    // Update localStorage with new translations
+    if (translations && Object.keys(translations).length > 0) {
+      localStorage.setItem(`i18n_${currentLang}_data`, JSON.stringify(translations));
+      localStorage.setItem(`i18n_${currentLang}_timestamp`, Date.now().toString());
+    }
 
     // Update i18n with new translations
     i18n.addResourceBundle(
@@ -181,3 +241,4 @@ export const forceReloadTranslations = async () => {
 export const clearTranslationCache = clearTranslationsCache;
 
 export default i18n;
+

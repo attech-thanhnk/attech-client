@@ -215,8 +215,8 @@ export async function loadAllTranslations() {
     // Use new client endpoint - loads all translations at once (no pagination)
     const response = await api.get("/api/language-contents/client/find-all");
 
-    if (response.data && response.data.status === 1 && response.data.result) {
-      const items = response.data.result.items || response.data.result || [];
+    if (response.data && response.data.status === 1 && response.data.data) {
+      const items = response.data.data.items || response.data.data || [];
 
       // Update cache
       translationsCache.data = items;
@@ -227,6 +227,7 @@ export async function loadAllTranslations() {
 
     throw new Error("Invalid response format from client API");
   } catch (error) {
+    console.error('[loadAllTranslations] Error:', error);
     // Return cached data if available, even if expired
     if (translationsCache.data) {
       return translationsCache.data;
@@ -255,6 +256,7 @@ export function clearTranslationsCache() {
     localStorage.removeItem("i18nextLng");
     ["vi", "en"].forEach((lang) => {
       localStorage.removeItem(`i18n_${lang}_timestamp`);
+      localStorage.removeItem(`i18n_${lang}_data`); // Clear translations data
     });
 
     // Clear any other i18n related cache
@@ -294,6 +296,7 @@ export async function fetchTranslationsForI18next(language = "vi") {
 
     return allTranslations;
   } catch (error) {
+    console.error('[fetchTranslationsForI18next] Error:', error);
     // Return empty object on error to prevent i18next from breaking
     return {};
   }

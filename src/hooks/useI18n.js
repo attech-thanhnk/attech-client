@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { 
-  getLocalizedContent, 
-  getLocalizedTitle, 
+import { useState, useEffect } from 'react';
+import {
+  getLocalizedContent,
+  getLocalizedTitle,
   getLocalizedDescription,
   getLocalizedName,
   getLocalizedContentText,
@@ -14,9 +15,24 @@ import {
 
 /**
  * Enhanced i18n hook with localized content helpers
+ * Automatically re-renders when translations are loaded from API
  */
 export const useI18n = () => {
   const { t, i18n } = useTranslation();
+  const [, forceUpdate] = useState(0);
+
+  // Force re-render when translations are updated from API
+  useEffect(() => {
+    const handleLanguageChanged = () => {
+      forceUpdate(prev => prev + 1);
+    };
+
+    i18n.on('languageChanged', handleLanguageChanged);
+
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged);
+    };
+  }, [i18n]);
   
   const currentLanguage = i18n.language || 'vi';
   const isVietnamese = currentLanguage === 'vi';
