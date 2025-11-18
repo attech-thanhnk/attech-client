@@ -24,11 +24,11 @@
     "tinymce": "^7.9.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start:lan": "set HOST=0.0.0.0&& set PORT=3000&& react-scripts start",
-    "build": "set GENERATE_SOURCEMAP=false && react-scripts build",
+    "start": "craco start",
+    "start:lan": "set HOST=0.0.0.0&& set PORT=3000&& craco start",
+    "build": "set GENERATE_SOURCEMAP=false && craco build",
     "build:analyze": "npm run build && npx source-map-explorer 'build/static/js/*.js'",
-    "test": "react-scripts test",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .js,.jsx",
     "lint:fix": "eslint src --ext .js,.jsx --fix",
@@ -55,6 +55,8 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^3.0.5"
+    "@craco/craco": "^7.1.0",
+    "http-proxy-middleware": "^3.0.5",
+    "webpack-subresource-integrity": "^5.2.0-rc.1"
   }
 }
