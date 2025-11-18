@@ -64,6 +64,11 @@ jobs:
 
             cd /home/ncpt/projects/attech-deployment
 
+            # Load environment variables to prevent docker-compose warnings
+            set -a
+            source .env.production
+            set +a
+
             # Pull latest image (already logged in via docker login)
             docker pull ghcr.io/attech-thanhnk/attech-client:latest
 
