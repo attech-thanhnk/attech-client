@@ -55,6 +55,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          command_timeout: 20m
           script: |
             set -e
 
@@ -75,6 +76,10 @@ jobs:
 
             # Restart frontend service with env file
             docker-compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml up -d frontend
+
+            # Update nginx config if changed
+            git pull
+            ./update-nginx.sh || echo "⚠️ Nginx config unchanged"
 
             # Restart proxy to ensure routing is updated
             docker-compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml restart proxy
