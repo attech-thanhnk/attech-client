@@ -258,7 +258,7 @@ const NewsDetailPage = () => {
         description={getDescription() || getTitle()}
         keywords={`${getTitle()}, ${getCategoryName()}, ATTECH, tin tức`}
         image={formatNewsForDisplay(newsItem, currentLanguage)?.imageUrl}
-        url={typeof window !== 'undefined' ? window.location.href : ''}
+        url={typeof window !== 'undefined' ? window.location.pathname : ''}
         locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
         type="article"
       />

@@ -21,11 +21,16 @@ const SEO = ({
   // Default image - logo của ATTECH
   const defaultImage = `${siteUrl}/images/logo.png`;
 
+  // Build full URL - nếu url đã là full URL (có http/https) thì giữ nguyên, nếu không thì thêm siteUrl
+  const fullUrl = url
+    ? (url.startsWith('http') ? url : `${siteUrl}${url}`)
+    : (typeof window !== 'undefined' ? window.location.href : '');
+
   const seo = {
     title: title ? `${title} | ${siteName}` : siteName,
     description: description || 'ATTECH - Công ty TNHH Kỹ thuật Quản lý bay',
     image: image || defaultImage,
-    url: url || (typeof window !== 'undefined' ? window.location.href : ''),
+    url: fullUrl,
     keywords: keywords || 'ATTECH, kỹ thuật hàng không, CNS, quản lý bay',
   };
 

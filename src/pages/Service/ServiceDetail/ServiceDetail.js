@@ -140,7 +140,7 @@ const ServiceDetail = () => {
         description={service.displayDescription || service.displayTitle}
         keywords={`${service.displayTitle}, dịch vụ, ATTECH, kỹ thuật hàng không`}
         image={imageUrl}
-        url={typeof window !== 'undefined' ? window.location.href : ''}
+        url={typeof window !== 'undefined' ? window.location.pathname : ''}
         locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
         type="service"
       />

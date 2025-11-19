@@ -126,7 +126,7 @@ const ProductDetail = () => {
         description={product.displayDescription || product.displayTitle}
         keywords={`${product.displayTitle}, ${product.displayCategoryTitle || 'sản phẩm'}, ATTECH, sản phẩm`}
         image={product.imageUrl?.startsWith('http') ? product.imageUrl : `${getApiBaseUrl()}${product.imageUrl}`}
-        url={typeof window !== 'undefined' ? window.location.href : ''}
+        url={typeof window !== 'undefined' ? window.location.pathname : ''}
         locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
         type="product"
       />
