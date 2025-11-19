@@ -64,19 +64,20 @@ jobs:
 
             cd /home/ncpt/projects/attech-deployment
 
-            # Load environment variables to prevent docker-compose warnings
-            set -a
-            source .env.production
-            set +a
+            # Verify .env.production exists
+            if [ ! -f .env.production ]; then
+              echo "❌ .env.production not found!"
+              exit 1
+            fi
 
             # Pull latest image (already logged in via docker login)
             docker pull ghcr.io/attech-thanhnk/attech-client:latest
 
-            # Restart frontend service
-            docker-compose -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml up -d frontend
+            # Restart frontend service with env file
+            docker-compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml up -d frontend
 
             # Restart proxy to ensure routing is updated
-            docker-compose -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml restart proxy
+            docker-compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml restart proxy
 
             # Health check
             sleep 10
