@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useAuth } from "../../contexts/AuthContext";
 import "./LoginPage.css";
 
@@ -10,6 +11,8 @@ const LoginPage = () => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,15 +30,30 @@ const LoginPage = () => {
     const newErrors = {};
 
     if (!credentials.username.trim()) {
-      newErrors.username = "Vui lòng nhập tên đăng nhập hoặc email";
+      newErrors.username = "Vui lòng nhập tên đăng nhập";
     }
 
     if (!credentials.password.trim()) {
       newErrors.password = "Vui lòng nhập mật khẩu";
     }
 
+    if (!captchaToken) {
+      newErrors.captcha = "Vui lòng xác nhận bạn không phải là Robot";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const handleCaptchaChange = (token) => {
+    setCaptchaToken(token);
+    if (errors.captcha) {
+      setErrors((prev) => ({ ...prev, captcha: "" }));
+    }
+  };
+
+  const handleCaptchaExpired = () => {
+    setCaptchaToken(null);
   };
 
   const handleSubmit = async (e) => {
@@ -45,16 +63,29 @@ const LoginPage = () => {
 
     setLoading(true);
     try {
-      const result = await login(credentials);
+      const result = await login({
+        ...credentials,
+        recaptchaToken: captchaToken
+      });
 
       if (result.success) {
         // Redirect to user internal page
         navigate(from, { replace: true });
       } else {
         setErrors({ general: result.error });
+        // Reset captcha sau khi đăng nhập thất bại
+        if (recaptchaRef.current) {
+          recaptchaRef.current.reset();
+        }
+        setCaptchaToken(null);
       }
     } catch (error) {
       setErrors({ general: "Đã xảy ra lỗi. Vui lòng thử lại." });
+      // Reset captcha sau khi có lỗi
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
+      setCaptchaToken(null);
     } finally {
       setLoading(false);
     }
@@ -115,6 +146,20 @@ const LoginPage = () => {
               </div>
               {errors.password && (
                 <div className="invalid-feedback">{errors.password}</div>
+              )}
+            </div>
+
+            <div className="form-group recaptcha-container">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                onChange={handleCaptchaChange}
+                onExpired={handleCaptchaExpired}
+              />
+              {errors.captcha && (
+                <div className="invalid-feedback" style={{ display: 'block' }}>
+                  {errors.captcha}
+                </div>
               )}
             </div>
 

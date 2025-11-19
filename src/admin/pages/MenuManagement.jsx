@@ -355,7 +355,7 @@ const MenuManagement = () => {
       actions={[
         AdminPageActions.createRefreshAction(loadMenus, loading),
         {
-          label: "🔄 Sync Categories",
+          label: "Sync Categories",
           onClick: handleSync,
           className: "admin-btn admin-btn-success",
           disabled: loading,

@@ -17,9 +17,6 @@ import ProductCategory from './menu/ProductCategory/ProductCategory.js';
 import NewsCategory from './menu/NewsCategory/NewsCategory.js';
 import NotificationCategory from './menu/NotificationCategory/NotificationCategory.js';
 import ConfigBanner from './pages/ConfigBanner.jsx';
-import RouteManagement from './pages/RouteManagement/RouteManagement.js';
-import SystemSettings from './pages/SystemSettings.jsx';
-import SEOManagement from './pages/SEOManagement.jsx';
 import UserManagement from './pages/UserManagement.jsx';
 // PermissionManagement removed - using UserLevel system only
 import RoleManagement from './pages/RoleManagement.jsx';
@@ -47,14 +44,11 @@ const adminRoutesConfig = [
       { path: 'language-content', element: LanguageContentManager },
       { path: 'users', element: UserManagement },
       { path: 'roles', element: RoleManagement },
-      { path: 'routes', element: RouteManagement },
       // { path: 'permissions', element: PermissionManagement }, // Removed - UserLevel system only
       { path: 'product-category', element: ProductCategory },
       { path: 'news-category', element: NewsCategory },
       { path: 'notification-category', element: NotificationCategory },
       { path: 'config', element: ConfigBanner },
-      { path: 'system-settings', element: SystemSettings },
-      { path: 'seo', element: SEOManagement },
       { path: 'menu', element: MenuManagement },
       { path: 'account', element: AccountManagement },
       { path: '*', element: NotFound },

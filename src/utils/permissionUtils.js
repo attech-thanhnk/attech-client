@@ -67,9 +67,9 @@ export const canAccessAdmin = (user) => hasPermission(user, ROLES.EDITOR);
 export const canUploadFiles = (user) => hasPermission(user, ROLES.EDITOR);
 
 /**
- * Check if user can access system settings (SuperAdmin only)
+ * Check if user can access system settings (Admin and SuperAdmin)
  */
-export const canAccessSystem = (user) => hasPermission(user, ROLES.SUPERADMIN);
+export const canAccessSystem = (user) => hasPermission(user, ROLES.ADMIN);
 
 /**
  * Get user role display name

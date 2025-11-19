@@ -254,13 +254,13 @@ const NewsDetailPage = () => {
   return (
     <>
       <SEO
-        title={`${getTitle()} - ATTECH`}
+        title={getTitle()}
         description={getDescription() || getTitle()}
-        url={
-          currentLanguage === "vi"
-            ? `/tin-tuc/${newsSlug}`
-            : `/en/news/${newsSlug}`
-        }
+        keywords={`${getTitle()}, ${getCategoryName()}, ATTECH, tin tức`}
+        image={formatNewsForDisplay(newsItem, currentLanguage)?.imageUrl}
+        url={typeof window !== 'undefined' ? window.location.href : ''}
+        locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
+        type="article"
       />
       <div className="news-detail-page">
         <div className="news-detail-layout">

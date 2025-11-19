@@ -155,10 +155,17 @@ export const AuthProvider = ({ children }) => {
       
       // Try real API call first
       try {
-        const response = await api.post('/api/auth/login', {
+        const loginData = {
           username: credentials.username,
           password: credentials.password
-        });
+        };
+
+        // Thêm recaptcha token nếu có
+        if (credentials.recaptchaToken) {
+          loginData.recaptchaToken = credentials.recaptchaToken;
+        }
+
+        const response = await api.post('/api/auth/login', loginData);
         
         // Handle API response format: { status: 1, data: { success: true, token: "...", user: {...} } }
         if (response.data.status === 1 && response.data.data && response.data.data.success && response.data.data.token) {

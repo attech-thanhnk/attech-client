@@ -207,13 +207,13 @@ const NotificationDetailPage = () => {
   return (
     <>
       <SEO
-        title={`${getTitle()} - ATTECH`}
+        title={getTitle()}
         description={getDescription() || getTitle()}
-        url={
-          currentLanguage === "vi"
-            ? `/thong-bao/${notificationSlug}`
-            : `/en/notifications/${notificationSlug}`
-        }
+        keywords={`${getTitle()}, ${getCategoryName()}, ATTECH, thông báo`}
+        image={formatNotificationForDisplay(notificationItem, currentLanguage)?.imageUrl}
+        url={typeof window !== 'undefined' ? window.location.href : ''}
+        locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
+        type="article"
       />
       <div className="notification-detail-page">
         <div className="notification-detail-layout">

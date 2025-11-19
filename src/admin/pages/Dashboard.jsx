@@ -1,14 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PageWrapper from "../components/PageWrapper";
 import AccessDenied from "../../components/AccessDenied";
 import { useAuth } from "../../contexts/AuthContext";
+import { getRecentActivityLogs } from "../../services/activityLogService";
 import "./Dashboard.css";
 import "../styles/adminButtons.css";
 
 const Dashboard = () => {
   const { user: currentUser, ROLES } = useAuth();
   const navigate = useNavigate();
+  const [activityLogs, setActivityLogs] = useState([]);
+  const [logsLoading, setLogsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const response = await getRecentActivityLogs(10);
+        if (response && response.data) {
+          setActivityLogs(response.data);
+        }
+      } catch (error) {
+        // Silently fail - logs are optional
+        setActivityLogs([]);
+      } finally {
+        setLogsLoading(false);
+      }
+    };
+
+    if (currentUser && currentUser.roleId <= ROLES.ADMIN) {
+      fetchLogs();
+    } else {
+      setLogsLoading(false);
+    }
+  }, [currentUser, ROLES]);
+
+  const formatDateTime = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleString("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const getTypeLabel = (type) => {
+    const types = {
+      user_login: "Đăng nhập",
+      security_login_failed: "Đăng nhập thất bại",
+      security_captcha_failed: "CAPTCHA thất bại",
+    };
+    return types[type] || type;
+  };
+
+  const getTypeBadgeClass = (type) => {
+    if (type === "user_login") return "success";
+    if (type?.includes("failed")) return "danger";
+    return "secondary";
+  };
 
   // Check access permission
   if (!currentUser || currentUser.roleId > ROLES.EDITOR) {
@@ -120,15 +171,6 @@ const Dashboard = () => {
 
             <button
               className="admin-quick-btn system"
-              onClick={() => navigate("/admin/system-settings")}
-            >
-              <i className="bi bi-gear"></i>
-              <span>Cài đặt</span>
-              <small>Cấu hình hệ thống</small>
-            </button>
-
-            <button
-              className="admin-quick-btn system"
               onClick={() => navigate("/admin/language-content")}
             >
               <i className="bi bi-translate"></i>
@@ -137,6 +179,58 @@ const Dashboard = () => {
             </button>
           </div>
         </div>
+
+        {/* Activity Log Section - Only for Admin */}
+        {currentUser && currentUser.roleId <= ROLES.ADMIN && (
+          <div className="admin-sections">
+            <div className="section-title">
+              <h3>Hoạt động gần đây</h3>
+              <p>Theo dõi các hoạt động đăng nhập và bảo mật</p>
+            </div>
+            <div className="activity-log-container">
+              {logsLoading ? (
+                <div className="activity-log-loading">
+                  <i className="bi bi-arrow-repeat spinning"></i>
+                  <span>Đang tải...</span>
+                </div>
+              ) : activityLogs.length > 0 ? (
+                <table className="activity-log-table">
+                  <thead>
+                    <tr>
+                      <th>Thời gian</th>
+                      <th>Loại</th>
+                      <th>Nội dung</th>
+                      <th>IP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {activityLogs.map((log) => (
+                      <tr key={log.id}>
+                        <td>{formatDateTime(log.timestamp)}</td>
+                        <td>
+                          <span className={`log-badge ${getTypeBadgeClass(log.type)}`}>
+                            {getTypeLabel(log.type)}
+                          </span>
+                        </td>
+                        <td className="log-message">
+                          {log.message?.length > 50
+                            ? log.message.substring(0, 50) + "..."
+                            : log.message}
+                        </td>
+                        <td>{log.ipAddress}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="activity-log-empty">
+                  <i className="bi bi-clipboard-data"></i>
+                  <span>Chưa có hoạt động nào</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </PageWrapper>
   );

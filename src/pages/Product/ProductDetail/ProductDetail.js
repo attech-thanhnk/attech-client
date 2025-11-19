@@ -5,6 +5,7 @@ import * as clientProductService from "../../../services/clientProductService";
 import { useI18n } from "../../../hooks/useI18n";
 import ErrorPage from "../../../components/Shared/ErrorPage";
 import LocalizedLink from "../../../components/Shared/LocalizedLink";
+import SEO from "../../../components/SEO/SEO";
 import sanitizeHtml from "sanitize-html";
 import { getApiBaseUrl } from "../../../config/apiConfig";
 
@@ -119,9 +120,19 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="product-content-wrap">
-      {/* Breadcrumb */}
-      <nav className="product-breadcrumb">
+    <>
+      <SEO
+        title={product.displayTitle}
+        description={product.displayDescription || product.displayTitle}
+        keywords={`${product.displayTitle}, ${product.displayCategoryTitle || 'sản phẩm'}, ATTECH, sản phẩm`}
+        image={product.imageUrl?.startsWith('http') ? product.imageUrl : `${getApiBaseUrl()}${product.imageUrl}`}
+        url={typeof window !== 'undefined' ? window.location.href : ''}
+        locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
+        type="product"
+      />
+      <div className="product-content-wrap">
+        {/* Breadcrumb */}
+        <nav className="product-breadcrumb">
         <LocalizedLink routeKey="PRODUCTS">
           {t("navigation.products")}
         </LocalizedLink>
@@ -312,7 +323,8 @@ const ProductDetail = () => {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

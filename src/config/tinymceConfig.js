@@ -82,15 +82,13 @@ export const tinymceConfig = {
   remove_script_host: false,
   validate: true,
   verify_html: false,
-  cache_suffix: "",
-  
+
   // Fix DOM processing issues
   element_format: 'html',
   entity_encoding: 'raw',
   fix_list_elements: true,
-  
+
   // Disable problematic DOM processing
-  urlconverter_callback: false,
   cleanup: false,
   cleanup_on_startup: false,
   trim_span_elements: false,
@@ -106,14 +104,14 @@ export const tinymceConfig = {
   
   // Content styling
   content_style: `
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-      font-size: 14px; 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
       line-height: 1.6;
       position: relative;
     }
-    img { 
-      height: auto; 
+    img {
+      height: auto;
       cursor: pointer;
       max-width: none !important;
       position: static !important;
@@ -125,6 +123,27 @@ export const tinymceConfig = {
     }
     img[data-mce-selected] {
       outline: 2px solid #0066cc !important;
+    }
+    /* Figure và Caption styling */
+    figure {
+      display: table;
+      margin: 1.5rem auto;
+      max-width: 100%;
+    }
+    figure img {
+      display: block;
+      margin: 0 auto;
+    }
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      text-align: center;
+      font-style: italic;
+      font-size: 0.9em;
+      color: #666;
+      padding: 0.5rem;
+      background: #f5f5f5;
+      border-radius: 0 0 4px 4px;
     }
     /* Fix resize handles positioning */
     .mce-resizehandle {
@@ -141,10 +160,13 @@ export const tinymceConfig = {
     }
   `,
   
-  // Upload config với luồng mới  
+  // Upload config với luồng mới
   images_upload_handler: handleImageUpload,
   automatic_uploads: true, // Enable để hỗ trợ drag & drop
-  paste_data_images: true, // Enable paste images từ clipboard
+  paste_data_images: false, // Tắt để tránh lỗi indexOf - dùng drag & drop thay thế
+
+  // Image settings
+  images_reuse_filename: true,
   
   // Image resize settings - cho phép kéo để thay đổi kích thước ảnh  
   object_resizing: true,  // Enable resizing
@@ -157,6 +179,40 @@ export const tinymceConfig = {
   
   // Setup callbacks để đảm bảo resize handles
   setup: function(editor) {
+    // Custom paste handler để hỗ trợ paste ảnh mà không bị lỗi indexOf
+    editor.on('paste', function(e) {
+      const clipboardData = e.clipboardData || window.clipboardData;
+      const items = clipboardData?.items;
+
+      if (items) {
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf('image') !== -1) {
+            e.preventDefault();
+
+            const file = items[i].getAsFile();
+            if (file) {
+              const blobInfo = {
+                blob: () => file,
+                filename: () => `pasted-${Date.now()}.png`
+              };
+
+              handleImageUpload(
+                blobInfo,
+                (url) => {
+                  editor.insertContent(`<img src="${url}" alt="Pasted image" />`);
+                },
+                (err) => {
+                  console.error('Paste image upload failed:', err);
+                  alert('Không thể upload ảnh: ' + err);
+                }
+              );
+            }
+            break;
+          }
+        }
+      }
+    });
+
     editor.on('init', function() {// Add CSS to fix handle positioning
       try {
         const doc = editor.getDoc();
@@ -177,7 +233,7 @@ export const tinymceConfig = {
         doc.head.appendChild(style);
       } catch (error) {}
     });
-    
+
     editor.on('ObjectSelected', function(e) {// Force show resize handles
       setTimeout(() => {
         try {
@@ -193,6 +249,7 @@ export const tinymceConfig = {
   image_dimensions: false,  // Tắt dimension constraints
   image_class_list: false,  // Tắt class list
   image_advtab: true,      // Bật advanced tab trong image dialog
+  image_caption: true,     // Bật caption cho ảnh (sử dụng figure/figcaption)
   
   // Tắt selection highlighting
   visual: false,           // Tắt visual aids

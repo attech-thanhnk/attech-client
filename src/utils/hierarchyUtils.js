@@ -34,7 +34,7 @@ export const canModifyUser = (currentUser, targetUser) => {
     canEdit: canModify && canManage,
     canDelete: canModify && currentRoleId <= ROLES.ADMIN,
     canChangeRoles: canModify && currentRoleId <= ROLES.ADMIN,
-    canPromote: canModify && currentRoleId <= ROLES.SUPERADMIN, // Only SuperAdmin can promote
+    canPromote: canModify && currentRoleId <= ROLES.ADMIN, // Admin and SuperAdmin can promote
     canViewDetails: currentRoleId <= ROLES.ADMIN
   };
 };

@@ -1561,4 +1561,112 @@
   .action-item span {
     font-size: 12px;
   }
-} 
+}
+
+/* Activity Log Styles */
+.activity-log-container {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.activity-log-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.activity-log-table thead {
+  background: #f8fafc;
+}
+
+.activity-log-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.activity-log-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.875rem;
+  color: #2d3748;
+}
+
+.activity-log-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.activity-log-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.log-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.log-badge.success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.log-badge.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.log-badge.secondary {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.log-message {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activity-log-loading,
+.activity-log-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: #6b7280;
+  gap: 0.5rem;
+}
+
+.activity-log-loading i,
+.activity-log-empty i {
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .activity-log-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .activity-log-table th,
+  .activity-log-table td {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .log-message {
+    max-width: 150px;
+  }
+}

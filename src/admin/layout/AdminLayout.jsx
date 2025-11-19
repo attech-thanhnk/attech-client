@@ -237,16 +237,9 @@ const AdminLayout = () => {
         path: "/admin/menu",
         label: "Quản lý Menu",
         icon: "bi bi-list-ul",
-        requiredRoleId: ROLES.SUPERADMIN,
+        requiredRoleId: ROLES.ADMIN,
       },
 
-      // System Management (SUPERADMIN only)
-      {
-        path: "/admin/seo",
-        label: "Quản lý SEO",
-        icon: "bi bi-search",
-        requiredRoleId: ROLES.SUPERADMIN,
-      },
     ];
 
     // Filter navigation items based on roleId
@@ -304,6 +297,7 @@ const AdminLayout = () => {
 
     const titleMap = {
       "/admin": "Dashboard",
+      "/admin/dashboard": "Dashboard",
       "/admin/news": "Quản lý tin tức",
       "/admin/products": "Quản lý sản phẩm",
       "/admin/services": "Quản lý dịch vụ",
@@ -312,16 +306,19 @@ const AdminLayout = () => {
       "/admin/product-category": "Danh mục sản phẩm",
       "/admin/notification-category": "Danh mục thông báo",
       "/admin/users": "Quản lý người dùng",
+      "/admin/roles": "Quản lý vai trò",
       "/admin/albums": "Quản lý thư viện",
       "/admin/documents": "Quản lý tài liệu",
-      "/admin/internal-documents": "Quản lý nội bộ",
+      "/admin/internal-documents": "Quản lý tài liệu nội bộ",
       "/admin/contacts": "Quản lý liên hệ",
+      "/admin/phonebook": "Quản lý danh bạ",
       "/admin/language-content": "Quản lý ngôn ngữ",
-      "/admin/seo": "Quản lý SEO",
       "/admin/menu": "Quản lý Menu",
+      "/admin/config": "Cấu hình Banner",
+      "/admin/account": "Quản lý tài khoản",
     };
 
-    return titleMap[path] || "Admin Dashboard";
+    return titleMap[path] || "Quản trị";
   };
 
   const renderNavItem = (item) => {
@@ -547,7 +544,7 @@ const AdminLayout = () => {
           }}
         >
           <div>Chương trình quản trị Website</div>
-          <div>Attech Admin Panel</div>
+          <div>ATTECH Admin Panel</div>
           <div>v1.0.0</div>
         </div>
       </nav>

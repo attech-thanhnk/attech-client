@@ -4,6 +4,7 @@ import { useI18n } from "../../../hooks/useI18n";
 import * as clientServiceService from "../../../services/clientServiceService";
 import LocalizedLink from "../../../components/Shared/LocalizedLink";
 import ErrorPage from "../../../components/Shared/ErrorPage";
+import SEO from "../../../components/SEO/SEO";
 import sanitizeHtml from "sanitize-html";
 import { getApiBaseUrl } from "../../../config/apiConfig";
 import "./ServiceDetail.css";
@@ -133,15 +134,25 @@ const ServiceDetail = () => {
   };
 
   return (
-    <div className="service-content-wrap">
-      {/* Breadcrumb */}
-      <nav className="service-breadcrumb">
-        <LocalizedLink routeKey="SERVICES">
-          {t("navigation.services")}
-        </LocalizedLink>
-        <span className="breadcrumb-sep">/</span>
-        <span>{service.displayTitle}</span>
-      </nav>
+    <>
+      <SEO
+        title={service.displayTitle}
+        description={service.displayDescription || service.displayTitle}
+        keywords={`${service.displayTitle}, dịch vụ, ATTECH, kỹ thuật hàng không`}
+        image={imageUrl}
+        url={typeof window !== 'undefined' ? window.location.href : ''}
+        locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
+        type="service"
+      />
+      <div className="service-content-wrap">
+        {/* Breadcrumb */}
+        <nav className="service-breadcrumb">
+          <LocalizedLink routeKey="SERVICES">
+            {t("navigation.services")}
+          </LocalizedLink>
+          <span className="breadcrumb-sep">/</span>
+          <span>{service.displayTitle}</span>
+        </nav>
 
       {/* Card chính */}
       <div className="service-detail-card">
@@ -189,7 +200,8 @@ const ServiceDetail = () => {
           </LocalizedLink>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
