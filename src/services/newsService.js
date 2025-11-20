@@ -1,5 +1,6 @@
 import api from "../api";
 import { getApiBaseUrl } from "../config/apiConfig";
+import { encodeContentForApi } from "../utils/contentUtils";
 
 // Get all news with pagination and filters
 export async function fetchNews(pageNumber = 1, pageSize = 10, keyword = "", filters = {}, sortConfig = null) {
@@ -117,13 +118,17 @@ export const getNewsBySlug = async (slug) => {
 // Create news - FIXED to use JSON instead of FormData
 export const createNews = async (newsData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(newsData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(newsData.contentEn || "");
+
     // JSON payload - NOT FormData
     const payload = {
       titleVi: newsData.titleVi || "",
       titleEn: newsData.titleEn || "",
       newsCategoryId: newsData.newsCategoryId || 0,
-      contentVi: newsData.contentVi || "",
-      contentEn: newsData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: newsData.descriptionVi || "",
       descriptionEn: newsData.descriptionEn || "",
       slugVi: newsData.slugVi || "",  // Fixed casing
@@ -160,13 +165,17 @@ export const createNews = async (newsData) => {
 // Update news - FIXED to use JSON instead of FormData
 export const updateNews = async (id, newsData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(newsData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(newsData.contentEn || "");
+
     // JSON payload - ID only in URL, NOT in body
     const payload = {
       titleVi: newsData.titleVi || "",
       titleEn: newsData.titleEn || "",
       newsCategoryId: newsData.newsCategoryId || 0,
-      contentVi: newsData.contentVi || "",
-      contentEn: newsData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: newsData.descriptionVi || "",
       descriptionEn: newsData.descriptionEn || "",
       slugVi: newsData.slugVi || "",  // Fixed casing

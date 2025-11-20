@@ -1,5 +1,6 @@
 import api from "../api";
 import { getApiBaseUrl } from "../config/apiConfig";
+import { encodeContentForApi } from "../utils/contentUtils";
 
 // Get all service with pagination and filters
 export async function fetchService(pageNumber = 1, pageSize = 10, keyword = "", filters = {}, sortConfig = null) {
@@ -83,12 +84,16 @@ export const getServiceBySlug = async (slug) => {
 // Create service - FIXED to use JSON instead of FormData
 export const createService = async (serviceData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(serviceData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(serviceData.contentEn || "");
+
     // JSON payload - NOT FormData
     const payload = {
       titleVi: serviceData.titleVi || "",
       titleEn: serviceData.titleEn || "",
-      contentVi: serviceData.contentVi || "",
-      contentEn: serviceData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: serviceData.descriptionVi || "",
       descriptionEn: serviceData.descriptionEn || "",
       slugVi: serviceData.slugVi || "",  // Fixed casing
@@ -125,12 +130,16 @@ export const createService = async (serviceData) => {
 // Update service - FIXED to use JSON instead of FormData
 export const updateService = async (id, serviceData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(serviceData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(serviceData.contentEn || "");
+
     // JSON payload - ID only in URL, NOT in body
     const payload = {
       titleVi: serviceData.titleVi || "",
       titleEn: serviceData.titleEn || "",
-      contentVi: serviceData.contentVi || "",
-      contentEn: serviceData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: serviceData.descriptionVi || "",
       descriptionEn: serviceData.descriptionEn || "",
       slugVi: serviceData.slugVi || "",  // Fixed casing

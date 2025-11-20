@@ -1,5 +1,6 @@
 import api from "../api";
 import { getApiBaseUrl } from "../config/apiConfig";
+import { encodeContentForApi } from "../utils/contentUtils";
 
 // Get all product with pagination and filters
 export async function fetchProduct(pageNumber = 1, pageSize = 10, keyword = "", filters = {}, sortConfig = null) {
@@ -105,13 +106,17 @@ export const getProductBySlug = async (slug) => {
 // Create product - FIXED to use JSON instead of FormData
 export const createProduct = async (productData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(productData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(productData.contentEn || "");
+
     // JSON payload - NOT FormData
     const payload = {
       titleVi: productData.titleVi || "",
       titleEn: productData.titleEn || "",
       productCategoryId: productData.productCategoryId || 0,
-      contentVi: productData.contentVi || "",
-      contentEn: productData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: productData.descriptionVi || "",
       descriptionEn: productData.descriptionEn || "",
       slugVi: productData.slugVi || "",  // Fixed casing
@@ -148,13 +153,17 @@ export const createProduct = async (productData) => {
 // Update product - FIXED to use JSON instead of FormData
 export const updateProduct = async (id, productData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(productData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(productData.contentEn || "");
+
     // JSON payload - ID only in URL, NOT in body
     const payload = {
       titleVi: productData.titleVi || "",
       titleEn: productData.titleEn || "",
       productCategoryId: productData.productCategoryId || 0,
-      contentVi: productData.contentVi || "",
-      contentEn: productData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: productData.descriptionVi || "",
       descriptionEn: productData.descriptionEn || "",
       slugVi: productData.slugVi || "",  // Fixed casing

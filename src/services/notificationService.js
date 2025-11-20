@@ -1,5 +1,6 @@
 import api from "../api";
 import { getApiBaseUrl } from "../config/apiConfig";
+import { encodeContentForApi } from "../utils/contentUtils";
 
 // Get all notification with pagination and filters
 export async function fetchNotification(pageNumber = 1, pageSize = 10, keyword = "", filters = {}, sortConfig = null) {
@@ -113,13 +114,17 @@ export const getNotificationBySlug = async (slug) => {
 // Create notification - FIXED to use JSON instead of FormData
 export const createNotification = async (notificationData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(notificationData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(notificationData.contentEn || "");
+
     // JSON payload - NOT FormData
     const payload = {
       titleVi: notificationData.titleVi || "",
       titleEn: notificationData.titleEn || "",
       notificationCategoryId: notificationData.notificationCategoryId || 0,
-      contentVi: notificationData.contentVi || "",
-      contentEn: notificationData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: notificationData.descriptionVi || "",
       descriptionEn: notificationData.descriptionEn || "",
       slugVi: notificationData.slugVi || "",  // Fixed casing
@@ -156,13 +161,17 @@ export const createNotification = async (notificationData) => {
 // Update notification - FIXED to use JSON instead of FormData
 export const updateNotification = async (id, notificationData) => {
   try {
+    // 🔒 SECURITY: Encode HTML content to bypass XSS middleware
+    const encodedContentVi = encodeContentForApi(notificationData.contentVi || "");
+    const encodedContentEn = encodeContentForApi(notificationData.contentEn || "");
+
     // JSON payload - ID only in URL, NOT in body
     const payload = {
       titleVi: notificationData.titleVi || "",
       titleEn: notificationData.titleEn || "",
       notificationCategoryId: notificationData.notificationCategoryId || 0,
-      contentVi: notificationData.contentVi || "",
-      contentEn: notificationData.contentEn || "",
+      contentVi: encodedContentVi,  // Base64 encoded
+      contentEn: encodedContentEn,  // Base64 encoded
       descriptionVi: notificationData.descriptionVi || "",
       descriptionEn: notificationData.descriptionEn || "",
       slugVi: notificationData.slugVi || "",  // Fixed casing
