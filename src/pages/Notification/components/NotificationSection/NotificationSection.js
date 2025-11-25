@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import ViewAllButton from "../../../../components/ViewAllButton/ViewAllButton";
 import { useI18n } from "../../../../hooks/useI18n";
 import { formatNotificationForDisplay } from "../../../../services/clientNotificationService";
 import "./NotificationSection.css";
 
 const NotificationSection = ({ title, notifications, type }) => {
+  const { t } = useTranslation();
   const { currentLanguage } = useI18n();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -80,7 +82,7 @@ const NotificationSection = ({ title, notifications, type }) => {
                     }}
                   />
                   {notification.isOutstanding && (
-                    <span className="badge-new">New</span>
+                    <span className="badge-new">{t('frontend.home.featuredNews')}</span>
                   )}
                 </div>
                 <div className="content-wrapper">

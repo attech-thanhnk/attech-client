@@ -14,17 +14,28 @@ const Gallery = () => {
   const { currentLanguage } = useI18n();
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [totalItems, setTotalItems] = useState(0);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     const loadAlbums = async () => {
       try {
-        setLoading(true);// Use clientAlbumService for album data
-        const albumsResponse = await clientAlbumService.getAlbums({ limit: 50 });if (albumsResponse.success && albumsResponse.data.length > 0) {
+        setLoading(true);
+        // Use clientAlbumService for album data with pagination
+        const albumsResponse = await clientAlbumService.getAlbums({
+          page: 1,
+          limit: itemsPerPage
+        });
+
+        if (albumsResponse.success && albumsResponse.data.length > 0) {
           const formattedAlbums = albumsResponse.data.map(album => {
             const formattedItem = clientAlbumService.formatAlbumForDisplay(album, currentLanguage);
-            
+
             // Album image processing
-            
+
             return {
               id: album.id,
               slug: formattedItem.slug,
@@ -33,16 +44,28 @@ const Gallery = () => {
               date: formattedItem.createdAt,
               coverImage: formattedItem.featuredImage || clientAlbumService.getImageUrl(album.imageUrl) || 'https://via.placeholder.com/400x300/cccccc/ffffff?text=No+Image',
             };
-          });setAlbums(formattedAlbums);
-        } else {setAlbums([]);
+          });
+
+          setAlbums(formattedAlbums);
+          setTotalItems(albumsResponse.total || 0);
+          setHasMore(formattedAlbums.length < (albumsResponse.total || 0));
+          setCurrentPage(1);
+        } else {
+          setAlbums([]);
+          setTotalItems(0);
+          setHasMore(false);
         }
-      } catch (error) {setAlbums([]);
+      } catch (error) {
+        setAlbums([]);
+        setTotalItems(0);
+        setHasMore(false);
       } finally {
         setLoading(false);
       }
     };
 
     loadAlbums();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentLanguage]);
 
   useEffect(() => {
@@ -50,6 +73,45 @@ const Gallery = () => {
       window.scrollTo(0, 0);
     }
   }, [state]);
+
+  const loadMore = async () => {
+    if (!hasMore || loadingMore) return;
+
+    try {
+      setLoadingMore(true);
+      const nextPage = currentPage + 1;
+
+      const albumsResponse = await clientAlbumService.getAlbums({
+        page: nextPage,
+        limit: itemsPerPage
+      });
+
+      if (albumsResponse.success && albumsResponse.data.length > 0) {
+        const formattedAlbums = albumsResponse.data.map(album => {
+          const formattedItem = clientAlbumService.formatAlbumForDisplay(album, currentLanguage);
+
+          return {
+            id: album.id,
+            slug: formattedItem.slug,
+            title: formattedItem.title,
+            description: formattedItem.description,
+            date: formattedItem.createdAt,
+            coverImage: formattedItem.featuredImage || clientAlbumService.getImageUrl(album.imageUrl) || 'https://via.placeholder.com/400x300/cccccc/ffffff?text=No+Image',
+          };
+        });
+
+        setAlbums(prev => [...prev, ...formattedAlbums]);
+        setCurrentPage(nextPage);
+        setHasMore(albums.length + formattedAlbums.length < totalItems);
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      setHasMore(false);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   const handleAlbumClick = (e, albumSlug) => {
     e.preventDefault();
@@ -127,6 +189,29 @@ const Gallery = () => {
               </div>
             ))}
           </div>
+
+          {/* Load More Button */}
+          {hasMore && (
+            <div className="gallery-load-more" data-aos="fade-up">
+              <button
+                className="load-more-btn"
+                onClick={loadMore}
+                disabled={loadingMore}
+              >
+                {loadingMore ? (
+                  <>
+                    <i className="fas fa-spinner fa-spin"></i>
+                    Đang tải...
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-chevron-down"></i>
+                    Xem thêm
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </section>
       </main>
     </>

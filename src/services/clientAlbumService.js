@@ -27,15 +27,17 @@ const clientAlbumService = {
   getAlbums: async (params = {}) => {
     try {
       const queryParams = new URLSearchParams({
-        page: params.page || 1,
-        limit: params.limit || 12,
-        search: params.search || '',
+        pageNumber: params.page || 1,
+        pageSize: params.limit || 12,
+        keyword: params.search || '',
         status: 1 // Only published albums
       }).toString();
 
-      const response = await api.get(`/api/client/albums?${queryParams}`);// Handle response: { status: 1, data: { items: NewsDto[], totalItems: number, page: number, pageSize: number } }
+      const response = await api.get(`/api/client/albums?${queryParams}`);
+
+      // Handle response: { status: 1, data: { items: NewsDto[], totalItems: number, page: number, pageSize: number } }
       const responseData = response.data.data || response.data;
-      
+
       return {
         success: true,
         data: responseData.items || [],
@@ -44,9 +46,10 @@ const clientAlbumService = {
           pageSize: responseData.pageSize || 12,
           totalItems: responseData.totalItems || 0
         },
-        total: responseData.totalItems || 0
+        total: responseData.totalItems || responseData.total || 0
       };
-    } catch (error) {return {
+    } catch (error) {
+      return {
         success: false,
         message: error.response?.data?.message || 'Lỗi tải danh sách album',
         data: [],

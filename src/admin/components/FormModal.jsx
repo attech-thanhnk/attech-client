@@ -79,44 +79,52 @@ const FormModal = ({
             ✕
           </button>
         </div>
-        <div className="modal-body" style={{ 
-          flex: '1', 
+        <div className="modal-body" style={{
+          flex: '1',
           overflowY: 'auto',
           padding: '20px'
         }}>
-          <form onSubmit={handleSubmit} style={{ 
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <div style={{ flex: '1', overflowY: 'auto' }}>
-              {children}
-            </div>
-            {showActions && (
+          {showActions ? (
+            <form onSubmit={handleSubmit} style={{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              <div style={{ flex: '1', overflowY: 'auto' }}>
+                {children}
+              </div>
               <div className="form-actions" style={{
                 flexShrink: '0',
                 marginTop: '20px',
                 paddingTop: '20px',
                 borderTop: '1px solid #e9ecef'
               }}>
-                <button 
-                  type="button" 
-                  className="btn btn-secondary" 
-                  onClick={onClose} 
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={onClose}
                   disabled={loading}
                 >
                   {cancelText || "Hủy"}
                 </button>
-                <button 
-                  type="submit" 
-                  className="btn btn-primary" 
+                <button
+                  type="submit"
+                  className="btn btn-primary"
                   disabled={loading}
                 >
                   {loading ? "Đang xử lý..." : (submitText || "Lưu")}
                 </button>
               </div>
-            )}
-          </form>
+            </form>
+          ) : (
+            <div style={{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              {children}
+            </div>
+          )}
         </div>
       </div>
     </div>

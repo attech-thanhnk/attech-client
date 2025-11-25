@@ -42,10 +42,12 @@ const albumService = {
 
       const urlParams = new URLSearchParams(queryParams).toString();
 
-      const response = await api.get(`/api/news/albums?${urlParams}`);// Handle response structure: { status: 1, data: { items: [...], total: 1 } }
+      const response = await api.get(`/api/news/albums?${urlParams}`);
+
+      // Handle response structure: { status: 1, data: { items: [...], total: 1 } }
       const responseData = response.data.data || response.data;
       const items = responseData.items || responseData || [];
-      
+
       return {
         success: true,
         data: items,
@@ -103,25 +105,21 @@ const albumService = {
    * Create new album with slug support
    */
   createAlbum: async (albumData) => {
-    try {const payload = {
+    try {
+      const payload = {
         titleVi: albumData.titleVi,
         titleEn: albumData.titleEn || '',
         attachmentIds: albumData.attachmentIds || [],
         featuredImageId: albumData.featuredImageId || null,
-        newsCategoryId: albumData.newsCategoryId || 1
-        // Remove descriptionVi, descriptionEn - not needed for albums
-      };// Try regular news endpoint first, if it fails try create-album
-      let response;
-      try {response = await api.post('/api/news', {
-          ...payload,
-          isAlbum: true,
-          contentVi: '', // Empty content for album
-          contentEn: '',
-          timePosted: new Date().toISOString(),
-          status: 1
-        });
-      } catch (newsError) {response = await api.post('/api/news/create-album', payload);
-      }return {
+        newsCategoryId: albumData.newsCategoryId || 1,
+        status: albumData.status ?? 1
+      };
+
+      console.log('📦 createAlbum payload:', JSON.stringify(payload, null, 2));
+
+      const response = await api.post('/api/news/create-album', payload);
+
+      return {
         success: true,
         data: response.data,
         message: 'Tạo album thành công'
@@ -142,31 +140,33 @@ const albumService = {
    * Update album with slug support
    */
   updateAlbum: async (id, albumData) => {
-    try {const payload = {
+    try {
+      const payload = {
         titleVi: albumData.titleVi,
         titleEn: albumData.titleEn || '',
         attachmentIds: albumData.attachmentIds || [],
         featuredImageId: albumData.featuredImageId || null,
-        newsCategoryId: albumData.newsCategoryId || 1
-        // Remove descriptionVi, descriptionEn - not needed for albums
-      };// Try update-album endpoint first, fallback to regular PUT
-      let response;
-      try {response = await api.put(`/api/news/update-album/${id}`, payload);
-      } catch (updateError) {response = await api.put(`/api/news/${id}`, {
-          ...payload,
-          isAlbum: true,
-          contentVi: '', // Empty content for album
-          contentEn: '',
-          status: albumData.status || 1
-        });
-      }return {
+        newsCategoryId: albumData.newsCategoryId || 1,
+        status: albumData.status ?? 1
+      };
+
+      console.log('🔄 Updating album ID:', id, 'with payload:', payload);
+
+      const response = await api.put(`/api/news/update-album/${id}`, payload);
+
+      return {
         success: true,
         data: response.data,
         message: 'Cập nhật album thành công'
       };
-    } catch (error) {return {
+    } catch (error) {
+      console.error('❌ Update album error - Full error:', error);
+      console.error('❌ Response data:', error.response?.data);
+      console.error('❌ Response status:', error.response?.status);
+      console.error('❌ Error message:', error.message);
+      return {
         success: false,
-        message: error.response?.data?.message || error.response?.data?.Message || 'Lỗi cập nhật album',
+        message: error.response?.data?.message || error.response?.data?.Message || error.message || 'Lỗi cập nhật album',
         data: null,
         statusCode: error.response?.status,
         errorDetails: error.response?.data
@@ -179,12 +179,14 @@ const albumService = {
    */
   deleteAlbum: async (id) => {
     try {
-      await api.delete(`/api/news/${id}`);
+      const response = await api.delete(`/api/news/delete-album/${id}`);
       return {
         success: true,
-        message: 'Xóa album thành công'
+        message: response.data?.message || 'Xóa album thành công'
       };
-    } catch (error) {return {
+    } catch (error) {
+      console.error('❌ Delete album error:', error);
+      return {
         success: false,
         message: error.response?.data?.message || error.response?.data?.Message || 'Lỗi xóa album'
       };

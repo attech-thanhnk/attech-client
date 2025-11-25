@@ -41,13 +41,34 @@ const AlbumCreationForm = ({
     type: "info",
   });
 
+  // Sync formData when editingAlbum changes
+  useEffect(() => {
+    if (editingAlbum) {
+      console.log('📝 Syncing formData with editingAlbum:', editingAlbum);
+      setFormData({
+        titleVi: editingAlbum.titleVi || "",
+        titleEn: editingAlbum.titleEn || "",
+        descriptionVi: editingAlbum.descriptionVi || "",
+        descriptionEn: editingAlbum.descriptionEn || "",
+        status: editingAlbum.status ?? 1,
+        attachmentIds: editingAlbum.attachmentIds || [],
+        featuredImageId: editingAlbum.featuredImageId || null,
+        newsCategoryId: editingAlbum.newsCategoryId || 1
+      });
+    }
+  }, [editingAlbum]);
+
   // Load existing attachments if editing
   useEffect(() => {
+    console.log('📝 AlbumCreationForm useEffect triggered:', { isEditMode, editingAlbum });
+
     const loadExistingAttachments = async () => {
       if (isEditMode && editingAlbum) {
+        console.log('📝 Loading existing attachments for album:', editingAlbum.id);
         try {
           // Load featured image from imageUrl
           const imageUrl = editingAlbum.imageUrl || editingAlbum.ImageUrl;
+          console.log('📝 Featured image URL:', imageUrl);
           if (imageUrl) {
             const fullImageUrl = imageUrl.startsWith("http")
               ? imageUrl
@@ -62,6 +83,7 @@ const AlbumCreationForm = ({
 
           // Use attachments data if available in editingAlbum
           const attachmentImages = editingAlbum.attachments?.images || [];
+          console.log('📝 Attachment images from editingAlbum:', attachmentImages);
           if (attachmentImages.length > 0) {
             const baseUrl = api.defaults.baseURL;
             const transformedImages = attachmentImages.map((img, index) => ({
@@ -230,7 +252,7 @@ const AlbumCreationForm = ({
       const successfulAttachmentIds = results
         .filter((r) => r.success)
         .map((r) => r.attachmentId);
-      
+
       if (successfulAttachmentIds.length > 0) {
         const allAttachmentIds = [
           ...formData.attachmentIds,
@@ -288,20 +310,33 @@ const AlbumCreationForm = ({
       const successfulImages = galleryImages.filter(img => img.attachmentId && !img.uploading);
       const attachmentIds = successfulImages.map(img => img.attachmentId);
 
+      console.log('🖼️ Total gallery images:', galleryImages.length);
+      console.log('🖼️ Gallery images:', galleryImages);
+      console.log('✅ Successful images (after filter):', successfulImages.length);
+      console.log('📋 AttachmentIds to submit:', attachmentIds);
+
       const albumData = {
         titleVi: formData.titleVi,
         titleEn: formData.titleEn,
         attachmentIds: attachmentIds,
-        featuredImageId: featuredImageId, // Use the uploaded featured image ID
-        newsCategoryId: formData.newsCategoryId
-        // Remove descriptions - not needed for albums
+        featuredImageId: featuredImageId,
+        newsCategoryId: formData.newsCategoryId,
+        status: formData.status ?? 1
       };
+
+      console.log('📊 formData.status:', formData.status);
+      console.log('📊 albumData.status:', albumData.status);
+      console.log('💾 Submitting album data:', albumData);
+      console.log('🔍 JSON.stringify(albumData):', JSON.stringify(albumData, null, 2));
 
       let response;
       if (isEditMode) {
+        console.log('🔄 Calling updateAlbum with ID:', editingAlbum.id);
         response = await albumService.updateAlbum(editingAlbum.id, albumData);
       } else {
+        console.log('➕ Calling createAlbum');
         response = await albumService.createAlbum(albumData);
+        console.log('📨 Create response:', response);
       }
 
       if (response.success) {
@@ -340,7 +375,7 @@ const AlbumCreationForm = ({
 
   return (
     <div className="news-creation-form">
-      <form>
+      <div>
         {/* Title Section */}
         <div className="form-row">
           <div className="form-group">
@@ -516,7 +551,7 @@ const AlbumCreationForm = ({
             {isEditMode ? "Cập nhật Album" : "Tạo Album"}
           </button>
         </div>
-      </form>
+      </div>
 
       <ToastMessage
         show={toast.show}

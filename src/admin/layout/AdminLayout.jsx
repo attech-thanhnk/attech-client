@@ -224,6 +224,14 @@ const AdminLayout = () => {
         requiredRoleId: ROLES.ADMIN,
       },
 
+      // Static Content Management
+      {
+        path: "/admin/static-content",
+        label: "Quản lý nội dung tĩnh",
+        icon: "bi bi-file-earmark-text",
+        requiredRoleId: ROLES.EDITOR,
+      },
+
       // Image Display Management
       {
         path: "/admin/config",
@@ -313,6 +321,7 @@ const AdminLayout = () => {
       "/admin/contacts": "Quản lý liên hệ",
       "/admin/phonebook": "Quản lý danh bạ",
       "/admin/language-content": "Quản lý ngôn ngữ",
+      "/admin/static-content": "Quản lý nội dung tĩnh",
       "/admin/menu": "Quản lý Menu",
       "/admin/config": "Cấu hình Banner",
       "/admin/account": "Quản lý tài khoản",

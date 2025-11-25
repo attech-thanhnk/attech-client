@@ -11,6 +11,7 @@ import InternalDocumentsList from './pages/InternalDocumentsList.jsx';
 import ContactList from './pages/ContactList.jsx';
 import PhoneBookList from './pages/PhoneBookList.jsx';
 import LanguageContentManager from './pages/LanguageContentManager.jsx';
+import StaticContentList from './pages/StaticContentList.jsx';
 
 import NotFound from './pages/NotFound/NotFound';
 import ProductCategory from './menu/ProductCategory/ProductCategory.js';
@@ -42,6 +43,7 @@ const adminRoutesConfig = [
       { path: 'contacts', element: ContactList },
       { path: 'phonebook', element: PhoneBookList },
       { path: 'language-content', element: LanguageContentManager },
+      { path: 'static-content', element: StaticContentList },
       { path: 'users', element: UserManagement },
       { path: 'roles', element: RoleManagement },
       // { path: 'permissions', element: PermissionManagement }, // Removed - UserLevel system only

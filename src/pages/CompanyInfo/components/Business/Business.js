@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Business.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -7,8 +8,10 @@ import SEO from "../../../../components/SEO/SEO";
 import { useI18n } from "../../../../hooks/useI18n";
 
 const Business = () => {
+  const { t } = useTranslation();
   const { currentLanguage } = useI18n();
   const location = useLocation();
+  const [contentHtml, setContentHtml] = useState("");
 
   const seoContent = {
     vi: {
@@ -36,6 +39,18 @@ const Business = () => {
       once: true,
     });
   }, []);
+
+  // Load content from translation (managed via admin)
+  useEffect(() => {
+    const translationContent = t("frontend.companyInfo.business.fullContent", {
+      returnObjects: true,
+      defaultValue: "",
+    });
+
+    if (translationContent && typeof translationContent === "string") {
+      setContentHtml(translationContent);
+    }
+  }, [t, currentLanguage]);
 
   const companyInfo = {
     authority:
@@ -208,6 +223,9 @@ const Business = () => {
     },
   ];
 
+  // If content exists from translation system, use it. Otherwise, use hardcoded content
+  const useTranslationContent = contentHtml && contentHtml.trim() !== "";
+
   return (
     <>
       <SEO
@@ -218,6 +236,15 @@ const Business = () => {
         lang={currentLanguage}
       />
       <div className="business-fields">
+        {useTranslationContent ? (
+          // Render content from translation (managed via admin)
+          <div
+            className="managed-content"
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
+          />
+        ) : (
+          // Fallback to hardcoded content (legacy)
+          <>
         <section className="certificate-section">
           <div className="certificate-header" data-aos="fade-up">
             <h1>{companyInfo.authority}</h1>
@@ -312,6 +339,8 @@ const Business = () => {
             kinh doanh khi có đủ điều kiện theo quy định của pháp luật)
           </p>
         </section>
+          </>
+        )}
       </div>
     </>
   );

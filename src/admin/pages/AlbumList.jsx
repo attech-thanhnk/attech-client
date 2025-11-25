@@ -13,6 +13,7 @@ import "./ContactList.css";
 
 import albumService from "../../services/albumService";
 import AlbumCreationForm from "../components/AlbumCreationForm";
+import { getApiUrl } from "../../config/apiConfig";
 
 const AlbumList = () => {
   const { user: currentUser, ROLES } = useAuth();
@@ -68,6 +69,7 @@ const AlbumList = () => {
               : filters.status,
         };
         const response = await albumService.fetchAlbums(params);
+
         if (response.success) {
           let albumsData = Array.isArray(response.data) ? response.data : [];
 
@@ -75,7 +77,8 @@ const AlbumList = () => {
           setTotalItems(response.total || 0);
           setTotalPages(Math.ceil((response.total || 0) / itemsPerPage));
 
-          // Use server-side data directly (no client-side filtering)setAlbums(albumsData);
+          // Use server-side data directly (no client-side filtering)
+          setAlbums(albumsData);
         } else {
           setAlbums([]);
           setTotalItems(0);
@@ -94,10 +97,6 @@ const AlbumList = () => {
     [searchDebounce, filters.status, currentPage, itemsPerPage]
   );
 
-  useEffect(() => {
-    loadAlbums();
-  }, [loadAlbums]);
-
   // Debounce search - đợi user gõ xong
   useEffect(() => {
     if (filters.search !== searchDebounce) {
@@ -110,24 +109,18 @@ const AlbumList = () => {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [filters.search]);
+  }, [filters.search, searchDebounce]);
 
   // Effect to handle search and status filter changes
   useEffect(() => {
     // Reset to page 1 when search or status filters change
-    if (currentPage !== 1) {
-      setCurrentPage(1);
-    } else {
-      loadAlbums();
-    }
+    setCurrentPage(1);
   }, [searchDebounce, filters.status]);
 
-  // Load albums when page changes
+  // Load albums when dependencies change
   useEffect(() => {
-    if (currentPage !== 1) {
-      loadAlbums();
-    }
-  }, [currentPage]);
+    loadAlbums();
+  }, [loadAlbums]);
 
   const showToast = (message, type = "info") => {
     setToast({ show: true, message, type });
@@ -149,14 +142,20 @@ const AlbumList = () => {
 
     try {
       // Load full album details with attachments
+      console.log('🔧 Loading album for edit:', item.id);
       const response = await albumService.getAlbumById(item.id);
+      console.log('🔧 API response:', response);
+
       if (response.success) {
+        console.log('✅ Setting editingItem:', response.data);
         setEditingItem(response.data);
       } else {
+        console.error('❌ API failed, using fallback:', item);
         setEditingItem(item); // Fallback to basic item data
         showToast("Lỗi tải chi tiết album để chỉnh sửa", "error");
       }
     } catch (error) {
+      console.error('❌ Exception:', error);
       setEditingItem(item); // Fallback to basic item data
       showToast("Lỗi tải album để chỉnh sửa", "error");
     }
@@ -375,7 +374,7 @@ const AlbumList = () => {
                             src={
                               album.imageUrl.startsWith("http")
                                 ? album.imageUrl
-                                : `${process.env.REACT_APP_API_URL}${album.imageUrl}`
+                                : getApiUrl(album.imageUrl)
                             }
                             alt={album.titleVi}
                             className="thumbnail-image"
@@ -541,27 +540,62 @@ const AlbumList = () => {
                   >
                     {selectedAlbum.status === 1 ? "Hiển thị" : "Ẩn"}
                   </span>
+                  <span className="image-count">
+                    <i className="fas fa-images"></i> {(selectedAlbum.imageUrl ? 1 : 0) + albumImages.length} ảnh
+                  </span>
                 </div>
               </div>
 
-              {albumImages.length > 0 ? (
+              {(selectedAlbum.imageUrl || albumImages.length > 0) ? (
                 <div className="album-images-grid">
-                  {albumImages.map((image, index) => (
-                    <div key={image.id || index} className="album-image-item">
+                  {/* Featured image first */}
+                  {selectedAlbum.imageUrl && (
+                    <div key="featured" className="album-image-item">
                       <img
                         src={
-                          image.url?.startsWith("http")
-                            ? image.url
-                            : `${process.env.REACT_APP_API_URL}${
-                                image.url || `/api/attachments/${image.id}`
-                              }`
+                          selectedAlbum.imageUrl.startsWith("http")
+                            ? selectedAlbum.imageUrl
+                            : getApiUrl(selectedAlbum.imageUrl)
                         }
-                        alt={`Album image ${index + 1}`}
+                        alt={selectedAlbum.titleVi}
                         className="album-detail-image"
                         loading="lazy"
+                        onClick={() => window.open(
+                          selectedAlbum.imageUrl.startsWith("http")
+                            ? selectedAlbum.imageUrl
+                            : getApiUrl(selectedAlbum.imageUrl),
+                          '_blank'
+                        )}
+                        title="Click để xem ảnh kích thước đầy đủ"
                       />
+                      <div className="image-number">1</div>
                     </div>
-                  ))}
+                  )}
+
+                  {/* Gallery images */}
+                  {albumImages.map((image, index) => {
+                    const imageUrl = image.url
+                      ? image.url.startsWith("http")
+                        ? image.url
+                        : getApiUrl(image.url)
+                      : getApiUrl(`/api/attachments/${image.id}`);
+
+                    const imageNumber = selectedAlbum.imageUrl ? index + 2 : index + 1;
+
+                    return (
+                      <div key={image.id || index} className="album-image-item">
+                        <img
+                          src={imageUrl}
+                          alt={`Album image ${imageNumber}`}
+                          className="album-detail-image"
+                          loading="lazy"
+                          onClick={() => window.open(imageUrl, '_blank')}
+                          title="Click để xem ảnh kích thước đầy đủ"
+                        />
+                        <div className="image-number">{imageNumber}</div>
+                      </div>
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="no-images-message">
