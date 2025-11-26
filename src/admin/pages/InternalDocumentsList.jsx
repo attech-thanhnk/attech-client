@@ -263,12 +263,13 @@ const InternalDocumentsList = () => {
     },
     {
       key: "timePosted",
-      label: "Thời gian đăng",
+      label: "Ngày đăng",
       sortable: true,
       width: "20%",
       render: (row) => {
         if (!row.timePosted) return "N/A";
-        return new Date(row.timePosted).toLocaleString("vi-VN");
+        const date = new Date(row.timePosted);
+        return date.toLocaleDateString("vi-VN");
       }
     },
   ];
@@ -457,7 +458,7 @@ const InternalDocumentsList = () => {
               </div>
               {selectedDocument.timePosted && selectedDocument.timePosted !== "0001-01-01T00:00:00" && (
                 <div className="col-md-6">
-                  <p><strong>Thời gian đăng:</strong> {new Date(selectedDocument.timePosted).toLocaleString("vi-VN")}</p>
+                  <p><strong>Ngày đăng:</strong> {new Date(selectedDocument.timePosted).toLocaleDateString("vi-VN")}</p>
                 </div>
               )}
               {selectedDocument.attachment && (

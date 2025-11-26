@@ -26,13 +26,24 @@ const InternalDocumentCreationForm = ({
 
   // Initialize form data for edit mode
   useEffect(() => {
-    if (editMode && editData) {setFormData({
+    if (editMode && editData) {
+      // Format timePosted for date input (YYYY-MM-DD only)
+      let formattedTime = "";
+      if (editData.timePosted) {
+        const date = new Date(editData.timePosted);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        formattedTime = `${year}-${month}-${day}`;
+      }
+
+      setFormData({
         title: editData.title || "",
         description: editData.description || "",
         category: editData.category || "",
         attachmentIds: editData.attachmentIds || [],
         status: editData.status !== undefined ? editData.status : 1,
-        timePosted: editData.timePosted ? new Date(editData.timePosted).toISOString().slice(0, 16) : "",
+        timePosted: formattedTime,
       });
 
       // Load existing attachment if any
@@ -132,7 +143,7 @@ const InternalDocumentCreationForm = ({
         category: formData.category,
         attachmentId: attachmentId,
         status: formData.status,
-        timePosted: formData.timePosted ? new Date(formData.timePosted).toISOString() : null
+        timePosted: formData.timePosted || null
       };let result;
       if (editMode && editData?.id) {
         result = await internalDocumentsAdminService.updateInternalDocument(editData.id, documentData);
@@ -297,10 +308,10 @@ const InternalDocumentCreationForm = ({
         {/* Time Posted */}
         <div className="mb-3">
           <label htmlFor="timePosted" className="form-label">
-            Thời gian đăng
+            Ngày đăng
           </label>
           <input
-            type="datetime-local"
+            type="date"
             className="form-control"
             id="timePosted"
             name="timePosted"
@@ -309,7 +320,7 @@ const InternalDocumentCreationForm = ({
             disabled={isSubmitting}
           />
           <small className="form-text text-muted">
-            Để trống để sử dụng thời gian hiện tại
+            Để trống để sử dụng ngày hiện tại
           </small>
         </div>
 

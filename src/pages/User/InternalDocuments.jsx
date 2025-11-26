@@ -28,6 +28,9 @@ const InternalDocuments = () => {
     "van-ban-cong-doan": "Văn bản công đoàn",
     "tu-dien-nang-luc": "Từ điển năng lực",
     "so-tay-nhan-vien": "Sổ tay nhân viên",
+    "van-ban-chk-va-bo-xay-dung": "Văn bản CHK và Bộ Xây dựng",
+    "he-thong-dinh-muc": "Hệ thống định mức",
+    "van-ban-cac-don-vi-khac": "Văn bản các đơn vị khác",
   };
 
   const fetchDocumentsByCategory = async (
@@ -178,9 +181,9 @@ const InternalDocuments = () => {
                           <div className="d-flex align-items-center gap-3 mt-2">
                             <small className="text-muted">
                               <i className="bi bi-calendar me-1"></i>
-                              {new Date(doc.createdDate).toLocaleDateString(
-                                "vi-VN"
-                              )}
+                              {doc.timePosted
+                                ? new Date(doc.timePosted).toLocaleDateString("vi-VN")
+                                : new Date(doc.createdDate).toLocaleDateString("vi-VN")}
                             </small>
                             {doc.attachment && (
                               <small className="text-muted">
