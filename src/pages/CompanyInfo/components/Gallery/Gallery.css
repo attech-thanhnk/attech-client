@@ -17,11 +17,14 @@
   font-size: 2rem;
   color: #0f172a;
   position: relative;
-  display: inline-block;
+  display: block;
   padding-bottom: 1rem;
   margin-bottom: 0;
   font-weight: 700;
   letter-spacing: -0.02em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .section-title h1::after {
