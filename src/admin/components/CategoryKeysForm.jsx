@@ -45,7 +45,6 @@ const CategoryKeysForm = ({ content, onSuccess, onCancel }) => {
 
       setKeys(filteredKeys);
     } catch (error) {
-      console.error("Error loading keys:", error);
       showToast("Lỗi tải dữ liệu: " + (error.message || "Không xác định"), "error");
     } finally {
       setLoading(false);
@@ -93,7 +92,6 @@ const CategoryKeysForm = ({ content, onSuccess, onCancel }) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted'); // Debug log
 
     try {
       const fullKey = `${categoryPrefix}.${formData.key}`;

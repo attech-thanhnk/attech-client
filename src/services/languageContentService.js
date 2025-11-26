@@ -57,11 +57,9 @@ export async function fetchLanguageContents(
       }
     }
 
-    console.log('[fetchLanguageContents] Request params:', params);
     const response = await api.get("/api/language-contents/find-all", {
       params,
     });
-    console.log('[fetchLanguageContents] Response:', response.data);
 
     // Handle BE response format
     if (response.data && response.data.status === 1 && response.data.data) {
@@ -73,26 +71,17 @@ export async function fetchLanguageContents(
         currentPage: dataObj.page || pageNumber,
         pageSize: dataObj.pageSize || pageSize,
       };
-      console.log('[fetchLanguageContents] Processed result:', result);
       return result;
     }
 
     // Handle error response from API
     if (response.data && response.data.status === 0) {
       const errorMessage = response.data.message || "API returned error status";
-      console.error('[fetchLanguageContents] API Error:', errorMessage);
       throw new Error(errorMessage);
     }
 
-    console.error('[fetchLanguageContents] Invalid response format:', {
-      hasData: !!response.data,
-      status: response.data?.status,
-      hasDataField: !!response.data?.data,
-      responseData: response.data
-    });
     throw new Error("Invalid response format");
   } catch (error) {
-    console.error('[fetchLanguageContents] Error:', error);
 
     // Extract error message from response if available
     if (error.response?.data) {
@@ -256,7 +245,6 @@ export async function loadAllTranslations() {
 
     throw new Error("Invalid response format from client API");
   } catch (error) {
-    console.error('[loadAllTranslations] Error:', error);
     // Return cached data if available, even if expired
     if (translationsCache.data) {
       return translationsCache.data;
@@ -325,7 +313,6 @@ export async function fetchTranslationsForI18next(language = "vi") {
 
     return allTranslations;
   } catch (error) {
-    console.error('[fetchTranslationsForI18next] Error:', error);
     // Return empty object on error to prevent i18next from breaking
     return {};
   }

@@ -89,7 +89,6 @@ const Dashboard = () => {
       <div className="simple-admin-welcome">
         <div className="welcome-header">
           <div className="welcome-icon">
-            <i className="bi bi-shield-check"></i>
           </div>
           <div className="welcome-content">
             <h1>Trang quản trị hệ thống</h1>

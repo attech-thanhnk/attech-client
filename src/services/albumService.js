@@ -115,7 +115,6 @@ const albumService = {
         status: albumData.status ?? 1
       };
 
-      console.log('📦 createAlbum payload:', JSON.stringify(payload, null, 2));
 
       const response = await api.post('/api/news/create-album', payload);
 
@@ -150,7 +149,6 @@ const albumService = {
         status: albumData.status ?? 1
       };
 
-      console.log('🔄 Updating album ID:', id, 'with payload:', payload);
 
       const response = await api.put(`/api/news/update-album/${id}`, payload);
 
@@ -160,10 +158,6 @@ const albumService = {
         message: 'Cập nhật album thành công'
       };
     } catch (error) {
-      console.error('❌ Update album error - Full error:', error);
-      console.error('❌ Response data:', error.response?.data);
-      console.error('❌ Response status:', error.response?.status);
-      console.error('❌ Error message:', error.message);
       return {
         success: false,
         message: error.response?.data?.message || error.response?.data?.Message || error.message || 'Lỗi cập nhật album',
@@ -185,7 +179,6 @@ const albumService = {
         message: response.data?.message || 'Xóa album thành công'
       };
     } catch (error) {
-      console.error('❌ Delete album error:', error);
       return {
         success: false,
         message: error.response?.data?.message || error.response?.data?.Message || 'Lỗi xóa album'

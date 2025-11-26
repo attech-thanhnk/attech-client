@@ -8,6 +8,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  resetPassword,
   getRoleText as getServiceRoleText,
 } from "../../services/userService";
 import { getRoles } from "../../services/roleService";
@@ -38,6 +39,9 @@ const UserManagement = () => {
   const [editMode, setEditMode] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
+  const [resetPasswordUser, setResetPasswordUser] = useState(null);
+  const [newPassword, setNewPassword] = useState("");
   const [toast, setToast] = useState({
     show: false,
     message: "",
@@ -283,6 +287,40 @@ const UserManagement = () => {
       } catch (error) {
         showToast(error.message || "Không thể xóa người dùng", "error");
       }
+    }
+  };
+
+  const handleResetPassword = (user) => {
+    const permissions = canModifyUser(currentUser, user);
+    if (!permissions.canEdit) {
+      showToast("Bạn không có quyền đặt lại mật khẩu người dùng này", "error");
+      return;
+    }
+
+    setResetPasswordUser(user);
+    setNewPassword("");
+    setShowResetPasswordModal(true);
+  };
+
+  const handleSubmitResetPassword = async () => {
+    if (!newPassword || newPassword.length < 6) {
+      showToast("Mật khẩu phải có ít nhất 6 ký tự", "error");
+      return;
+    }
+
+    try {
+      const response = await resetPassword(resetPasswordUser.id, newPassword);
+
+      if (response.status === 1) {
+        showToast(`Đặt lại mật khẩu cho "${resetPasswordUser.fullName}" thành công`, "success");
+        setShowResetPasswordModal(false);
+        setResetPasswordUser(null);
+        setNewPassword("");
+      } else {
+        throw new Error(response.message || "Đặt lại mật khẩu thất bại");
+      }
+    } catch (error) {
+      showToast(error.message || "Không thể đặt lại mật khẩu", "error");
     }
   };
 
@@ -560,6 +598,12 @@ const UserManagement = () => {
               condition: (row) => canModifyUser(currentUser, row).canEdit,
             },
             {
+              label: "Đặt lại MK",
+              onClick: handleResetPassword,
+              className: "admin-btn admin-btn-xs admin-btn-warning",
+              condition: (row) => canModifyUser(currentUser, row).canEdit,
+            },
+            {
               label: "Xóa",
               onClick: handleDelete,
               className: "admin-btn admin-btn-xs admin-btn-danger",
@@ -772,6 +816,45 @@ const UserManagement = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </FormModal>
+
+        {/* Reset Password Modal */}
+        <FormModal
+          show={showResetPasswordModal}
+          onClose={() => {
+            setShowResetPasswordModal(false);
+            setResetPasswordUser(null);
+            setNewPassword("");
+          }}
+          onSubmit={handleSubmitResetPassword}
+          title={`Đặt lại mật khẩu - ${resetPasswordUser?.fullName || ""}`}
+          size="sm"
+          submitText="Đặt lại mật khẩu"
+          loading={false}
+        >
+          <div className="reset-password-form">
+            <div className="alert alert-warning" style={{ fontSize: "0.9rem", padding: "0.75rem" }}>
+              <i className="bi bi-exclamation-triangle"></i> Bạn đang đặt lại mật khẩu cho người dùng <strong>{resetPasswordUser?.username}</strong>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">
+                <i className="bi bi-shield-lock"></i>
+                Mật khẩu mới <span className="required">*</span>
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)"
+                autoFocus
+              />
+              <small className="form-text text-muted">
+                Mật khẩu phải có ít nhất 6 ký tự
+              </small>
             </div>
           </div>
         </FormModal>

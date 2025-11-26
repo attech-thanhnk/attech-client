@@ -91,8 +91,6 @@ const StaticContentList = () => {
   );
 
   // Check permission - Editor and above can manage static content
-  console.log('🔐 StaticContentList - Current user:', currentUser);
-  console.log('🔐 Required roleId:', '<=', ROLES.EDITOR);
   if (!currentUser || currentUser.roleId > ROLES.EDITOR) {
     return (
       <PageWrapper>

@@ -279,7 +279,7 @@ const ContactPage = () => {
                   {isSubmitting ? (
                     <>
                       <i className="fas fa-spinner fa-spin"></i>{" "}
-                      {t("frontend.contact.form.submitting") || "Đang gửi..."}
+                      {t("frontend.contact.form.submitButton") || "Đang gửi..."}
                     </>
                   ) : (
                     t("frontend.contact.form.submitButton")

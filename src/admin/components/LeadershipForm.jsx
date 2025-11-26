@@ -31,7 +31,6 @@ const LeadershipForm = ({ content, onSuccess, onCancel }) => {
             const parsedData = JSON.parse(data.vi);
             setLeadershipData(parsedData);
           } catch (e) {
-            console.log("No existing data, using defaults");
           }
         }
       } catch (error) {

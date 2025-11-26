@@ -17,16 +17,12 @@ const StaticContentForm = ({ content, onSuccess, onCancel }) => {
     const loadContent = async () => {
       try {
         setLoadingInitial(true);
-        console.log('[StaticContentForm] Loading content for:', content.translationKey);
         const data = await staticContentService.getContent(
           content.translationKey
         );
-        console.log('[StaticContentForm] Received data:', data);
         setContentVi(data.vi || "");
         setContentEn(data.en || "");
-        console.log('[StaticContentForm] State updated - Vi length:', data.vi?.length, 'En length:', data.en?.length);
       } catch (error) {
-        console.error('[StaticContentForm] Load error:', error);
         showToast("Lỗi tải nội dung", "error");
       } finally {
         setLoadingInitial(false);

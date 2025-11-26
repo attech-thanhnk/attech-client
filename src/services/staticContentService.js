@@ -19,25 +19,20 @@ const staticContentService = {
    */
   getContent: async (translationKey) => {
     try {
-      console.log('[staticContentService.getContent] Looking for key:', translationKey);
       // Use existing languageContentService to find by key
       const translation = await getTranslationByKey(translationKey);
-      console.log('[staticContentService.getContent] Found translation:', translation);
 
       if (translation) {
         const result = {
           vi: translation.valueVi || '',
           en: translation.valueEn || ''
         };
-        console.log('[staticContentService.getContent] Returning:', result);
         return result;
       }
 
       // If key doesn't exist yet, return empty strings
-      console.log('[staticContentService.getContent] Key not found, returning empty');
       return { vi: '', en: '' };
     } catch (error) {
-      console.error('[staticContentService.getContent] Error:', error);
       return { vi: '', en: '' };
     }
   },
@@ -78,7 +73,6 @@ const staticContentService = {
         message: 'Cập nhật nội dung thành công'
       };
     } catch (error) {
-      console.error('Error updating static content:', error);
       throw new Error(error.response?.data?.message || 'Lỗi cập nhật nội dung');
     }
   },

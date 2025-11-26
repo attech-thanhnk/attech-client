@@ -42,7 +42,6 @@ class ApiBackend {
         }
       }
     } catch (error) {
-      console.error('[i18n] Error reading cache:', error);
     }
 
     // Deep merge cached translations with fallback
@@ -79,7 +78,6 @@ class ApiBackend {
             localStorage.setItem(cacheKey, JSON.stringify(translations));
             localStorage.setItem(timestampKey, Date.now().toString());
           } catch (error) {
-            console.error('[i18n] Failed to save to localStorage:', error);
           }
 
           // Update translations in i18n - deep merge is true, overwrite is true
@@ -98,7 +96,6 @@ class ApiBackend {
         }
       })
       .catch((error) => {
-        console.error('[i18n] Failed to fetch translations from API:', error);
       });
   }
 }

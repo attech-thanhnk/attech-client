@@ -142,20 +142,15 @@ const AlbumList = () => {
 
     try {
       // Load full album details with attachments
-      console.log('🔧 Loading album for edit:', item.id);
       const response = await albumService.getAlbumById(item.id);
-      console.log('🔧 API response:', response);
 
       if (response.success) {
-        console.log('✅ Setting editingItem:', response.data);
         setEditingItem(response.data);
       } else {
-        console.error('❌ API failed, using fallback:', item);
         setEditingItem(item); // Fallback to basic item data
         showToast("Lỗi tải chi tiết album để chỉnh sửa", "error");
       }
     } catch (error) {
-      console.error('❌ Exception:', error);
       setEditingItem(item); // Fallback to basic item data
       showToast("Lỗi tải album để chỉnh sửa", "error");
     }

@@ -223,6 +223,23 @@ export const deleteUser = async (id) => {
   }
 };
 
+/**
+ * Reset mật khẩu User (Admin only)
+ * @param {number} userId - User ID
+ * @param {string} newPassword - Mật khẩu mới (min 6 chars)
+ * @returns {Promise<Object>} Response data
+ */
+export const resetPassword = async (userId, newPassword) => {
+  try {
+    const response = await api.put(`/api/user/${userId}/reset-password`, {
+      newPassword: newPassword
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // ==================== Role Management ====================
 
 /**
@@ -463,6 +480,7 @@ export default {
   createUser,
   updateUser,
   deleteUser,
+  resetPassword,
   addRoleToUser,
   removeRoleFromUser,
   validateUserData,

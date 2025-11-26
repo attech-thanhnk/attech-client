@@ -4,7 +4,6 @@
  */
 
 export const clearI18nCache = () => {
-  console.log('[clearI18nCache] Starting cache clear...');
 
   // Clear all i18n related localStorage items
   const keysToRemove = [];
@@ -17,11 +16,9 @@ export const clearI18nCache = () => {
   }
 
   keysToRemove.forEach(key => {
-    console.log(`[clearI18nCache] Removing: ${key}`);
     localStorage.removeItem(key);
   });
 
-  console.log(`[clearI18nCache] Cleared ${keysToRemove.length} cache entries`);
 
   return keysToRemove.length;
 };
@@ -30,7 +27,6 @@ export const clearI18nCache = () => {
  * Check current cache status
  */
 export const checkI18nCache = () => {
-  console.log('[checkI18nCache] Current i18n cache:');
 
   const cacheInfo = {
     vi: {},
@@ -70,7 +66,6 @@ export const checkI18nCache = () => {
     }
   });
 
-  console.log('Cache Info:', cacheInfo);
   return cacheInfo;
 };
 
@@ -78,7 +73,6 @@ export const checkI18nCache = () => {
  * Force reload translations from API
  */
 export const forceReloadTranslations = async () => {
-  console.log('[forceReloadTranslations] Force reloading...');
 
   // Clear cache first
   clearI18nCache();

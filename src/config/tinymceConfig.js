@@ -202,7 +202,6 @@ export const tinymceConfig = {
                   editor.insertContent(`<img src="${url}" alt="Pasted image" />`);
                 },
                 (err) => {
-                  console.error('Paste image upload failed:', err);
                   alert('Không thể upload ảnh: ' + err);
                 }
               );

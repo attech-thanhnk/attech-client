@@ -197,6 +197,12 @@ const ProductDetail = () => {
             {product.displayDescription && (
               <p className="product-detail-desc">{product.displayDescription}</p>
             )}
+            <div className="product-action-buttons">
+              <LocalizedLink routeKey="CONTACT" className="product-contact-btn">
+                <i className="fas fa-envelope"></i>{" "}
+                {currentLanguage === "vi" ? "Liên hệ để lấy báo giá" : "Contact us"}
+              </LocalizedLink>
+            </div>
           </div>
         </div>
 
