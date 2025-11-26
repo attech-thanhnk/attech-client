@@ -58,12 +58,16 @@ export const getMenuPath = (menuItem, language = "vi") => {
 
   // Add .html only for actual detail/item pages, not category pages
   if (menuItem.menuType === "item") {
-    // Check if it's a detail item that needs .html
+    // Check if it's a detail item that needs .html (both Vietnamese and English)
     const needsHtml = [
       "/san-pham/",
-      "/dich-vu/", 
+      "/dich-vu/",
       "/tin-tuc/",
       "/thong-bao/",
+      "/en/products/",
+      "/en/services/",
+      "/en/news/",
+      "/en/notifications/",
     ].some((prefix) => basePath.startsWith(prefix));
 
     if (needsHtml && !basePath.endsWith(".html")) {
