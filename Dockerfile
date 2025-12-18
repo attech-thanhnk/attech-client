@@ -13,7 +13,7 @@ COPY . .
 
 # Build for production
 ARG REACT_APP_API_PROTOCOL=https
-ARG REACT_APP_API_HOST=api.attech.online
+ARG REACT_APP_API_HOST=apibeta.attech.com.vn
 ARG REACT_APP_API_PORT=
 
 ENV REACT_APP_API_PROTOCOL=${REACT_APP_API_PROTOCOL}
