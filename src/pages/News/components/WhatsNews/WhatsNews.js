@@ -84,9 +84,8 @@ const WhatsNews = () => {
   const aviationCategoryName =
     t("frontend.home.newsCategories.aviationNews") ||
     (currentLanguage === "vi"
-      ? aviationCategory?.titleVi
-      : aviationCategory?.titleEn) ||
-    "Tin ngành hàng không";
+      ? aviationCategory?.titleVi || "Tin ngành hàng không"
+      : aviationCategory?.titleEn || "Aviation News");
 
   const aviationSlug =
     currentLanguage === "vi"

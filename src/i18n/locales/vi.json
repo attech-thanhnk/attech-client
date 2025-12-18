@@ -116,7 +116,16 @@
       "submit": "Đăng nhập",
       "success": "Đăng nhập thành công!",
       "error": "Đăng nhập thất bại",
-      "invalid": "Tên đăng nhập hoặc mật khẩu không đúng"
+      "invalid": "Tên đăng nhập hoặc mật khẩu không đúng",
+      "usernameRequired": "Vui lòng nhập tên đăng nhập",
+      "passwordRequired": "Vui lòng nhập mật khẩu",
+      "captchaRequired": "Vui lòng xác nhận bạn không phải là Robot",
+      "usernamePlaceholder": "Nhập tên đăng nhập",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "loggingIn": "Đang đăng nhập...",
+      "backToHome": "Quay về trang chủ",
+      "adminLogin": "Đăng nhập quản trị",
+      "generalError": "Đã xảy ra lỗi. Vui lòng thử lại."
     },
     "register": {
       "title": "Đăng ký",

@@ -116,7 +116,16 @@
       "submit": "Login",
       "success": "Login successful!",
       "error": "Login failed",
-      "invalid": "Invalid username or password"
+      "invalid": "Invalid username or password",
+      "usernameRequired": "Please enter username",
+      "passwordRequired": "Please enter password",
+      "captchaRequired": "Please verify you are not a robot",
+      "usernamePlaceholder": "Enter username",
+      "passwordPlaceholder": "Enter password",
+      "loggingIn": "Logging in...",
+      "backToHome": "Back to home",
+      "adminLogin": "Admin login",
+      "generalError": "An error occurred. Please try again."
     },
     "register": {
       "title": "Register",

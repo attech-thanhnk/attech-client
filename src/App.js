@@ -44,7 +44,7 @@ const AppContent = () => {
       </Routes>
       {!isAdminRoute && !isUserDashboard && (
         <>
-          <ChatWidget />
+          {/* <ChatWidget /> */}
           <BackToTopButton scrollThreshold={300} size={40} />
         </>
       )}

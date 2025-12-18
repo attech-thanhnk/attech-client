@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAuth } from "../../contexts/AuthContext";
 import "./LoginPage.css";
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -30,15 +32,15 @@ const LoginPage = () => {
     const newErrors = {};
 
     if (!credentials.username.trim()) {
-      newErrors.username = "Vui lòng nhập tên đăng nhập";
+      newErrors.username = t("auth.login.usernameRequired");
     }
 
     if (!credentials.password.trim()) {
-      newErrors.password = "Vui lòng nhập mật khẩu";
+      newErrors.password = t("auth.login.passwordRequired");
     }
 
     if (!captchaToken) {
-      newErrors.captcha = "Vui lòng xác nhận bạn không phải là Robot";
+      newErrors.captcha = t("auth.login.captchaRequired");
     }
 
     setErrors(newErrors);
@@ -80,7 +82,7 @@ const LoginPage = () => {
         setCaptchaToken(null);
       }
     } catch (error) {
-      setErrors({ general: "Đã xảy ra lỗi. Vui lòng thử lại." });
+      setErrors({ general: t("auth.login.generalError") });
       // Reset captcha sau khi có lỗi
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
@@ -96,7 +98,7 @@ const LoginPage = () => {
       <div className="login-container">
         <div className="login-card">
           <div className="login-header">
-            <h1>Đăng nhập</h1>
+            <h1>{t("auth.login.title")}</h1>
           </div>
 
           <form className="login-form" onSubmit={handleSubmit}>
@@ -108,7 +110,7 @@ const LoginPage = () => {
             )}
 
             <div className="form-group">
-              <label>Tên đăng nhập</label>
+              <label>{t("auth.login.username")}</label>
               <div className="input-group">
                 <input
                   type="text"
@@ -119,7 +121,7 @@ const LoginPage = () => {
                   className={`form-control ${
                     errors.username ? "is-invalid" : ""
                   }`}
-                  placeholder="Nhập tên đăng nhập"
+                  placeholder={t("auth.login.usernamePlaceholder")}
                   disabled={loading}
                 />
               </div>
@@ -129,7 +131,7 @@ const LoginPage = () => {
             </div>
 
             <div className="form-group">
-              <label>Mật khẩu</label>
+              <label>{t("auth.login.password")}</label>
               <div className="input-group">
                 <input
                   type="password"
@@ -140,7 +142,7 @@ const LoginPage = () => {
                   className={`form-control ${
                     errors.password ? "is-invalid" : ""
                   }`}
-                  placeholder="Nhập mật khẩu"
+                  placeholder={t("auth.login.passwordPlaceholder")}
                   disabled={loading}
                 />
               </div>
@@ -174,12 +176,12 @@ const LoginPage = () => {
                     className="spinner-border spinner-border-sm"
                     role="status"
                   ></span>
-                  <span>Đang đăng nhập...</span>
+                  <span>{t("auth.login.loggingIn")}</span>
                 </>
               ) : (
                 <>
                   <i className="bi bi-box-arrow-in-right"></i>
-                  <span>Đăng nhập</span>
+                  <span>{t("auth.login.submit")}</span>
                 </>
               )}
             </button>
@@ -192,7 +194,7 @@ const LoginPage = () => {
               onClick={() => navigate("/")}
             >
               <i className="bi bi-arrow-left"></i>
-              Quay về trang chủ
+              {t("auth.login.backToHome")}
             </button>
 
             <button
@@ -201,7 +203,7 @@ const LoginPage = () => {
               onClick={() => navigate("/admin-login")}
             >
               <i className="bi bi-shield-check"></i>
-              Đăng nhập quản trị
+              {t("auth.login.adminLogin")}
             </button>
           </div>
         </div>

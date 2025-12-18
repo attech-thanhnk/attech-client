@@ -100,7 +100,10 @@ const Footer = () => {
                 {t("footer.mapTitle")}
               </p>
               <div className="map-wrapper">
-                <MapComponent lat={21.041648} lng={105.880894} zoom={15} height="180px" />
+                <MapComponent
+                  embedUrl="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d782.8291301660657!2d105.88140442103362!3d21.04133157514428!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135a97c7dc6d877%3A0x1a140cbe4ea2cdd!2sCo.%20Management%20Engineering%20Flight!5e0!3m2!1sen!2sus!4v1766057331020!5m2!1sen!2sus"
+                  height="180px"
+                />
               </div>
             </div>
           </div>

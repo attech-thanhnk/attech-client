@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import SidebarService from "../components/SidebarService/SidebarService";
+import React from "react";
 import "../ServicePage/ServicePage.css";
 import { Outlet, useLocation } from "react-router-dom";
 import SEO from "../../../components/SEO/SEO";
 import { useI18n } from "../../../hooks/useI18n";
 
 const Service = () => {
-  const [openSidebar, setOpenSidebar] = useState(false);
   const { currentLanguage } = useI18n();
   const location = useLocation();
 
@@ -39,13 +37,7 @@ const Service = () => {
         lang={currentLanguage}
       />
       <div className="page-service">
-        <SidebarService
-          openSidebar={openSidebar}
-          setOpenSidebar={setOpenSidebar}
-        />
-        <div
-          className={openSidebar ? "service-content resize" : "service-content"}
-        >
+        <div className="service-content">
           <Outlet />
         </div>
       </div>
