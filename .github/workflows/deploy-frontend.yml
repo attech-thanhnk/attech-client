@@ -44,7 +44,7 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             REACT_APP_API_PROTOCOL=https
-            REACT_APP_API_HOST=api.attech.online
+            REACT_APP_API_HOST=apibeta.attech.com.vn
             REACT_APP_API_PORT=
 
       # 5. Deploy lên server qua SSH
