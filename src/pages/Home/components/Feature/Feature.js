@@ -87,7 +87,7 @@ const Feature = () => {
             slug:
               currentLanguage === "vi"
                 ? "bay-kiem-tra-hieu-chuan"
-                : "calibration-service",
+                : "flight-inspection-service",
           }}
           className="feature-link"
         >

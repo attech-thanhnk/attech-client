@@ -201,12 +201,12 @@ const Gallery = () => {
                 {loadingMore ? (
                   <>
                     <i className="fas fa-spinner fa-spin"></i>
-                    Đang tải...
+                    {t('frontend.companyInfo.gallery.loading')}
                   </>
                 ) : (
                   <>
                     <i className="fas fa-chevron-down"></i>
-                    Xem thêm
+                    {t('frontend.companyInfo.gallery.loadMore')}
                   </>
                 )}
               </button>

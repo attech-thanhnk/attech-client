@@ -36,11 +36,11 @@ const SANITIZE_OPTIONS = {
 };
 
 // Enhanced loading component
-const ServiceLoader = () => (
+const ServiceLoader = ({ t }) => (
   <div className="service-loader">
     <div className="loader-container">
       <div className="loader-spinner"></div>
-      <span className="loader-text">Đang tải dịch vụ...</span>
+      <span className="loader-text">{t("frontend.services.loading")}</span>
     </div>
   </div>
 );
@@ -107,7 +107,7 @@ const ServiceDetail = () => {
   }, [serviceSlug, currentLanguage]);
 
   if (loading) {
-    return <ServiceLoader />;
+    return <ServiceLoader t={t} />;
   }
 
   if (error || !service) {
@@ -182,7 +182,7 @@ const ServiceDetail = () => {
 
         {/* Attachments Section - Lazy loaded */}
         {hasAttachments && (
-          <Suspense fallback={<div className="attachments-loader">Đang tải tài liệu...</div>}>
+          <Suspense fallback={<div className="attachments-loader">{t("frontend.services.loadingDocuments")}</div>}>
             <ServiceAttachments
               attachments={service.attachments}
               currentLanguage={currentLanguage}

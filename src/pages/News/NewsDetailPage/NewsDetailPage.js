@@ -467,7 +467,7 @@ const NewsDetailPage = () => {
                       <div className="attachments-section">
                         <h3 className="attachments-title">
                           <i className="bi bi-images"></i>
-                          Hình ảnh đính kèm
+                          {tNews("frontend.news.attachedImages")}
                         </h3>
                         <div className="attachments-gallery">
                           {(showAllImages
@@ -505,10 +505,10 @@ const NewsDetailPage = () => {
                                 }`}
                               ></i>
                               {showAllImages
-                                ? "Ẩn bớt ảnh"
-                                : `Xem thêm ${
-                                    newsItem.attachments.images.length - 6
-                                  } ảnh`}
+                                ? tNews("frontend.news.showLess")
+                                : tNews("frontend.news.showMoreImages", {
+                                    count: newsItem.attachments.images.length - 6
+                                  })}
                             </button>
                           </div>
                         )}
@@ -521,7 +521,7 @@ const NewsDetailPage = () => {
                       <div className="attachments-section">
                         <h3 className="attachments-title">
                           <i className="bi bi-paperclip"></i>
-                          Tài liệu đính kèm
+                          {tNews("frontend.news.attachedDocuments")}
                         </h3>
                         <div className="attachments-list">
                           {newsItem.attachments.documents.map((doc, index) => (
@@ -539,7 +539,7 @@ const NewsDetailPage = () => {
                                 );
                               }}
                               style={{ cursor: "pointer" }}
-                              title="Click để xem tài liệu"
+                              title={tNews("frontend.news.clickToView")}
                             >
                               <div className="attachment-icon">
                                 {doc.contentType?.includes("pdf") ? (

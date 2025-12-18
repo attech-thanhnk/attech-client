@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight, XIcon } from "lucide-react";
 import clientAlbumService from "../../../../services/clientAlbumService";
 import { useI18n } from "../../../../hooks/useI18n";
@@ -47,6 +48,7 @@ const GalleryDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { currentLanguage } = useI18n();
+  const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -218,7 +220,7 @@ const GalleryDetail = () => {
     return (
       <div className="gallery-detail">
         <div className="error-message">
-          <h2>Album không tồn tại</h2>
+          <h2>{t('frontend.companyInfo.gallery.albumNotFound')}</h2>
           <LocalizedLink
             to={
               currentLanguage === "vi"
@@ -228,7 +230,7 @@ const GalleryDetail = () => {
             className="back-link"
             state={{ fromError: true }}
           >
-            Quay lại thư viện
+            {t('frontend.companyInfo.gallery.backToGallery')}
           </LocalizedLink>
         </div>
       </div>
@@ -245,7 +247,7 @@ const GalleryDetail = () => {
               : "/en/company/gallery"
           }
           className="back-button"
-          aria-label="Quay lại thư viện"
+          aria-label={t('frontend.companyInfo.gallery.backToGallery')}
           state={{ fromGalleryDetail: true }}
           onClick={(e) => {
             e.preventDefault();
@@ -253,7 +255,7 @@ const GalleryDetail = () => {
           }}
         >
           <ChevronLeft size={24} />
-          <span>Quay lại thư viện</span>
+          <span>{t('frontend.companyInfo.gallery.backToGallery')}</span>
         </LocalizedLink>
         <h1>{news.title || 'Album Gallery'}</h1>
       </div>
@@ -266,22 +268,22 @@ const GalleryDetail = () => {
           onClick={handleFullscreenClick}
           role="button"
           tabIndex={0}
-          aria-label="Xem ảnh phóng to"
+          aria-label={t('frontend.companyInfo.gallery.viewFullscreen')}
         >
           <button
             className="nav-btn prev"
             onClick={handlePrevious}
-            aria-label="Ảnh trước"
+            aria-label={t('frontend.companyInfo.gallery.previousImage')}
           >
             <ChevronLeft size={20} />
           </button>
-          
-          <img src={selectedImage} alt={news.titleVi} loading="eager" />
-          
+
+          <img src={selectedImage} alt={news.title} loading="eager" />
+
           <button
             className="nav-btn next"
             onClick={handleNext}
-            aria-label="Ảnh tiếp theo"
+            aria-label={t('frontend.companyInfo.gallery.nextImage')}
           >
             <ChevronRight size={20} />
           </button>
@@ -297,9 +299,9 @@ const GalleryDetail = () => {
               selectedImage === image ? "active" : ""
             }`}
             onClick={() => setSelectedImage(image)}
-            aria-label={`Xem ảnh: ${news.titleVi}`}
+            aria-label={`${t('frontend.companyInfo.gallery.viewImage')}: ${news.title}`}
           >
-            <img src={image} alt={news.titleVi} loading="lazy" />
+            <img src={image} alt={news.title} loading="lazy" />
           </button>
         ))}
       </div>
@@ -315,14 +317,14 @@ const GalleryDetail = () => {
           <button
             className="close-btn"
             onClick={handleCloseFullscreen}
-            aria-label="Đóng"
+            aria-label={t('frontend.companyInfo.gallery.close')}
           >
             <XIcon size={24} />
           </button>
           <button
             className="nav-btn prev"
             onClick={handlePrevious}
-            aria-label="Ảnh trước"
+            aria-label={t('frontend.companyInfo.gallery.previousImage')}
           >
             <ChevronLeft size={30} />
           </button>
@@ -330,12 +332,12 @@ const GalleryDetail = () => {
             className="fullscreen-image-container"
             onClick={(e) => e.stopPropagation()}
           >
-            <img src={selectedImage} alt={news.titleVi} loading="eager" />
+            <img src={selectedImage} alt={news.title} loading="eager" />
           </div>
           <button
             className="nav-btn next"
             onClick={handleNext}
-            aria-label="Ảnh tiếp theo"
+            aria-label={t('frontend.companyInfo.gallery.nextImage')}
           >
             <ChevronRight size={30} />
           </button>

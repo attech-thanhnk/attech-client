@@ -314,7 +314,7 @@ const ProductList = () => {
         <div className="spinner-border" role="status">
           <span className="sr-only">Loading...</span>
         </div>
-        <p>Đang tải sản phẩm...</p>
+        <p>{t("frontend.products.loading")}</p>
       </div>
     );
   }

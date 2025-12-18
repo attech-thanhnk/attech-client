@@ -42,16 +42,13 @@ const getProductsWithDynamicImages = (t, currentLanguage, aboutGalleries) => [
     slug:
       currentLanguage === "vi"
         ? "bay-kiem-tra-hieu-chuan"
-        : "calibration-service",
+        : "flight-inspection-service",
   },
   {
     titleKey: "frontend.home.services.industry.title",
     images: aboutGalleries.cnhkImages,
-    routeKey: "SERVICE_DETAIL",
-    slug:
-      currentLanguage === "vi"
-        ? "thu-nghiem-hieu-chuan"
-        : "testing-calibration-service",
+    routeKey: "PRODUCTS",
+    slug: null,
   },
 ];
 

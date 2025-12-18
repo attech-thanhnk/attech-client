@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { getApiBaseUrl } from '../../../../config/apiConfig';
+import { useI18n } from '../../../../hooks/useI18n';
 
 // Utility functions
 const formatFileSize = (bytes) => {
@@ -22,12 +23,12 @@ const getFileTypeDisplay = (contentType) => {
 };
 
 // Image Gallery Component
-const ImageGallery = React.memo(({ images, currentLanguage }) => {
+const ImageGallery = React.memo(({ images, t }) => {
   if (!images?.length) return null;
 
   return (
     <div className="attachment-section">
-      <h4>{currentLanguage === 'vi' ? 'Hình ảnh' : 'Images'}</h4>
+      <h4>{t("frontend.news.attachedImages")}</h4>
       <div className="images-gallery">
         {images.map((image, index) => (
           <div key={image.id} className="gallery-item">
@@ -39,7 +40,7 @@ const ImageGallery = React.memo(({ images, currentLanguage }) => {
               onClick={() => window.open(`${getApiBaseUrl()}${image.url}`, '_blank')}
             />
             <div className="image-caption">
-              <span className="image-title">{image.originalFileName?.split('.')[0] || `Hình ${index + 1}`}</span>
+              <span className="image-title">{image.originalFileName?.split('.')[0] || `Image ${index + 1}`}</span>
             </div>
           </div>
         ))}
@@ -49,12 +50,12 @@ const ImageGallery = React.memo(({ images, currentLanguage }) => {
 });
 
 // Documents List Component
-const DocumentsList = React.memo(({ documents, currentLanguage }) => {
+const DocumentsList = React.memo(({ documents, t }) => {
   if (!documents?.length) return null;
 
   return (
     <div className="attachment-section">
-      <h4>{currentLanguage === 'vi' ? 'Tài liệu' : 'Documents'}</h4>
+      <h4>{t("frontend.services.attachedDocuments")}</h4>
       <div className="documents-list">
         {documents.map((doc, index) => (
           <div key={doc.id} className="document-item">
@@ -93,6 +94,7 @@ const DocumentsList = React.memo(({ documents, currentLanguage }) => {
 
 // Main ServiceAttachments Component
 const ServiceAttachments = ({ attachments, currentLanguage }) => {
+  const { t } = useI18n();
   const { hasImages, hasDocuments } = useMemo(() => ({
     hasImages: attachments?.images?.length > 0,
     hasDocuments: attachments?.documents?.length > 0
@@ -102,10 +104,10 @@ const ServiceAttachments = ({ attachments, currentLanguage }) => {
 
   return (
     <div className="service-attachments">
-      <h3>{currentLanguage === 'vi' ? 'Tài liệu đính kèm' : 'Attachments'}</h3>
+      <h3>{t("frontend.services.attachedDocuments")}</h3>
 
-      <ImageGallery images={attachments.images} currentLanguage={currentLanguage} />
-      <DocumentsList documents={attachments.documents} currentLanguage={currentLanguage} />
+      <ImageGallery images={attachments.images} t={t} />
+      <DocumentsList documents={attachments.documents} t={t} />
     </div>
   );
 };

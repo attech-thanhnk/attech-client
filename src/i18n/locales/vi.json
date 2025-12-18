@@ -279,7 +279,12 @@
       "loading": "Đang tải tin tức...",
       "categoryNotFound": "Không tìm thấy danh mục này!",
       "categoryNotExist": "Danh mục \"{{category}}\" không tồn tại hoặc đã bị xóa.",
-      "noNewsInCategory": "Chưa có tin tức nào trong danh mục này."
+      "noNewsInCategory": "Chưa có tin tức nào trong danh mục này.",
+      "attachedImages": "Hình ảnh đính kèm",
+      "attachedDocuments": "Tài liệu đính kèm",
+      "showLess": "Ẩn bớt ảnh",
+      "showMoreImages": "Xem thêm {{count}} ảnh",
+      "clickToView": "Click để xem tài liệu"
     },
     "notifications": {
       "title": "Thông báo",
@@ -298,7 +303,11 @@
       "backToNotificationsList": "Quay lại danh sách thông báo",
       "relatedNotifications": "Thông báo liên quan",
       "allNotifications": "Tất cả thông báo",
-      "noNotificationsInCategory": "Chưa có thông báo nào trong danh mục này."
+      "noNotificationsInCategory": "Chưa có thông báo nào trong danh mục này.",
+      "attachedImages": "Hình ảnh đính kèm",
+      "attachedDocuments": "Tài liệu đính kèm",
+      "showLess": "Ẩn bớt ảnh",
+      "showMoreImages": "Xem thêm {{count}} ảnh"
     },
     "products": {
       "title": "Sản phẩm",
@@ -311,13 +320,19 @@
       "searchPlaceholder": "Tìm kiếm sản phẩm...",
       "sortByName": "Sắp xếp theo tên",
       "sortByCategory": "Sắp xếp theo danh mục",
-      "noProductsFound": "Không tìm thấy sản phẩm phù hợp"
+      "noProductsFound": "Không tìm thấy sản phẩm phù hợp",
+      "loading": "Đang tải sản phẩm...",
+      "mainImage": "Ảnh chính",
+      "attachedDocuments": "Tài liệu đính kèm"
     },
     "services": {
       "title": "Dịch vụ",
       "our": "Dịch vụ của chúng tôi",
       "viewDetails": "Xem chi tiết",
-      "noServices": "Không có dịch vụ nào."
+      "noServices": "Không có dịch vụ nào.",
+      "loading": "Đang tải dịch vụ...",
+      "loadingDocuments": "Đang tải tài liệu...",
+      "attachedDocuments": "Tài liệu đính kèm"
     },
     "contact": {
       "title": "Trang thông tin liên hệ",
@@ -437,7 +452,16 @@
         "pageTitle": "Thư Viện Ảnh - ATTECH",
         "pageDescription": "Thư viện ảnh",
         "seoTitle": "Thư viện hình ảnh của ATTECH",
-        "seoDescription": "Bộ sưu tập hình ảnh của Công ty TNHH Kỹ thuật Quản lý bay (ATTECH)"
+        "seoDescription": "Bộ sưu tập hình ảnh của Công ty TNHH Kỹ thuật Quản lý bay (ATTECH)",
+        "loading": "Đang tải...",
+        "loadMore": "Xem thêm",
+        "albumNotFound": "Album không tồn tại",
+        "backToGallery": "Quay lại thư viện",
+        "viewFullscreen": "Xem ảnh phóng to",
+        "previousImage": "Ảnh trước",
+        "nextImage": "Ảnh tiếp theo",
+        "viewImage": "Xem ảnh",
+        "close": "Đóng"
       }
     }
   },

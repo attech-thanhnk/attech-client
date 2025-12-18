@@ -423,7 +423,7 @@ const NotificationDetailPage = () => {
                       <div className="attachments-section">
                         <h3 className="attachments-title">
                           <i className="bi bi-images"></i>
-                          Hình ảnh đính kèm
+                          {tNotifications("frontend.notifications.attachedImages")}
                         </h3>
                         <div className="attachments-gallery">
                           {(showAllImages
@@ -461,11 +461,10 @@ const NotificationDetailPage = () => {
                                 }`}
                               ></i>
                               {showAllImages
-                                ? "Ẩn bớt ảnh"
-                                : `Xem thêm ${
-                                    notificationItem.attachments.images.length -
-                                    6
-                                  } ảnh`}
+                                ? tNotifications("frontend.notifications.showLess")
+                                : tNotifications("frontend.notifications.showMoreImages", {
+                                    count: notificationItem.attachments.images.length - 6
+                                  })}
                             </button>
                           </div>
                         )}
@@ -478,7 +477,7 @@ const NotificationDetailPage = () => {
                       <div className="attachments-section">
                         <h3 className="attachments-title">
                           <i className="bi bi-paperclip"></i>
-                          Tài liệu đính kèm
+                          {tNotifications("frontend.notifications.attachedDocuments")}
                         </h3>
                         <div className="attachments-list">
                           {notificationItem.attachments.documents.map(

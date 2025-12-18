@@ -278,7 +278,12 @@
       "loading": "Loading news...",
       "categoryNotFound": "Category not found!",
       "categoryNotExist": "Category \"{{category}}\" does not exist or has been deleted.",
-      "noNewsInCategory": "No news in this category yet."
+      "noNewsInCategory": "No news in this category yet.",
+      "attachedImages": "Attached Images",
+      "attachedDocuments": "Attached Documents",
+      "showLess": "Show less",
+      "showMoreImages": "Show {{count}} more images",
+      "clickToView": "Click to view document"
     },
     "products": {
       "title": "Products",
@@ -291,13 +296,19 @@
       "searchPlaceholder": "Search products...",
       "sortByName": "Sort by Name",
       "sortByCategory": "Sort by Category",
-      "noProductsFound": "No products found"
+      "noProductsFound": "No products found",
+      "loading": "Loading products...",
+      "mainImage": "Main Image",
+      "attachedDocuments": "Attached Documents"
     },
     "services": {
       "title": "Services",
       "our": "Our Services",
       "viewDetails": "View Details",
-      "noServices": "No services available."
+      "noServices": "No services available.",
+      "loading": "Loading service...",
+      "loadingDocuments": "Loading documents...",
+      "attachedDocuments": "Attachments"
     },
     "contact": {
       "title": "Contact Information Page",
@@ -343,7 +354,11 @@
       "backToNotificationsList": "Back to notifications list",
       "relatedNotifications": "Related Notifications",
       "allNotifications": "All Notifications",
-      "noNotificationsInCategory": "No notifications in this category yet."
+      "noNotificationsInCategory": "No notifications in this category yet.",
+      "attachedImages": "Attached Images",
+      "attachedDocuments": "Attached Documents",
+      "showLess": "Show less",
+      "showMoreImages": "Show {{count}} more images"
     },
     "company": {
       "name": "AIR TRAFFIC TECHNICAL COMPANY LIMITED",
@@ -459,7 +474,16 @@
         "pageTitle": "Photo Gallery - ATTECH",
         "pageDescription": "Photo gallery from ATTECH company",
         "seoTitle": "ATTECH Image Gallery",
-        "seoDescription": "Collection of images by Air Traffic Technical Company Limited (ATTECH)"
+        "seoDescription": "Collection of images by Air Traffic Technical Company Limited (ATTECH)",
+        "loading": "Loading...",
+        "loadMore": "Load more",
+        "albumNotFound": "Album not found",
+        "backToGallery": "Back to gallery",
+        "viewFullscreen": "View fullscreen",
+        "previousImage": "Previous image",
+        "nextImage": "Next image",
+        "viewImage": "View image",
+        "close": "Close"
       }
     }
   },

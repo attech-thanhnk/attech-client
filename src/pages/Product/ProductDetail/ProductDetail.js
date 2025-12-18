@@ -83,7 +83,7 @@ const ProductDetail = () => {
       images.push({
         id: 'main',
         url: product.imageUrl.startsWith('http') ? product.imageUrl : product.imageUrl,
-        originalFileName: product.displayTitle + ' - Ảnh chính',
+        originalFileName: product.displayTitle + ' - ' + t("frontend.products.mainImage"),
         fileSize: 0,
         isMainImage: true
       });
@@ -250,7 +250,7 @@ const ProductDetail = () => {
         {/* Attachments Section - Documents Only */}
         {product.attachments && product.attachments.documents?.length > 0 && (
           <div className="product-attachments">
-            <h3>{currentLanguage === 'vi' ? 'Tài liệu đính kèm' : 'Documents'}</h3>
+            <h3>{t("frontend.products.attachedDocuments")}</h3>
 
             {/* Documents List */}
             {product.attachments.documents?.length > 0 && (
