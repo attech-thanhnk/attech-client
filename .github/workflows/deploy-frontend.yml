@@ -75,14 +75,14 @@ jobs:
             docker pull ghcr.io/attech-thanhnk/attech-client:latest
 
             # Restart frontend service with env file
-            docker-compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml up -d frontend
+            docker compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml up -d frontend
 
             # Update nginx config if changed
             git pull
             ./update-nginx.sh || echo "⚠️ Nginx config unchanged"
 
             # Restart proxy to ensure routing is updated
-            docker-compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml restart proxy
+            docker compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml restart proxy
 
             # Health check
             sleep 10
