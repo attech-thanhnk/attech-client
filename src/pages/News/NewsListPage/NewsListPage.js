@@ -6,7 +6,6 @@ import {
   getNewsCategories,
   getNewsByCategory,
   getNewsByCategorySlug,
-  getActivityNews,
   searchNews,
   formatNewsForDisplay,
 } from "../../../services/clientNewsService";
@@ -91,53 +90,33 @@ const NewsListPage = () => {
         let response;
 
         if (searchTerm.trim()) {
-          // Search mode// Check if we're on the special activity news page
-          if (category === "tin-hoat-dong" || category === "activity-news") {
-            // Search within activity categories
-            response = await getActivityNews({
-              pageIndex: currentPage,
-              pageSize: itemsPerPage,
-              search: searchTerm,
-            });
-          } else {
-            // Regular search
-            response = await searchNews(searchTerm, {
-              pageIndex: currentPage,
-              pageSize: itemsPerPage,
-              categoryId: currentCategory?.id,
-            });
-          }} else if (category) {
-          // Check if this is the special activity news page
-          if (category === "tin-hoat-dong" || category === "activity-news") {
-            // Special page: Get news from 4 activity categories
-            response = await getActivityNews({
-              pageIndex: currentPage,
-              pageSize: itemsPerPage,
-            });
-          } else {
-            // Regular category mode - handle both 1-level and 2-level routing
-            // For 2-level: use the actual category slug (final segment)
-            // For 1-level: use the category slug directly
-            const targetSlug = category;
+          // Search mode
+          response = await searchNews(searchTerm, {
+            pageIndex: currentPage,
+            pageSize: itemsPerPage,
+            categoryId: currentCategory?.id,
+          });
+        } else if (category) {
+          // Category mode - use slug to get news
+          const targetSlug = category;
 
-            try {
-              response = await getNewsByCategorySlug(targetSlug, {
+          try {
+            response = await getNewsByCategorySlug(targetSlug, {
+              pageIndex: currentPage,
+              pageSize: itemsPerPage,
+            });
+          } catch (error) {
+            // Fallback to old method if new endpoint fails
+            if (currentCategory) {
+              response = await getNewsByCategory(currentCategory.id, {
                 pageIndex: currentPage,
                 pageSize: itemsPerPage,
               });
-            } catch (error) {
-              // Fallback to old method if new endpoint fails
-              if (currentCategory) {
-                response = await getNewsByCategory(currentCategory.id, {
-                  pageIndex: currentPage,
-                  pageSize: itemsPerPage,
-                });
-              } else {
-                response = await getNews({
-                  pageIndex: currentPage,
-                  pageSize: itemsPerPage,
-                });
-              }
+            } else {
+              response = await getNews({
+                pageIndex: currentPage,
+                pageSize: itemsPerPage,
+              });
             }
           }
         } else {
@@ -170,13 +149,10 @@ const NewsListPage = () => {
   }, [category, searchTerm, currentLanguage]);
 
   // Show category not found only after categories are loaded and category not found
-  // Exception: special activity page doesn't need a category
   if (
     category &&
     categoriesLoaded &&
-    !currentCategory &&
-    category !== "tin-hoat-dong" &&
-    category !== "activity-news"
+    !currentCategory
   ) {
     return (
       <div className="news-list-page newslist-minimal">
@@ -195,11 +171,6 @@ const NewsListPage = () => {
 
   const getCategoryTitle = () => {
     if (!category) return t("frontend.news.allNews");
-
-    // Special activity page
-    if (category === "tin-hoat-dong" || category === "activity-news") {
-      return currentLanguage === "vi" ? "Tin hoạt động" : "Activity News";
-    }
 
     return currentCategory
       ? currentLanguage === "vi"

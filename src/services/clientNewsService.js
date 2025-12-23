@@ -430,86 +430,20 @@ export async function searchNews(searchTerm, params = {}) {
   }
 }
 
-// Get news from multiple activity categories (special page)
-export async function getActivityNews(params = {}) {
-  try {
-    const {
-      pageIndex = 1,
-      pageSize = 10,
-      search = "",
-      sortBy = "timePosted",
-      sortDirection = "desc"
-    } = params;
-
-    // Activity category IDs
-    const activityCategories = [
-      CATEGORY_IDS.COMPANY_ACTIVITIES,      // Hoạt động công ty
-      CATEGORY_IDS.COMPANY_PARTY,           // Đảng bộ công ty  
-      CATEGORY_IDS.COMPANY_YOUTH_UNION,     // Đoàn thanh niên công ty
-      CATEGORY_IDS.COMPANY_UNION            // Công đoàn công ty
-    ];
-
-    const queryParams = {
-      pageIndex,
-      pageSize,
-      sortBy,
-      sortDirection,
-      categoryIds: activityCategories.join(',') // Send as comma-separated string
-    };
-
-    // Add optional search
-    if (search) queryParams.search = search;
-
-    const response = await api.get("/api/news/client/find-all", {
-      params: queryParams,
-    });
-
-    if (
-      response.data &&
-      response.data.status === 1 &&
-      response.data.data
-    ) {
-      const dataObj = response.data.data;
-      return {
-        items: dataObj.items || [],
-        totalCount: dataObj.totalItems || dataObj.total || 0,
-        totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
-        pageSize,
-      };
-    }
-
-    return {
-      items: [],
-      totalCount: 0,
-      totalPages: 0,
-      currentPage: pageIndex,
-      pageSize,
-    };
-  } catch (error) {return {
-      items: [],
-      totalCount: 0,
-      totalPages: 0,
-      currentPage: params.pageIndex || 1,
-      pageSize: params.pageSize || 10,
-    };
-  }
-}
-
 // Get image URL from news item
 export function getNewsImageUrl(newsItem) {
   if (!newsItem) return null;
-  
+
   // Try different possible image fields
   const imageUrl = newsItem.ImageUrl || newsItem.imageUrl || newsItem.image;
-  
+
   if (!imageUrl) return null;
-  
+
   // If it's already a full URL, return as is
   if (imageUrl.startsWith('http')) {
     return imageUrl;
   }
-  
+
   // If it's a relative path, add base URL
   const baseUrl = getApiBaseUrl();
   return `${baseUrl}${imageUrl}`;

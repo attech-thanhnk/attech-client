@@ -100,13 +100,13 @@
 }
 
 .logo img {
-  height: 90px;
+  height: 106px;
   width: auto;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar.scrolled .logo img {
-  height: 72px;
+  height: 96px;
 }
 
 .company-name-vi {
