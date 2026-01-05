@@ -66,7 +66,7 @@ const SearchBox = ({
         try {
           setLoading(true);
           const response = await searchNews(inputValue, {
-            pageIndex: 1,
+            pageNumber: 1,
             pageSize: 5
           });
           

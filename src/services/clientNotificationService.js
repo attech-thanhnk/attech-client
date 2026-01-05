@@ -14,7 +14,7 @@ export const NOTIFICATION_CATEGORY_IDS = {
 export async function getNotifications(params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       search = "",
       categoryId = "",
@@ -23,7 +23,7 @@ export async function getNotifications(params = {}) {
     } = params;
 
     const queryParams = {
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -48,7 +48,7 @@ export async function getNotifications(params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -120,7 +120,7 @@ export async function getFeaturedNotifications(limit = 5) {
   try {
     const response = await api.get("/api/notification/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         isOutstanding: true,
         sortBy: "timePosted",
@@ -146,7 +146,7 @@ export async function getLatestNotifications(limit = 10) {
   try {
     const response = await api.get("/api/notification/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         sortBy: "timePosted",
         sortDirection: "desc"
@@ -170,7 +170,7 @@ export async function getLatestNotifications(limit = 10) {
 export async function getNotificationsByCategory(categoryId, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -178,7 +178,7 @@ export async function getNotificationsByCategory(categoryId, params = {}) {
 
     const response = await api.get("/api/notification/client/find-all", {
       params: {
-        pageIndex,
+        pageNumber,
         pageSize,
         categoryId,
         sortBy,
@@ -196,7 +196,7 @@ export async function getNotificationsByCategory(categoryId, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -205,14 +205,14 @@ export async function getNotificationsByCategory(categoryId, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -222,7 +222,7 @@ export async function getNotificationsByCategory(categoryId, params = {}) {
 export async function getNotificationsByCategorySlug(categorySlug, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -230,7 +230,7 @@ export async function getNotificationsByCategorySlug(categorySlug, params = {}) 
 
     const response = await api.get(`/api/notification/client/category/${categorySlug}`, {
       params: {
-        pageIndex,
+        pageNumber,
         pageSize,
         sortBy,
         sortDirection
@@ -247,7 +247,7 @@ export async function getNotificationsByCategorySlug(categorySlug, params = {}) 
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -256,14 +256,14 @@ export async function getNotificationsByCategorySlug(categorySlug, params = {}) 
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -274,7 +274,7 @@ export async function getRelatedNotifications(notificationId, categoryId, limit 
   try {
     const response = await api.get("/api/notification/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit + 1, // Get one extra to exclude current
         categoryId,
         sortBy: "timePosted",
@@ -304,7 +304,7 @@ export async function getRelatedNotifications(notificationId, categoryId, limit 
 export async function searchNotifications(searchTerm, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       categoryId = "",
       sortBy = "timePosted", 
@@ -313,7 +313,7 @@ export async function searchNotifications(searchTerm, params = {}) {
 
     const queryParams = {
       keyword: searchTerm, // Use keyword parameter for search
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -335,7 +335,7 @@ export async function searchNotifications(searchTerm, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -344,14 +344,14 @@ export async function searchNotifications(searchTerm, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: pageIndex,
+      currentPage: pageNumber,
       pageSize,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }

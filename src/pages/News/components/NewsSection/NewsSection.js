@@ -21,7 +21,7 @@ const NewsSection = () => {
         const [categoriesData, outstandingNewsData] = await Promise.all([
           getNewsCategories(),
           getOutstandingNews({
-            pageIndex: 1,
+            pageNumber: 1,
             pageSize: 7,
             sortBy: "timePosted",
             sortDirection: "desc",

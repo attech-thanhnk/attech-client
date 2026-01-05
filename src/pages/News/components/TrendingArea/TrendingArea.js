@@ -37,14 +37,14 @@ const TrendingArea = () => {
         const [mainNews, rightNews] = await Promise.all([
           // Top + Bottom: 6 tin đầu
           getNewsByCategorySlug(categorySlug, {
-            pageIndex: 1,
+            pageNumber: 1,
             pageSize: 6,
             sortBy: "timePosted",
             sortDirection: "desc",
           }),
           // Right: Lấy hết tin từ trang 2 trở đi
           getNewsByCategorySlug(categorySlug, {
-            pageIndex: 2,
+            pageNumber: 2,
             pageSize: 100,
             sortBy: "timePosted",
             sortDirection: "desc",

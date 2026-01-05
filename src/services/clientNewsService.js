@@ -35,7 +35,7 @@ export const CATEGORY_SLUG_TO_ID = {
 export async function getNews(params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       search = "",
       categoryId = "",
@@ -44,7 +44,7 @@ export async function getNews(params = {}) {
     } = params;
 
     const queryParams = {
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -69,7 +69,7 @@ export async function getNews(params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || 0,
         totalPages: Math.ceil((dataObj.totalItems || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -141,7 +141,7 @@ export async function getFeaturedNews(limit = 5) {
   try {
     const response = await api.get("/api/news/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         isOutstanding: true,
         sortBy: "timePosted",
@@ -166,7 +166,7 @@ export async function getFeaturedNews(limit = 5) {
 export async function getOutstandingNews(params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -174,7 +174,7 @@ export async function getOutstandingNews(params = {}) {
 
     const response = await api.get("/api/news/client/outstanding", {
       params: {
-        pageIndex,
+        pageNumber,
         pageSize,
         sortBy,
         sortDirection
@@ -191,7 +191,7 @@ export async function getOutstandingNews(params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || 0,
         totalPages: Math.ceil((dataObj.totalItems || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -200,7 +200,7 @@ export async function getOutstandingNews(params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: pageIndex,
+      currentPage: pageNumber,
       pageSize,
     };
   } catch (error) {
@@ -208,7 +208,7 @@ export async function getOutstandingNews(params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -219,7 +219,7 @@ export async function getLatestNews(limit = 10) {
   try {
     const response = await api.get("/api/news/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         sortBy: "timePosted",
         sortDirection: "desc"
@@ -243,7 +243,7 @@ export async function getLatestNews(limit = 10) {
 export async function getNewsByCategory(categoryId, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -251,7 +251,7 @@ export async function getNewsByCategory(categoryId, params = {}) {
 
     const response = await api.get("/api/news/client/find-all", {
       params: {
-        pageIndex,
+        pageNumber,
         pageSize,
         categoryId,
         sortBy,
@@ -269,7 +269,7 @@ export async function getNewsByCategory(categoryId, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || 0,
         totalPages: Math.ceil((dataObj.totalItems || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -278,14 +278,14 @@ export async function getNewsByCategory(categoryId, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -295,7 +295,7 @@ export async function getNewsByCategory(categoryId, params = {}) {
 export async function getNewsByCategorySlug(categorySlug, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -303,7 +303,7 @@ export async function getNewsByCategorySlug(categorySlug, params = {}) {
 
     const response = await api.get(`/api/news/client/category/${categorySlug}`, {
       params: {
-        pageIndex,
+        pageNumber,
         pageSize,
         sortBy,
         sortDirection
@@ -320,7 +320,7 @@ export async function getNewsByCategorySlug(categorySlug, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || 0,
         totalPages: Math.ceil((dataObj.totalItems || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -329,14 +329,14 @@ export async function getNewsByCategorySlug(categorySlug, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -347,7 +347,7 @@ export async function getRelatedNews(newsId, categoryId, limit = 5) {
   try {
     const response = await api.get("/api/news/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit + 1, // Get one extra to exclude current
         categoryId,
         sortBy: "timePosted",
@@ -377,7 +377,7 @@ export async function getRelatedNews(newsId, categoryId, limit = 5) {
 export async function searchNews(searchTerm, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       categoryId = "",
       sortBy = "timePosted", 
@@ -386,7 +386,7 @@ export async function searchNews(searchTerm, params = {}) {
 
     const queryParams = {
       keyword: searchTerm, // Use keyword parameter for search
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -408,7 +408,7 @@ export async function searchNews(searchTerm, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || 0,
         totalPages: Math.ceil((dataObj.totalItems || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -417,14 +417,14 @@ export async function searchNews(searchTerm, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: pageIndex,
+      currentPage: pageNumber,
       pageSize,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }

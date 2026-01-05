@@ -32,7 +32,7 @@ const Feature = () => {
         const [categoriesData, newsData] = await Promise.all([
           getNewsCategories(),
           getOutstandingNews({
-            pageIndex: 1,
+            pageNumber: 1,
             pageSize: 10,
             sortBy: "timePosted",
             sortDirection: "desc",

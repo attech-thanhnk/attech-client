@@ -69,7 +69,7 @@ const PartNews = () => {
               // Gọi API lấy tin theo slug của category
               const categorySlug = category.slugVi;
               const categoryNewsData = await getNewsByCategorySlug(categorySlug, {
-                pageIndex: 1,
+                pageNumber: 1,
                 pageSize: 1, // Chỉ cần 1 tin mới nhất
                 sortBy: "timePosted",
                 sortDirection: "desc",

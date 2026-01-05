@@ -6,7 +6,7 @@ import { encodeContentForApi } from "../utils/contentUtils";
 export async function fetchService(pageNumber = 1, pageSize = 10, keyword = "", filters = {}, sortConfig = null) {
   try {
     const params = {
-      pageNumber,  // Changed from pageIndex
+      pageNumber, 
       pageSize,
       keyword      // Added keyword support
     };

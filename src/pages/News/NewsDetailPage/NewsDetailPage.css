@@ -407,7 +407,7 @@
 .news-detail-page .article-description {
   background: #f8fafc;
   border-left: 4px solid #4a90e2;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   margin: 1.5rem 0;
   border-radius: 0 8px 8px 0;
 }
@@ -447,7 +447,7 @@
 .news-detail-page .article-content h6 { font-size: 1rem; }
 
 .news-detail-page .article-content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 1rem;
 }
 
@@ -968,7 +968,7 @@ html {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  margin: 20px 0;
+  margin: 0;
   display: block;
   transition: opacity 0.3s ease;
 }
@@ -1002,7 +1002,7 @@ html {
 
 /* Figure and figcaption improvements */
 .news-detail-page .article-content figure {
-  margin: 1.5rem 0;
+  margin: 0.5rem 0;
   text-align: center;
 }
 
@@ -1010,7 +1010,7 @@ html {
   font-size: 0.9rem;
   color: #666;
   font-style: italic;
-  margin-top: 0.5rem;
+  margin-top: 0;
   padding: 0 1rem;
 }
 
@@ -1074,7 +1074,7 @@ html {
   .news-detail-page .article-content img {
     width: 100% !important;
     height: auto !important;
-    margin: 1rem 0;
+    margin: 0;
   }
 
   /* Table mobile scroll */
@@ -1096,7 +1096,7 @@ html {
   /* Figure mobile adjustments */
   .news-detail-page .article-content figure {
     max-width: 100% !important;
-    margin: 1rem 0 !important;
+    margin: 0 !important;
   }
 
   .news-detail-page .article-content figcaption {
@@ -1150,7 +1150,7 @@ html {
 @media (max-width: 480px) {
   .news-detail-page .article-content {
     font-size: 14px;
-    padding: 0 0.5rem;
+    padding: 0;
   }
 
   .news-detail-page .article-content table {
@@ -1174,7 +1174,7 @@ html {
 
   /* Reduce spacing on very small screens */
   .news-detail-page .article-content p {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
   
   /* Ensure images are responsive on very small screens */

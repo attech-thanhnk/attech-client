@@ -77,7 +77,7 @@ const WeeklyNews = () => {
 
             // Gọi API lấy tin theo slug
             const categoryNewsData = await getNewsByCategorySlug(categorySlug, {
-              pageIndex: 1,
+              pageNumber: 1,
               pageSize: 5, // Lấy 5 tin mới nhất (hiển thị 4, dự phòng 1)
               sortBy: "timePosted",
               sortDirection: "desc",

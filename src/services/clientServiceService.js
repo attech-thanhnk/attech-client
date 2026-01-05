@@ -8,7 +8,7 @@ import { processWysiwygContent } from "../utils/contentUtils";
 export async function getServices(params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       search = "",
       sortBy = "timePosted",
@@ -16,7 +16,7 @@ export async function getServices(params = {}) {
     } = params;
 
     const queryParams = {
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -41,7 +41,7 @@ export async function getServices(params = {}) {
         data: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -51,7 +51,7 @@ export async function getServices(params = {}) {
       data: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: pageIndex,
+      currentPage: pageNumber,
       pageSize,
     };
   } catch (error) {return {
@@ -59,7 +59,7 @@ export async function getServices(params = {}) {
       data: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -108,7 +108,7 @@ export async function getFeaturedServices(limit = 6) {
   try {
     const response = await api.get("/api/service/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         isOutstanding: true,
         sortBy: "timePosted",
@@ -134,7 +134,7 @@ export async function getLatestServices(limit = 10) {
   try {
     const response = await api.get("/api/service/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         sortBy: "timePosted",
         sortDirection: "desc"
@@ -179,7 +179,7 @@ export async function getRelatedServices(serviceId, limit = 4) {
 export async function searchServices(searchTerm, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -187,7 +187,7 @@ export async function searchServices(searchTerm, params = {}) {
 
     const queryParams = {
       search: searchTerm,
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -207,7 +207,7 @@ export async function searchServices(searchTerm, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -216,14 +216,14 @@ export async function searchServices(searchTerm, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -314,7 +314,7 @@ export async function getServiceTags() {
 export async function getServicesByTag(tag, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -322,7 +322,7 @@ export async function getServicesByTag(tag, params = {}) {
 
     const queryParams = {
       tag,
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -342,7 +342,7 @@ export async function getServicesByTag(tag, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -351,14 +351,14 @@ export async function getServicesByTag(tag, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }

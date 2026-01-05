@@ -66,7 +66,7 @@ const NotificationSearchBox = ({
         try {
           setLoading(true);
           const response = await searchNotifications(inputValue, {
-            pageIndex: 1,
+            pageNumber: 1,
             pageSize: 5
           });
           

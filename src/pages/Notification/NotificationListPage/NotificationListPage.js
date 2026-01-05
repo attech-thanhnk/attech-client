@@ -87,7 +87,7 @@ const NotificationListPage = () => {
         if (searchTerm.trim()) {
           // Search mode
           response = await searchNotifications(searchTerm, {
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
             categoryId: currentCategory?.id,
           });
@@ -95,19 +95,19 @@ const NotificationListPage = () => {
           // Category mode - try using the new slug endpoint first
           try {
             response = await getNotificationsByCategorySlug(category, {
-              pageIndex: currentPage,
+              pageNumber: currentPage,
               pageSize: itemsPerPage,
             });
           } catch (error) {
             // Fallback to old method if new endpoint fails
             if (currentCategory) {
               response = await getNotificationsByCategory(currentCategory.id, {
-                pageIndex: currentPage,
+                pageNumber: currentPage,
                 pageSize: itemsPerPage,
               });
             } else {
               response = await getNotifications({
-                pageIndex: currentPage,
+                pageNumber: currentPage,
                 pageSize: itemsPerPage,
               });
             }
@@ -115,7 +115,7 @@ const NotificationListPage = () => {
         } else {
           // All notifications mode
           response = await getNotifications({
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
           });
         }

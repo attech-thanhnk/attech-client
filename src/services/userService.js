@@ -70,8 +70,8 @@ export const getUsers = async (params = {}) => {
   try {
     // Map parameters to match backend PagingRequestBaseDto
     const apiParams = {
-      pageNumber: params.page || params.pageIndex || 1,
-      pageSize: params.size || params.pageSize || 10,
+      pageNumber: params.pageNumber || 1,
+      pageSize: params.pageSize || 10,
       keyword: params.keyword || params.search || params.searchTerm || ''
     };
     

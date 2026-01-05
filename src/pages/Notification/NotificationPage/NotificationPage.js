@@ -26,7 +26,7 @@ const Notification = () => {
         
         // Load all notifications
         const notificationsData = await getNotifications({
-          pageIndex: 1,
+          pageNumber: 1,
           pageSize: 50 // Get enough notifications for all categories
         });
         setNotifications(notificationsData.items || []);

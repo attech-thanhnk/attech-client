@@ -32,7 +32,7 @@ export const PRODUCT_CATEGORY_SLUG_TO_ID = {
 export async function getProducts(params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 50,
       search = "",
       categoryId = "",
@@ -42,7 +42,7 @@ export async function getProducts(params = {}) {
     } = params;
 
     const queryParams = {
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -82,7 +82,7 @@ export async function getProducts(params = {}) {
           items: dataObj.items || [],
           totalItems: dataObj.totalItems || dataObj.total || 0,
           totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / (limit || pageSize)),
-          currentPage: pageIndex,
+          currentPage: pageNumber,
           pageSize: limit || pageSize,
         }
       };
@@ -94,7 +94,7 @@ export async function getProducts(params = {}) {
         items: [],
         totalItems: 0,
         totalPages: 0,
-        currentPage: params.pageIndex || 1,
+        currentPage: params.pageNumber || 1,
         pageSize: params.limit || params.pageSize || 50,
       }
     };
@@ -104,7 +104,7 @@ export async function getProducts(params = {}) {
         items: [],
         totalItems: 0,
         totalPages: 0,
-        currentPage: params.pageIndex || 1,
+        currentPage: params.pageNumber || 1,
         pageSize: params.limit || params.pageSize || 50,
       }
     };
@@ -154,7 +154,7 @@ export async function getFeaturedProducts(limit = 6) {
   try {
     const response = await api.get("/api/product/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         isOutstanding: true,
         sortBy: "timePosted",
@@ -180,7 +180,7 @@ export async function getLatestProducts(limit = 10) {
   try {
     const response = await api.get("/api/product/client/find-all", {
       params: {
-        pageIndex: 1,
+        pageNumber: 1,
         pageSize: limit,
         sortBy: "timePosted",
         sortDirection: "desc"
@@ -224,7 +224,7 @@ export async function getRelatedProducts(productId, categoryId, limit = 4) {
 export async function getProductsByCategory(categoryId, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       search = "",
       sortBy = "timePosted",
@@ -233,7 +233,7 @@ export async function getProductsByCategory(categoryId, params = {}) {
 
     const queryParams = {
       categoryId,
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -255,7 +255,7 @@ export async function getProductsByCategory(categoryId, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -264,14 +264,14 @@ export async function getProductsByCategory(categoryId, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -281,7 +281,7 @@ export async function getProductsByCategory(categoryId, params = {}) {
 export async function getProductsByCategorySlug(categorySlug, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       search = "",
       sortBy = "timePosted",
@@ -289,7 +289,7 @@ export async function getProductsByCategorySlug(categorySlug, params = {}) {
     } = params;
 
     const queryParams = {
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -311,7 +311,7 @@ export async function getProductsByCategorySlug(categorySlug, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -320,14 +320,14 @@ export async function getProductsByCategorySlug(categorySlug, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -337,7 +337,7 @@ export async function getProductsByCategorySlug(categorySlug, params = {}) {
 export async function searchProducts(searchTerm, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       categoryId = "",
       sortBy = "timePosted",
@@ -346,7 +346,7 @@ export async function searchProducts(searchTerm, params = {}) {
 
     const queryParams = {
       search: searchTerm,
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -368,7 +368,7 @@ export async function searchProducts(searchTerm, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -377,14 +377,14 @@ export async function searchProducts(searchTerm, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }
@@ -502,7 +502,7 @@ export async function getProductTags() {
 export async function getProductsByTag(tag, params = {}) {
   try {
     const {
-      pageIndex = 1,
+      pageNumber = 1,
       pageSize = 10,
       sortBy = "timePosted",
       sortDirection = "desc"
@@ -510,7 +510,7 @@ export async function getProductsByTag(tag, params = {}) {
 
     const queryParams = {
       tag,
-      pageIndex,
+      pageNumber,
       pageSize,
       sortBy,
       sortDirection
@@ -530,7 +530,7 @@ export async function getProductsByTag(tag, params = {}) {
         items: dataObj.items || [],
         totalCount: dataObj.totalItems || dataObj.total || 0,
         totalPages: Math.ceil((dataObj.totalItems || dataObj.total || 0) / pageSize),
-        currentPage: pageIndex,
+        currentPage: pageNumber,
         pageSize,
       };
     }
@@ -539,14 +539,14 @@ export async function getProductsByTag(tag, params = {}) {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   } catch (error) {return {
       items: [],
       totalCount: 0,
       totalPages: 0,
-      currentPage: params.pageIndex || 1,
+      currentPage: params.pageNumber || 1,
       pageSize: params.pageSize || 10,
     };
   }

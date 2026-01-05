@@ -6,7 +6,7 @@ const SearchButton = ({
   variant = "default", // "default", "notification"
   className = "",
   style = {},
-  children = "🔍",
+  children = <i className="fas fa-search"></i>,
 }) => {
   // Define color schemes for different variants
   const variants = {

@@ -488,7 +488,7 @@ const NotificationDetailPage = () => {
                                 onClick={() => {
                                   const url = doc.url?.startsWith("http")
                                     ? doc.url
-                                    : `${process.env.REACT_APP_API_URL}${doc.url}`;
+                                    : `${getApiBaseUrl()}${doc.url}`;
                                   window.open(
                                     url,
                                     "_blank",

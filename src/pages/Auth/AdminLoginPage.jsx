@@ -97,10 +97,10 @@ const AdminLoginPage = () => {
         <div className="login-card">
           <div className="login-header">
             <div className="company-logo">
-              <i className="bi bi-shield-check"></i>
+              <i className="bi"></i>
             </div>
             <h1>Đăng nhập quản trị</h1>
-            <p>Admin Panel - Chào mừng quản trị viên</p>
+            <p>Chào mừng quản trị viên</p>
           </div>
 
           <form className="login-form" onSubmit={handleSubmit}>

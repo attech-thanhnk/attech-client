@@ -92,7 +92,7 @@ const NewsListPage = () => {
         if (searchTerm.trim()) {
           // Search mode
           response = await searchNews(searchTerm, {
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
             categoryId: currentCategory?.id,
           });
@@ -102,19 +102,19 @@ const NewsListPage = () => {
 
           try {
             response = await getNewsByCategorySlug(targetSlug, {
-              pageIndex: currentPage,
+              pageNumber: currentPage,
               pageSize: itemsPerPage,
             });
           } catch (error) {
             // Fallback to old method if new endpoint fails
             if (currentCategory) {
               response = await getNewsByCategory(currentCategory.id, {
-                pageIndex: currentPage,
+                pageNumber: currentPage,
                 pageSize: itemsPerPage,
               });
             } else {
               response = await getNews({
-                pageIndex: currentPage,
+                pageNumber: currentPage,
                 pageSize: itemsPerPage,
               });
             }
@@ -122,7 +122,7 @@ const NewsListPage = () => {
         } else {
           // All news mode
           response = await getNews({
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
           });
         }

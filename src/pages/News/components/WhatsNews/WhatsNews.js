@@ -40,7 +40,7 @@ const WhatsNews = () => {
         // Get Aviation News using slug (better approach)
         const aviationSlug = "tin-nganh-hang-khong"; // Vietnamese slug for Aviation News
         const newsResponse = await getNewsByCategorySlug(aviationSlug, {
-          pageIndex: 1,
+          pageNumber: 1,
           pageSize: 10,
           sortBy: "timePosted",
           sortDirection: "desc",

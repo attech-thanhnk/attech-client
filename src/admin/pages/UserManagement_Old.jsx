@@ -160,7 +160,7 @@ const UserManagement = () => {
         const [rolesData, usersData] = await Promise.all([
           getAllRoles(),
           getUsers({
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
             searchTerm: filters.search,
           }),
@@ -388,7 +388,7 @@ const UserManagement = () => {
           });
           // Refresh users list from API
           const usersData = await getUsers({
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
             searchTerm: filters.search,
           });
@@ -416,7 +416,7 @@ const UserManagement = () => {
           });
           // Refresh users list from API
           const usersData = await getUsers({
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
             searchTerm: filters.search,
           });
@@ -471,7 +471,7 @@ const UserManagement = () => {
           });
           // Refresh users list from API
           const usersData = await getUsers({
-            pageIndex: currentPage,
+            pageNumber: currentPage,
             pageSize: itemsPerPage,
             searchTerm: filters.search,
           });
@@ -560,7 +560,7 @@ const UserManagement = () => {
       const [rolesData, usersData] = await Promise.all([
         getAllRoles(),
         getUsers({
-          pageIndex: currentPage,
+          pageNumber: currentPage,
           pageSize: itemsPerPage,
           searchTerm: filters.search,
         }),

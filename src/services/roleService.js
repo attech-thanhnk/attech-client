@@ -3,7 +3,7 @@ import api from "../api";
 export const getAllRoles = async (params = {}) => {
   // Map parameters to match backend PagingRequestBaseDto
   const apiParams = {
-    pageNumber: params.page || params.pageIndex || 1,
+    pageNumber: params.page || params.pageNumber || 1,
     pageSize: params.size || params.pageSize || 100,
     keyword: params.search || params.keyword || ''
   };
