@@ -219,6 +219,59 @@ const NewsDetailPage = () => {
     return isEnglish ? category?.slugEn : category?.slugVi;
   };
 
+  useEffect(() => {
+    if (!newsItem || typeof window === "undefined") {
+      return;
+    }
+
+    const formattedItem = formatNewsForDisplay(newsItem, currentLanguage);
+    const rawImageUrl = formattedItem?.imageUrl || DEFAULT_NEWS_IMAGE;
+    const imageUrl = rawImageUrl?.startsWith("http")
+      ? rawImageUrl
+      : `${window.location.origin}${rawImageUrl}`;
+    const articleUrl = `${window.location.origin}${window.location.pathname}`;
+    const dateValue = newsItem.timePosted
+      ? new Date(newsItem.timePosted).toISOString()
+      : undefined;
+    const titleValue = getTitle() || "";
+    const descriptionValue = getDescription() || "";
+
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      headline: titleValue,
+      description: descriptionValue,
+      image: imageUrl ? [imageUrl] : undefined,
+      datePublished: dateValue,
+      dateModified: dateValue,
+      author: {
+        "@type": "Organization",
+        name: "ATTECH",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "ATTECH",
+        logo: imageUrl
+          ? {
+              "@type": "ImageObject",
+              url: imageUrl,
+            }
+          : undefined,
+      },
+      mainEntityOfPage: articleUrl,
+      inLanguage: currentLanguage === "en" ? "en" : "vi",
+    };
+
+    let script = document.getElementById("structured-data-article");
+    if (!script) {
+      script = document.createElement("script");
+      script.setAttribute("type", "application/ld+json");
+      script.id = "structured-data-article";
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(articleSchema);
+  }, [newsItem, currentLanguage, isEnglish, location.pathname]);
+
   if (!isInitialized || loading) {
     return (
       <div className="news-detail-page">

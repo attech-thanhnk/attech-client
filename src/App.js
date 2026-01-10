@@ -16,6 +16,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { I18nextProvider } from 'react-i18next';
 import i18n, { checkTranslationsVersion } from './i18n';
 import { MAINTENANCE_MODE } from './config/maintenanceConfig';
+import { HelmetProvider } from 'react-helmet-async';
 
 const ScrollToTop = ({ children }) => {
   const location = useLocation();
@@ -91,16 +92,18 @@ const App = () => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <Router>
-        <AuthProvider>
-          <ThemeProvider>
-            <LoadingOverlay isLoading={isLoading} />
-            <ScrollToTop>
-              <AppContent />
-            </ScrollToTop>
-          </ThemeProvider>
-        </AuthProvider>
-      </Router>
+      <HelmetProvider>
+        <Router>
+          <AuthProvider>
+            <ThemeProvider>
+              <LoadingOverlay isLoading={isLoading} />
+              <ScrollToTop>
+                <AppContent />
+              </ScrollToTop>
+            </ThemeProvider>
+          </AuthProvider>
+        </Router>
+      </HelmetProvider>
     </I18nextProvider>
   );
 };

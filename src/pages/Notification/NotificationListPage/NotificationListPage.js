@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 import "./NotificationListPage.css";
 import {
   getNotifications,
@@ -190,8 +191,27 @@ const NotificationListPage = () => {
     );
   }
 
+  // Prepare meta tags for SEO
+  const pageTitle = getCategoryTitle();
+  const pageDescription = currentCategory
+    ? (currentLanguage === "vi"
+        ? `Danh sách thông báo ${currentCategory.titleVi}. Cập nhật thông tin từ ATTECH - Công ty TNHH Kỹ thuật Quản lý bay`
+        : `${currentCategory.titleEn} notifications list. Updates from ATTECH - Air Traffic Technical Co., Ltd`)
+    : (currentLanguage === "vi"
+        ? "Thông báo ATTECH - Cập nhật thông tin mới nhất"
+        : "ATTECH Notifications - Latest updates");
+
   return (
     <div className="notification-list-root notification-list-page notificationlist-minimal">
+      <Helmet>
+        <title>{pageTitle} - ATTECH</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={`${pageTitle} - ATTECH`} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
       <div className="container">
         <h1 className="page-title-minimal">{getCategoryTitle()}</h1>
         <div className="notification-search-container">

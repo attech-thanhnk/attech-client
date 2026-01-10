@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import "./Fact.css";
 import { useBannerSettings } from "../../../../hooks/useBannerSettings";
 
@@ -16,18 +16,19 @@ const Fact = () => {
   return (
     <div className="fact">
       <div className="fact__container">
-        <a href="#" className="fact__banner">
+        <div className="fact__banner" aria-hidden="true">
           <img 
             src={factImageUrl} 
-            alt="Đại hội Đảng"
+            alt="Äáº¡i há»™i Äáº£ng"
             className={`fact__image ${imageLoaded ? 'loaded' : ''}`}
             loading="lazy"
             onLoad={handleImageLoad}
           />
-        </a>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Fact;
+

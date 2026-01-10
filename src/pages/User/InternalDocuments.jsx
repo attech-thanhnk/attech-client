@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getInternalDocumentsByCategory } from "../../services/internalDocumentService";
 import { getApiUrl } from "../../config/apiConfig";
@@ -167,7 +167,26 @@ const InternalDocuments = () => {
                 <>
                   <div className="documents-list">
                     {internalDocs.map((doc) => (
-                      <div key={doc.id} className="document-item">
+                      <div
+                        key={doc.id}
+                        className={`document-item${doc.attachment ? " is-clickable" : ""}`}
+                        role={doc.attachment ? "button" : undefined}
+                        tabIndex={doc.attachment ? 0 : undefined}
+                        onClick={() => {
+                          if (doc.attachment) {
+                            window.open(getApiUrl(doc.attachment.url), "_blank", "noopener,noreferrer");
+                          }
+                        }}
+                        onKeyDown={(event) => {
+                          if (!doc.attachment) {
+                            return;
+                          }
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            window.open(getApiUrl(doc.attachment.url), "_blank", "noopener,noreferrer");
+                          }
+                        }}
+                      >
                         <div className="doc-icon">
                           <i
                             className={`bi ${getDocumentIcon(
@@ -195,28 +214,15 @@ const InternalDocuments = () => {
                         </div>
                         <div className="doc-actions">
                           {doc.attachment && (
-                            <>
-                              <button
-                                className="btn btn-outline-primary btn-sm me-2"
-                                onClick={() =>
-                                  window.open(
-                                    getApiUrl(doc.attachment.url),
-                                    "_blank"
-                                  )
-                                }
-                              >
-                                <i className="bi bi-eye me-1"></i>
-                                Xem
-                              </button>
-                              <a
-                                href={getApiUrl(doc.attachment.url)}
-                                download={doc.attachment.originalFileName}
-                                className="btn btn-outline-success btn-sm"
-                              >
-                                <i className="bi bi-download me-1"></i>
-                                Tải về
-                              </a>
-                            </>
+                            <a
+                              href={getApiUrl(doc.attachment.url)}
+                              download={doc.attachment.originalFileName}
+                              className="btn btn-outline-success btn-sm"
+                              onClick={(event) => event.stopPropagation()}
+                            >
+                              <i className="bi bi-download me-1"></i>
+                              Tải về
+                            </a>
                           )}
                         </div>
                       </div>

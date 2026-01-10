@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import clientDocumentService from "../../../../services/clientDocumentService";
@@ -22,38 +22,41 @@ const FinancialReportRow = ({ item, t, onViewDocument }) => {
         <span className="report-date">{item.date}</span>
       </td>
       <td>
-        <button
-          onClick={handleViewClick}
-          style={{
-            padding: "6px 16px",
-            border: "none",
-            background: "#1976d2",
-            color: "#fff",
-            borderRadius: 4,
-            cursor: "pointer",
-            fontSize: 14,
-            marginRight: 8,
-          }}
-        >
-          <i className="fa fa-eye" style={{ marginRight: 6 }}></i>
-          Xem
-        </button>
-        <button
-          className="btn-download-v1"
-          onClick={handleViewClick}
-          style={{
-            padding: "6px 16px",
-            border: "1px solid #1976d2",
-            background: "#fff",
-            color: "#1976d2",
-            borderRadius: 4,
-            cursor: "pointer",
-            fontSize: 14,
-          }}
-        >
-          <i className="fa fa-download" style={{ marginRight: 6 }}></i>
-          Tải xuống
-        </button>
+        <div className="report-actions">
+          <button
+            className="btn-view-v1"
+            onClick={handleViewClick}
+            style={{
+              padding: "6px 16px",
+              border: "none",
+              background: "#1976d2",
+              color: "#fff",
+              borderRadius: 4,
+              cursor: "pointer",
+              fontSize: 14,
+              marginRight: 8,
+            }}
+          >
+            <i className="fa fa-eye" style={{ marginRight: 6 }}></i>
+            Xem
+          </button>
+          <button
+            className="btn-download-v1"
+            onClick={handleViewClick}
+            style={{
+              padding: "6px 16px",
+              border: "1px solid #1976d2",
+              background: "#fff",
+              color: "#1976d2",
+              borderRadius: 4,
+              cursor: "pointer",
+              fontSize: 14,
+            }}
+          >
+            <i className="fa fa-download" style={{ marginRight: 6 }}></i>
+            T §œi xu ¯`ng
+          </button>
+        </div>
       </td>
     </tr>
   );
@@ -71,11 +74,11 @@ const Financial = () => {
 
   const seoContent = {
     vi: {
-      title: "Thông tin tài chính | ATTECH",
+      title: "ThÃ´ng tin tÃ i chÃ­nh | ATTECH",
       description:
-        "Xem các báo cáo tài chính và thông tin tài chính của ATTECH.",
+        "Xem cÃ¡c bÃ¡o cÃ¡o tÃ i chÃ­nh vÃ  thÃ´ng tin tÃ i chÃ­nh cá»§a ATTECH.",
       keywords:
-        "thông tin tài chính ATTECH, báo cáo tài chính, financial reports",
+        "thÃ´ng tin tÃ i chÃ­nh ATTECH, bÃ¡o cÃ¡o tÃ i chÃ­nh, financial reports",
     },
     en: {
       title: "Financial Information | ATTECH",
@@ -95,23 +98,23 @@ const Financial = () => {
         // Handle multiple files
         if (response.data.documents && response.data.documents.length > 0) {
           if (response.data.documents.length === 1) {
-            // Chỉ 1 file → mở luôn
+            // Chá»‰ 1 file â†’ má»Ÿ luÃ´n
             const file = response.data.documents[0];
             const fullUrl = getApiUrl(file.url);
             window.open(fullUrl, "_blank");
           } else {
-            // Nhiều files → show modal cho user chọn
+            // Nhiá»u files â†’ show modal cho user chá»n
             setSelectedFiles(response.data.documents);
             setShowFileModal(true);
           }
         } else {
-          alert("Tài liệu này chưa có file đính kèm");
+          alert("TÃ i liá»‡u nÃ y chÆ°a cÃ³ file Ä‘Ã­nh kÃ¨m");
         }
       } else {
-        alert("Không thể tải tài liệu");
+        alert("KhÃ´ng thá»ƒ táº£i tÃ i liá»‡u");
       }
     } catch (error) {
-      alert("Có lỗi xảy ra khi tải tài liệu");
+      alert("CÃ³ lá»—i xáº£y ra khi táº£i tÃ i liá»‡u");
     }
   };
 
@@ -139,11 +142,11 @@ const Financial = () => {
           setFinancialReports(transformedReports);
         } else {
           setError(
-            response.message || "Không thể tải dữ liệu báo cáo tài chính"
+            response.message || "KhÃ´ng thá»ƒ táº£i dá»¯ liá»‡u bÃ¡o cÃ¡o tÃ i chÃ­nh"
           );
         }
       } catch (err) {
-        setError("Có lỗi xảy ra khi tải dữ liệu");
+        setError("CÃ³ lá»—i xáº£y ra khi táº£i dá»¯ liá»‡u");
       } finally {
         setLoading(false);
       }
@@ -183,7 +186,7 @@ const Financial = () => {
               className="fa fa-spinner fa-spin"
               style={{ fontSize: 24, color: "#1976d2" }}
             ></i>
-            <p style={{ marginTop: 16, color: "#666" }}>Đang tải dữ liệu...</p>
+            <p style={{ marginTop: 16, color: "#666" }}>Äang táº£i dá»¯ liá»‡u...</p>
           </div>
         </div>
       </>
@@ -319,7 +322,7 @@ const Financial = () => {
               }}
             >
               <h3 style={{ marginTop: 0, marginBottom: 16 }}>
-                Chọn tài liệu để xem
+                Chá»n tÃ i liá»‡u Ä‘á»ƒ xem
               </h3>
               <div>
                 {selectedFiles.map((file, idx) => (
@@ -346,7 +349,7 @@ const Financial = () => {
                         {file.originalFileName}
                       </div>
                       <div style={{ fontSize: 12, color: "#666" }}>
-                        {file.contentType} • {(file.fileSize / 1024).toFixed(0)}{" "}
+                        {file.contentType} â€¢ {(file.fileSize / 1024).toFixed(0)}{" "}
                         KB
                       </div>
                     </div>
@@ -368,7 +371,7 @@ const Financial = () => {
                     cursor: "pointer",
                   }}
                 >
-                  Đóng
+                  ÄÃ³ng
                 </button>
               </div>
             </div>
@@ -380,3 +383,4 @@ const Financial = () => {
 };
 
 export default Financial;
+

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import NotificationSection from "../components/NotificationSection/NotificationSection";
 import { useTranslation } from "react-i18next";
 import { useI18n } from "../../../hooks/useI18n";
@@ -56,9 +57,24 @@ const Notification = () => {
     );
   }
 
+  const pageTitle = currentLanguage === "vi" ? "Thông báo - ATTECH" : "Notifications - ATTECH";
+  const pageDescription = currentLanguage === "vi"
+    ? "Thông báo và thông tin quan trọng từ ATTECH. Công ty TNHH Kỹ thuật Quản lý bay."
+    : "Notifications and important information from ATTECH. Air Traffic Technical Co., Ltd.";
+
   return (
-    <div className="notification">
-      {categoriesInData.length > 0 ? (
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
+      <div className="notification">
+        {categoriesInData.length > 0 ? (
         categoriesInData.map(cat => {
           const filtered = notifications.filter(
             n => n.notificationCategoryId === cat.id &&
@@ -81,7 +97,8 @@ const Notification = () => {
           <p>Không có thông báo nào.</p>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

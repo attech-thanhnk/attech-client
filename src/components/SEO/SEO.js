@@ -77,7 +77,7 @@ const SEO = ({
       "@context": "https://schema.org",
       "@type": "Organization",
       name: "ATTECH - Công ty TNHH Kỹ thuật Quản lý bay",
-      url: "https://attech.com.vn",
+      url: window.location.origin,
       ...(fullImageUrl && { logo: fullImageUrl }),
       description: description,
       contactPoint: {

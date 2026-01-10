@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import "./TrendingArea.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -33,26 +33,17 @@ const TrendingArea = () => {
 
         const categorySlug = currentLanguage === "vi" ? "hoat-dong-cong-ty" : "company-activities";
 
-        // Gọi API 2 lần song song
-        const [mainNews, rightNews] = await Promise.all([
-          // Top + Bottom: 6 tin đầu
-          getNewsByCategorySlug(categorySlug, {
-            pageNumber: 1,
-            pageSize: 6,
-            sortBy: "timePosted",
-            sortDirection: "desc",
-          }),
-          // Right: Lấy hết tin từ trang 2 trở đi
-          getNewsByCategorySlug(categorySlug, {
-            pageNumber: 2,
-            pageSize: 100,
-            sortBy: "timePosted",
-            sortDirection: "desc",
-          }),
-        ]);
+        // Gá»i API 1 láº§n song song
+        const mainNews = await getNewsByCategorySlug(categorySlug, {
+          pageNumber: 1,
+          pageSize: 30,
+          sortBy: "timePosted",
+          sortDirection: "desc",
+        });
 
-        setNewsData(mainNews.items || []);
-        setTrendingRight(rightNews.items || []);
+        const items = mainNews.items || [];
+        setNewsData(items);
+        setTrendingRight(items.slice(9, 21));
       } catch (error) {} finally {
         setLoading(false);
       }
@@ -73,7 +64,7 @@ const TrendingArea = () => {
   };
 
   const trendingTop = newsData.slice(0, 3);
-  const trendingBottom = newsData.slice(3, 6);
+  const trendingBottom = newsData.slice(3, 9);
   return (
     <div className="trending-area">
       <div className="container">
@@ -101,6 +92,7 @@ const TrendingArea = () => {
                   modules={[Autoplay, Navigation]}
                   autoplay={{ delay: 3500, disableOnInteraction: false }}
                   loop={trendingTop.length > 1}
+                  key={`trending-top-${trendingTop.length}`}
                   slidesPerView={1}
                   navigation={true}
                 >
@@ -111,22 +103,28 @@ const TrendingArea = () => {
                     );
                     return (
                       <SwiperSlide key={item.id}>
-                        <div className="trend-top-img">
-                          <img
-                            src={
-                              formattedItem.imageUrl ||
-                              DEFAULT_NEWS_IMAGE
-                            }
-                            alt={formattedItem.title}
-                            title={formattedItem.title}
-                            onError={(e) => {
-                              e.target.src = DEFAULT_NEWS_IMAGE;
-                            }}
-                          />
-                          <div className="trend-top-cap">
-                            <h2>{formattedItem.title}</h2>
+                        <LocalizedLink
+                          to={getNewsLink(item)}
+                          title={formattedItem.title}
+                          className="trend-top-link"
+                        >
+                          <div className="trend-top-img">
+                            <img
+                              src={
+                                formattedItem.imageUrl ||
+                                DEFAULT_NEWS_IMAGE
+                              }
+                              alt={formattedItem.title}
+                              title={formattedItem.title}
+                              onError={(e) => {
+                                e.target.src = DEFAULT_NEWS_IMAGE;
+                              }}
+                            />
+                            <div className="trend-top-cap">
+                              <h2>{formattedItem.title}</h2>
+                            </div>
                           </div>
-                        </div>
+                        </LocalizedLink>
                       </SwiperSlide>
                     );
                   })}
@@ -137,6 +135,9 @@ const TrendingArea = () => {
                   spaceBetween={20}
                   slidesPerView={3}
                   navigation
+                  modules={[Autoplay, Navigation]}
+                  autoplay={{ delay: 4000, disableOnInteraction: false }}
+                  loop={trendingBottom.length > 1}
                   breakpoints={{
                     320: { slidesPerView: 1.1, spaceBetween: 12 },
                     576: { slidesPerView: 2, spaceBetween: 15 },
@@ -190,9 +191,10 @@ const TrendingArea = () => {
                 direction="vertical"
                 spaceBetween={10}
                 slidesPerView={6}
-                autoplay={{ delay: 30000, disableOnInteraction: false }}
-                loop={trendingRight.length > 6}
+                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                loop={trendingRight.length > 1}
                 modules={[Autoplay]}
+                key={`trending-right-${trendingRight.length}`}
                 className="trand-right-swiper"
                 breakpoints={{
                   320: {
@@ -260,3 +262,7 @@ const TrendingArea = () => {
 };
 
 export default TrendingArea;
+
+
+
+

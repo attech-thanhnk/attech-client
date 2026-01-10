@@ -331,6 +331,7 @@
   border: 1px solid #e9ecef;
   border-radius: 8px;
   transition: box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 .document-item:hover {

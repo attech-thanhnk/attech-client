@@ -44,6 +44,13 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.trending-area .trend-top-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
 .trending-area .trend-top-img {
     position: relative;
     width: 100%;
@@ -115,9 +122,13 @@
 }
 
 .trending-area .trend-bottom-cap span {
-    display: inline-block;
+    display: inline-flex;
+    width: fit-content;
     font-size: 13px;
-    color: #6b7280;
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.1);
+    padding: 4px 12px;
+    border-radius: 4px;
     margin-bottom: 8px;
 }
 
@@ -179,8 +190,9 @@
 .trending-area .trand-right-cap span {
     display: inline-block;
     font-size: 13px;
-    padding: 2px 12px;
-    color: #3e7eff;
+    padding: 4px 12px;
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.1);
     margin-bottom: 5px;
     border-radius: 4px;
 }
@@ -237,17 +249,16 @@
     }
 }
 
-.trending-area .trending-main .trending-top .trend-top-img .trend-top-cap span {
-    background: #fff9c6;
-    color: #000;
-    padding: 9px 20px;
-    border-radius: 5px;
-    text-transform: uppercase;
+.trending-area .trending-main .trending-top .trend-top-img .trend-top-cap .trend-date {
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    padding: 4px 12px;
+    border-radius: 4px;
     font-weight: 500;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1;
-    margin-bottom: 19px;
-    display: inline-block
+    margin-bottom: 12px;
+    display: inline-block;
 }
 
 .trending-area .trending-main .trending-top .trend-top-img .trend-top-cap h2 {
@@ -642,14 +653,14 @@
 
 .trending-bottom-swiper .trend-bottom-cap span,
 .trending-bottom-swiper .trend-bottom-cap .color1 {
-    display: inline-block;
-    padding: 2px 5px 2px 5px;
+    display: inline-flex;
+    width: fit-content;
+    padding: 4px 12px;
     font-size: 13px;
-    background: #e1fcff;
-    color: #3e7eff;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
     border-radius: 4px;
     margin-bottom: 4px;
-    max-width: 78px;
 }
 
 .trending-bottom-swiper .trend-bottom-cap h4 {

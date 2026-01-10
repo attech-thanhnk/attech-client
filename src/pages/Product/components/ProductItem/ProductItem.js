@@ -11,15 +11,22 @@ const ProductItem = ({
 
   return (
     <article className={`attech-product-item ${viewMode || 'grid'}`}>
-      <div className="attech-product-image-wrapper">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="attech-product-image"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
+      <LocalizedLink
+        routeKey="PRODUCT_DETAIL"
+        params={{ category: product.categorySlug, slug: product.slug }}
+        className="attech-product-image-link"
+        aria-label={product.fullTitle || product.title}
+      >
+        <div className="attech-product-image-wrapper">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="attech-product-image"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </LocalizedLink>
 
       <div className="attech-product-content">
         <div className="attech-product-category">{product.category}</div>

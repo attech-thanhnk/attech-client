@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 import {
   getNews,
   getNewsCategories,
@@ -199,8 +200,27 @@ const NewsListPage = () => {
     );
   }
 
+  // Prepare meta tags for SEO
+  const pageTitle = getCategoryTitle();
+  const pageDescription = currentCategory
+    ? (currentLanguage === "vi"
+        ? `Danh sách tin tức ${currentCategory.titleVi}. Cập nhật thông tin mới nhất từ ATTECH - Công ty TNHH Kỹ thuật Quản lý bay`
+        : `${currentCategory.titleEn} news list. Latest updates from ATTECH - Air Traffic Technical Co., Ltd`)
+    : (currentLanguage === "vi"
+        ? "Tin tức ATTECH - Cập nhật thông tin mới nhất"
+        : "ATTECH News - Latest updates");
+
   return (
     <div className="news-list-root news-list-page newslist-minimal">
+      <Helmet>
+        <title>{pageTitle} - ATTECH</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={`${pageTitle} - ATTECH`} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
       <div className="container">
         <h1 className="page-title-minimal">{getCategoryTitle()}</h1>
         <div className="search-box-container">

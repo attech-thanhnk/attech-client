@@ -441,7 +441,8 @@
         grid-template-columns: 1fr !important;
         gap: 12px;
         padding: 8px;
-        margin-top: 100px;
+        margin-top: 90px;
+        background-color: #ffffff;
     }
 }
 

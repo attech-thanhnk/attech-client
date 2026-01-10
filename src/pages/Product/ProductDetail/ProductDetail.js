@@ -258,33 +258,33 @@ const ProductDetail = () => {
                 <h4>{currentLanguage === 'vi' ? 'Tài liệu' : 'Documents'}</h4>
                 <div className="documents-list">
                   {product.attachments.documents.map((doc, index) => (
-                    <div key={doc.id} className="document-item">
+                    <div
+                      key={doc.id}
+                      className="document-item"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => {
+                        window.open(`${getApiBaseUrl()}${doc.url}`, "_blank", "noopener,noreferrer");
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          window.open(`${getApiBaseUrl()}${doc.url}`, "_blank", "noopener,noreferrer");
+                        }
+                      }}
+                    >
                       <div className="doc-icon">
                         <i className={`fas ${doc.contentType.includes('pdf') ? 'fa-file-pdf' : 'fa-file'}`}></i>
                       </div>
                       <div className="doc-info">
-                        <a
-                          href={`${getApiBaseUrl()}${doc.url}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="doc-name"
-                        >
+                        <span className="doc-name">
                           {doc.originalFileName}
-                        </a>
+                        </span>
                         <div className="doc-meta">
                           <span className="doc-type">{getFileTypeDisplay(doc.contentType)}</span>
                           <span className="doc-size">{formatFileSize(doc.fileSize)}</span>
                         </div>
                       </div>
-                      <a
-                        href={`${getApiBaseUrl()}${doc.url}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="download-btn"
-                        aria-label={`Download ${doc.originalFileName}`}
-                      >
-                        <i className="fas fa-download"></i>
-                      </a>
                     </div>
                   ))}
                 </div>
@@ -318,7 +318,11 @@ const ProductDetail = () => {
               <i className="fas fa-times"></i>
             </button>
             <img
-              src={`${getApiBaseUrl()}${selectedImage.url}`}
+              src={
+                selectedImage.url?.startsWith("http")
+                  ? selectedImage.url
+                  : `${getApiBaseUrl()}${selectedImage.url}`
+              }
               alt={selectedImage.originalFileName}
               className="image-modal-img"
             />
