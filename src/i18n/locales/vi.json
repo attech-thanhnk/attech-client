@@ -413,9 +413,17 @@
           "date": "Ngày đăng",
           "document": "Tài liệu"
         },
-        "download": "Tải về",
+        "download": "Tải xuống",
+        "view": "Xem",
         "noFile": "Chưa có file",
-        "noReports": "Chưa có báo cáo tài chính nào."
+        "noReports": "Chưa có báo cáo tài chính nào.",
+        "loading": "Đang tải tài liệu",
+        "selectDocument": "Chọn tài liệu để xem",
+        "close": "Đóng",
+        "noAttachment": "Tài liệu này chưa có file đính kèm",
+        "loadError": "Không thể tải tài liệu",
+        "errorLoading": "Có lỗi xảy ra khi tải tài liệu",
+        "loadReportsError": "Không thể tải báo cáo tài chính"
       },
       "structure": {
         "title": "Cơ cấu tổ chức của Công ty TNHH Kỹ thuật Quản lý bay",

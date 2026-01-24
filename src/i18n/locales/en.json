@@ -413,8 +413,16 @@
           "document": "Document"
         },
         "download": "Download",
+        "view": "View",
         "noFile": "No file available",
-        "noReports": "No financial reports available."
+        "noReports": "No financial reports available.",
+        "loading": "Loading documents",
+        "selectDocument": "Select document to view",
+        "close": "Close",
+        "noAttachment": "This document has no attached files",
+        "loadError": "Unable to load document",
+        "errorLoading": "An error occurred while loading document",
+        "loadReportsError": "Unable to load financial reports"
       },
       "structure": {
         "title": "Organizational Structure of Air Traffic Technical Company Limited",

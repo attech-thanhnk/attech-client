@@ -54,7 +54,7 @@ const FinancialReportRow = ({ item, t, onViewDocument }) => {
             }}
           >
             <i className="fa fa-download" style={{ marginRight: 6 }}></i>
-            T §œi xu ¯`ng
+            Tải xuống
           </button>
         </div>
       </td>
@@ -74,11 +74,11 @@ const Financial = () => {
 
   const seoContent = {
     vi: {
-      title: "ThÃ´ng tin tÃ i chÃ­nh | ATTECH",
+      title: "Thông tin tài chính | ATTECH",
       description:
-        "Xem cÃ¡c bÃ¡o cÃ¡o tÃ i chÃ­nh vÃ  thÃ´ng tin tÃ i chÃ­nh cá»§a ATTECH.",
+        "Xem báo cáo tài chính và thông tin tài chính của ATTECH.",
       keywords:
-        "thÃ´ng tin tÃ i chÃ­nh ATTECH, bÃ¡o cÃ¡o tÃ i chÃ­nh, financial reports",
+        "thông tin tài chính ATTECH, báo cáo tài chính, financial reports",
     },
     en: {
       title: "Financial Information | ATTECH",
@@ -98,23 +98,23 @@ const Financial = () => {
         // Handle multiple files
         if (response.data.documents && response.data.documents.length > 0) {
           if (response.data.documents.length === 1) {
-            // Chá»‰ 1 file â†’ má»Ÿ luÃ´n
+            
             const file = response.data.documents[0];
             const fullUrl = getApiUrl(file.url);
             window.open(fullUrl, "_blank");
           } else {
-            // Nhiá»u files â†’ show modal cho user chá»n
+            // Nhiều files → show modal cho user chọn
             setSelectedFiles(response.data.documents);
             setShowFileModal(true);
           }
         } else {
-          alert("TÃ i liá»‡u nÃ y chÆ°a cÃ³ file Ä‘Ã­nh kÃ¨m");
+          alert(t("frontend.companyInfo.financial.noAttachment"));
         }
       } else {
-        alert("KhÃ´ng thá»ƒ táº£i tÃ i liá»‡u");
+        alert(t("frontend.companyInfo.financial.loadError"));
       }
     } catch (error) {
-      alert("CÃ³ lá»—i xáº£y ra khi táº£i tÃ i liá»‡u");
+      alert(t("frontend.companyInfo.financial.errorLoading"));
     }
   };
 
@@ -130,30 +130,30 @@ const Financial = () => {
         if (response.success && response.data && response.data.items) {
           const transformedReports = response.data.items.map((item) => ({
             id: item.id,
-            title: item.titleVi || item.titleEn || item.title,
+            title: currentLanguage === "vi" ? (item.titleVi || item.titleEn || item.title) : (item.titleEn || item.titleVi || item.title),
             description:
-              item.descriptionVi || item.descriptionEn || item.description,
+              currentLanguage === "vi" ? (item.descriptionVi || item.descriptionEn || item.description) : (item.descriptionEn || item.descriptionVi || item.description),
             date: item.timePosted
-              ? new Date(item.timePosted).toLocaleDateString("vi-VN")
+              ? new Date(item.timePosted).toLocaleDateString(currentLanguage === "vi" ? "vi-VN" : "en-US")
               : "",
-            slug: item.slugVi || item.slugEn,
+            slug: currentLanguage === "vi" ? (item.slugVi || item.slugEn) : (item.slugEn || item.slugVi),
             file: null, // Will be loaded when user clicks view/download
           }));
           setFinancialReports(transformedReports);
         } else {
           setError(
-            response.message || "KhÃ´ng thá»ƒ táº£i dá»¯ liá»‡u bÃ¡o cÃ¡o tÃ i chÃ­nh"
+            response.message || t("frontend.companyInfo.financial.loadReportsError")
           );
         }
       } catch (err) {
-        setError("CÃ³ lá»—i xáº£y ra khi táº£i dá»¯ liá»‡u");
+        setError(t("frontend.companyInfo.financial.errorLoading"));
       } finally {
         setLoading(false);
       }
     };
 
     fetchFinancialReports();
-  }, []);
+  }, [currentLanguage, t]);
 
   if (loading) {
     return (
@@ -186,7 +186,7 @@ const Financial = () => {
               className="fa fa-spinner fa-spin"
               style={{ fontSize: 24, color: "#1976d2" }}
             ></i>
-            <p style={{ marginTop: 16, color: "#666" }}>Äang táº£i dá»¯ liá»‡u...</p>
+            <p style={{ marginTop: 16, color: "#666" }}>{t("frontend.companyInfo.financial.loading")}</p>
           </div>
         </div>
       </>
@@ -322,7 +322,7 @@ const Financial = () => {
               }}
             >
               <h3 style={{ marginTop: 0, marginBottom: 16 }}>
-                Chá»n tÃ i liá»‡u Ä‘á»ƒ xem
+                Chọn tài liệu để xem
               </h3>
               <div>
                 {selectedFiles.map((file, idx) => (
@@ -349,7 +349,7 @@ const Financial = () => {
                         {file.originalFileName}
                       </div>
                       <div style={{ fontSize: 12, color: "#666" }}>
-                        {file.contentType} â€¢ {(file.fileSize / 1024).toFixed(0)}{" "}
+                        {file.contentType} • {(file.fileSize / 1024).toFixed(0)}{" "}
                         KB
                       </div>
                     </div>
@@ -371,7 +371,7 @@ const Financial = () => {
                     cursor: "pointer",
                   }}
                 >
-                  ÄÃ³ng
+                  Đóng
                 </button>
               </div>
             </div>
