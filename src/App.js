@@ -13,7 +13,7 @@ import MaintenancePage from "./components/MaintenancePage/MaintenancePage";
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { I18nextProvider } from 'react-i18next';
-import i18n, { checkTranslationsVersion } from './i18n';
+import i18n, { checkTranslationsVersion, getI18nReadyPromise } from './i18n';
 import { MAINTENANCE_MODE } from './config/maintenanceConfig';
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -60,16 +60,19 @@ const App = () => {
   useEffect(() => {
     // Đánh dấu app đã load
     if (!window.__APP_LOADED__) {
-      // Chờ ĐỒNG THỜI: 800ms tối thiểu VÀ i18n API xong
+      // Check and refresh translations if needed
+      // Progressive loading strategy:
+      // Chờ ĐỒNG THỜI: 800ms tối thiểu, i18n check, và i18n background fetch
       // → đảm bảo mọi re-render từ i18n xảy ra khi overlay còn hiện (production fix)
-      const minDelay = new Promise((resolve) =>
-        setTimeout(resolve, 800)
-      );
-      const i18nReady = checkTranslationsVersion().catch(() => { }); // không block nếu lỗi
+      const minDelay = new Promise((resolve) => setTimeout(resolve, 800));
+      const i18nReady = Promise.all([
+        checkTranslationsVersion().catch(() => { }),
+        getI18nReadyPromise(),
+      ]);
 
       Promise.all([minDelay, i18nReady]).then(() => {
         setIsLoading(false);
-        window.__APP_LOADED__ = true;
+        window.__APP_LOADED__ = true; // Đánh dấu đã load
       });
     }
   }, []);

@@ -5,14 +5,30 @@ import { getApiUrl } from '../config/apiConfig';
 /**
  * Custom hook to get banner settings with fallback to default images
  */
-// Cache banners in memory
+// Cache banners in memory (mất khi reload) + localStorage (persist qua reload)
 let cachedBanners = null;
 let cacheTimestamp = null;
 const CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 giờ
+const LS_CACHE_KEY = 'banner_settings_cache';
+
+// Đọc từ localStorage nếu memory cache chưa có
+const initCacheFromStorage = () => {
+  if (cachedBanners) return cachedBanners;
+  try {
+    const stored = JSON.parse(localStorage.getItem(LS_CACHE_KEY));
+    if (stored && Date.now() - stored.timestamp < CACHE_DURATION) {
+      cachedBanners = stored.data;
+      cacheTimestamp = stored.timestamp;
+      return cachedBanners;
+    }
+  } catch { }
+  return null;
+};
 
 export const useBannerSettings = () => {
-  const [bannerSettings, setBannerSettings] = useState(cachedBanners || {});
-  const [loading, setLoading] = useState(!cachedBanners);
+  const initialCache = initCacheFromStorage();
+  const [bannerSettings, setBannerSettings] = useState(initialCache || {});
+  const [loading, setLoading] = useState(!initialCache);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -28,9 +44,13 @@ export const useBannerSettings = () => {
         setLoading(true);
         const data = await getAllBannerSettings();
 
-        // Lưu vào cache
+        // Lưu vào memory cache
         cachedBanners = data;
         cacheTimestamp = Date.now();
+        // Lưu vào localStorage để persist qua page reload → tránh flash khi load lại
+        try {
+          localStorage.setItem(LS_CACHE_KEY, JSON.stringify({ data, timestamp: cacheTimestamp }));
+        } catch { }
 
         setBannerSettings(data);
       } catch (err) {

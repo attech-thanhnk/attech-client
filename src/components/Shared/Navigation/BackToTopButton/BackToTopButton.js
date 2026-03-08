@@ -18,8 +18,8 @@ const BackToTopButton = ({
   }, [scrollThreshold]);
 
   const scrollToTop = () => {
-    window.scrollTo({ 
-      top: 0, 
+    window.scrollTo({
+      top: 0,
       behavior: "smooth",
       duration: 500
     });

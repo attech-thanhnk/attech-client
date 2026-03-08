@@ -10,6 +10,10 @@ import {
 import viTranslation from "./locales/vi.json";
 import enTranslation from "./locales/en.json";
 
+// Track background fetch promise để App.js có thể chờ trước khi ẩn overlay
+let _backgroundFetchPromise = Promise.resolve();
+export const getI18nReadyPromise = () => _backgroundFetchPromise;
+
 // API Backend để load translations từ database
 class ApiBackend {
   constructor(services, options = {}) {
@@ -67,47 +71,32 @@ class ApiBackend {
     // Return initial data (fallback + cache if available)
     callback(null, initialData);
 
-    // Then fetch from API to update in background
-    // Load translations for all users, not just authenticated ones
-    fetchTranslationsForI18next(language)
+    // Fetch từ API để cập nhật trong background
+    // Lưu Promise vào biến global để App.js có thể chờ trước khi ẩn overlay
+    _backgroundFetchPromise = fetchTranslationsForI18next(language)
       .then((translations) => {
-        // Only update if we actually got translations
         if (translations && Object.keys(translations).length > 0) {
-          // So sánh với cache hiện tại — nếu giống nhau thì bỏ qua, tránh re-render toàn app
+          // So sánh với cache hiện tại — nếu giống nhau thì bỏ qua, tránh re-render
           const cacheKey = `i18n_${language}_data`;
           try {
             const existing = localStorage.getItem(cacheKey);
             const newJson = JSON.stringify(translations);
             if (existing === newJson) {
-              // Data không thay đổi → không cần emit, tránh layout flash
-              return;
+              return; // Data không thay đổi → skip emit
             }
           } catch (_) { }
 
-          // Store translations and timestamp in localStorage
           try {
             localStorage.setItem(cacheKey, JSON.stringify(translations));
             localStorage.setItem(timestampKey, Date.now().toString());
-          } catch (error) {
-          }
+          } catch (error) { }
 
-          // Update translations in i18n - deep merge is true, overwrite is true
-          i18n.addResourceBundle(
-            language,
-            namespace,
-            translations,
-            true,  // deep merge
-            true   // overwrite existing keys
-          );
-
-          // Force emit events to trigger component re-render
-          // This ensures ALL components using useTranslation will update
+          i18n.addResourceBundle(language, namespace, translations, true, true);
           i18n.emit('languageChanged', language);
           i18n.emit('loaded', { [language]: { [namespace]: translations } });
         }
       })
-      .catch((error) => {
-      });
+      .catch(() => { });
   }
 }
 

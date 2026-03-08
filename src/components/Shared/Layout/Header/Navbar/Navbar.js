@@ -193,9 +193,8 @@ const NavbarTop = ({
                 <div className="mobile-actions">
                   <div className="language-switcher">
                     <button
-                      className={`lang-btn ${
-                        language === "vi" ? "active" : ""
-                      }`}
+                      className={`lang-btn ${language === "vi" ? "active" : ""
+                        }`}
                       onClick={handleLanguageSwitch("vi")}
                       title="Tiếng Việt"
                       aria-pressed={language === "vi"}
@@ -206,9 +205,8 @@ const NavbarTop = ({
                       />
                     </button>
                     <button
-                      className={`lang-btn ${
-                        language === "en" ? "active" : ""
-                      }`}
+                      className={`lang-btn ${language === "en" ? "active" : ""
+                        }`}
                       onClick={handleLanguageSwitch("en")}
                       title="English"
                       aria-pressed={language === "en"}
@@ -324,7 +322,7 @@ const Navbar = () => {
   } = useGlobalSearch();
   const { rawMenuData, loading: menuLoading } = useMenuData(currentLanguage);
   const { getBannerUrl } = useBannerSettings();
-  
+
   // Get logo URL from API, fallback to local if not available
   const logoUrl = getBannerUrl('Logo') || '/assets/images/header/attech-bo-cuc-dau-trang-chu.png';
 
