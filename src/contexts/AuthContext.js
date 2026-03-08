@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }) => {
       try {
         // Validate token with server to get fresh user data
         const response = await api.get('/api/auth/me');
-        
+
         if (response.data.status === 1 && response.data.data) {
           const userData = response.data.data;
           const freshUserData = {
@@ -119,10 +119,23 @@ export const AuthProvider = ({ children }) => {
             status: userData.status || 'active',
             lastLogin: userData.lastLogin
           };
-          // Update with fresh data from server
-          setUser(freshUserData);
-          // Also update localStorage
+          // Luôn update localStorage để giữ data mới nhất từ server
           localStorage.setItem('user_data', JSON.stringify(userData));
+          // Chỉ setUser nếu data thực sự thay đổi → tránh re-render toàn app lần 2
+          // (đây là nguyên nhân gây nhảy layout sau khi LoadingOverlay ẩn)
+          setUser(prev => {
+            if (
+              prev &&
+              prev.id === freshUserData.id &&
+              prev.name === freshUserData.name &&
+              prev.email === freshUserData.email &&
+              prev.roleId === freshUserData.roleId &&
+              prev.status === freshUserData.status
+            ) {
+              return prev; // Trả về cùng object reference → React không re-render
+            }
+            return freshUserData;
+          });
         }
       } catch (error) {
         // API validation failed - but user is already set from localStorage
@@ -142,7 +155,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       setLoading(true);
-      
+
       // Try real API call first
       try {
         const loginData = {
@@ -156,15 +169,15 @@ export const AuthProvider = ({ children }) => {
         }
 
         const response = await api.post('/api/auth/login', loginData);
-        
+
         // Handle API response format: { status: 1, data: { success: true, token: "...", user: {...} } }
         if (response.data.status === 1 && response.data.data && response.data.data.success && response.data.data.token) {
           const { token, user } = response.data.data;
-          
+
           // Store token and user data from backend
           localStorage.setItem('auth_token', token);
           localStorage.setItem('user_data', JSON.stringify(user));
-          
+
           // Use user data from API response
           const userData = {
             id: user.id,
@@ -177,7 +190,7 @@ export const AuthProvider = ({ children }) => {
             status: user.status || 'active',
             lastLogin: user.lastLogin
           };
-          
+
           setUser(userData);
           return { success: true, user: userData };
         } else {
@@ -188,27 +201,27 @@ export const AuthProvider = ({ children }) => {
         if (apiError.code === 'ERR_NETWORK' || apiError.message.includes('Network Error') || apiError.message.includes('ERR_CONNECTION_REFUSED')) {
           throw new Error('Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng hoặc thử lại sau.');
         }
-        
+
         // Check if it's a server error (5xx)
         if (apiError.response?.status >= 500) {
           throw new Error('Máy chủ đang gặp sự cố. Vui lòng thử lại sau.');
         }
-        
+
         // Check if it's an authentication error (401)
         if (apiError.response?.status === 401) {
           throw new Error('Tài khoản không tồn tại hoặc sai mật khẩu');
         }
-        
+
         // For other API errors, show the error message
         if (apiError.response?.data?.message || apiError.response?.data?.Message) {
           const errorMsg = apiError.response.data.message || apiError.response.data.Message;
           throw new Error(errorMsg);
         }
-        
+
         // No fallback - only use real API
         throw new Error('Tài khoản không tồn tại hoặc sai mật khẩu');
       }
-      
+
     } catch (error) {
       return { success: false, error: error.message };
     } finally {

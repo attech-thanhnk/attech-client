@@ -101,38 +101,46 @@ const InternalDocuments = () => {
           <div className="user-header-right">
             <div className="d-flex gap-2 align-items-center">
               <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Nhập từ khóa tìm kiếm..."
-                      value={searchTerm}
-                      onChange={(e) => {
-                        setSearchTerm(e.target.value);
-                        if (e.target.value === "") {
-                          setCurrentPage(1);
-                          fetchDocumentsByCategory(category, 1, "");
-                        }
-                      }}
-                      onKeyPress={(e) => e.key === "Enter" && handleSearch(e)}
-                      style={{ width: "300px" }}
-                    />
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={handleSearch}
-                    >
-                      Tìm kiếm
-                    </button>
-                  </div>
-                </div>
-              </div>
+                type="text"
+                className="form-control"
+                placeholder="Nhập từ khóa tìm kiếm..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  if (e.target.value === "") {
+                    setCurrentPage(1);
+                    fetchDocumentsByCategory(category, 1, "");
+                  }
+                }}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch(e)}
+                style={{ width: "300px" }}
+              />
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSearch}
+              >
+                Tìm kiếm
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="documents-container">
+      <div className="documents-container" style={{ position: 'relative' }}>
+        {/* Spinner overlay — không ẩn content cũ để tránh blink */}
         {loading && (
-          <div className="loading-spinner text-center py-5">
+          <div style={{
+            position: 'absolute', inset: 0,
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(255,255,255,0.75)',
+            zIndex: 10, minHeight: '150px',
+            borderRadius: '8px',
+          }}>
             <div className="spinner-border text-primary" role="status">
               <span className="visually-hidden">Đang tải...</span>
             </div>
-            <p className="mt-3 text-muted">Đang tải tài liệu...</p>
+            <p className="mt-2 text-muted" style={{ fontSize: '0.9rem' }}>Đang tải tài liệu...</p>
           </div>
         )}
 
@@ -149,7 +157,7 @@ const InternalDocuments = () => {
           </div>
         )}
 
-        {!loading && !error && (
+        {!error && (
           <>
             <div className="recent-documents">
               <div className="section-header">
@@ -236,9 +244,8 @@ const InternalDocuments = () => {
                     <nav className="d-flex justify-content-center mt-4">
                       <ul className="pagination pagination-sm">
                         <li
-                          className={`page-item ${
-                            currentPage === 1 ? "disabled" : ""
-                          }`}
+                          className={`page-item ${currentPage === 1 ? "disabled" : ""
+                            }`}
                         >
                           <button
                             className="page-link"
@@ -255,9 +262,8 @@ const InternalDocuments = () => {
                         ).map((page) => (
                           <li
                             key={page}
-                            className={`page-item ${
-                              currentPage === page ? "active" : ""
-                            }`}
+                            className={`page-item ${currentPage === page ? "active" : ""
+                              }`}
                           >
                             <button
                               className="page-link"
@@ -269,9 +275,8 @@ const InternalDocuments = () => {
                         ))}
 
                         <li
-                          className={`page-item ${
-                            currentPage === totalPages ? "disabled" : ""
-                          }`}
+                          className={`page-item ${currentPage === totalPages ? "disabled" : ""
+                            }`}
                         >
                           <button
                             className="page-link"
