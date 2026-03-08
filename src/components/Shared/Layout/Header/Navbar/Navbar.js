@@ -304,14 +304,16 @@ const NavbarBottom = ({
 );
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
   const location = useLocation();
   const isHomePage =
     location.pathname === "/" ||
     location.pathname === "/en" ||
     location.pathname === "/en/";
+
+  // Initialize scrolled based on page - prevents jump on load
+  const [scrolled, setScrolled] = useState(() => !isHomePage || window.scrollY > SCROLL_THRESHOLD);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobile = useIsMobile(MOBILE_BREAKPOINT);
   const { currentLanguage, changeLanguage } = useI18n();
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { user } = useAuth();
