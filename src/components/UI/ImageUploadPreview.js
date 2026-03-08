@@ -41,7 +41,7 @@ const ImageUploadPreview = ({
       return;
     }
     
-    // ✅ Clean up previous blob URL trước khi tạo mới
+    //  Clean up previous blob URL trước khi tạo mới
     if (previewUrl && previewUrl.startsWith('blob:')) {
       URL.revokeObjectURL(previewUrl);
     }
@@ -58,7 +58,7 @@ const ImageUploadPreview = ({
     
     // Update value trong parent - CHỈ pass file name, KHÔNG pass blob URL
     if (onChange) {
-      onChange(`blob_${file.name}`); // ✅ Safe identifier thay vì blob URL
+      onChange(`blob_${file.name}`); //  Safe identifier thay vì blob URL
     }
   };
   
@@ -99,7 +99,7 @@ const ImageUploadPreview = ({
         URL.revokeObjectURL(previewUrl);
       }
     };
-  }, []); // ✅ Empty dependency để chỉ chạy khi unmount
+  }, []); //  Empty dependency để chỉ chạy khi unmount
   
   return (
     <div className="image-upload-preview-component">

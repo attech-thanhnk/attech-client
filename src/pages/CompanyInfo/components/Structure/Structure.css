@@ -9,7 +9,7 @@
   box-shadow: none;
   max-width: none;
   margin: 0;
-  padding: 32px 8vw 40px 8vw;
+  padding: 24px 8vw 40px 8vw;
 }
 
 .structure h2 {
@@ -55,14 +55,22 @@
   padding: 0;
   overflow-x: hidden;
 }
+@media (max-width: 1024px) {
+  .structure h2 {
+    font-size: 24px;
+  }
+  .structure {
+    padding: 16px;
+  }
+}
 
 @media (max-width: 600px) {
   .structure {
     padding: 10px 2vw;
   }
   .structure h2 {
-    font-size: 18px;
-    margin-bottom: 12px;
+    font-size: 24px;
+    margin: 0 8px 16px 8px;
   }
   .structure-description {
     font-size: 14px;

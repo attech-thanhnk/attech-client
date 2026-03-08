@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import PageWrapper from "../components/PageWrapper";
 import FormModal from "../components/FormModal";
@@ -18,6 +18,9 @@ import { getApiUrl } from "../../config/apiConfig";
 
 const DocumentsList = () => {
   const { user: currentUser, ROLES } = useAuth();
+
+  // Track initial load
+  const isInitialMount = useRef(true);
 
   // Data state
   const [documents, setDocuments] = useState([]);
@@ -64,20 +67,14 @@ const DocumentsList = () => {
     if (filters.search !== searchDebounce) {
       setIsSearching(true);
     }
-    
+
     const timer = setTimeout(() => {
       setSearchDebounce(filters.search);
       setIsSearching(false);
-    }, 3000);
+    }, 500);
 
     return () => clearTimeout(timer);
-  }, [filters.search]);
-
-  // Load data on mount and when pagination/filters/sorting change
-  useEffect(() => {
-    const isInitialLoad = documents.length === 0 && !loading && !isFiltering;
-    loadDocuments(isInitialLoad);
-  }, [currentPage, itemsPerPage, searchDebounce, filters.status, filters.dateFrom, filters.dateTo, filters.isOutstanding, sortConfig]);
+  }, [filters.search, searchDebounce]);
 
   const showToast = useCallback((message, type = "info") => {
     setToast({ show: true, message, type });
@@ -103,18 +100,25 @@ const DocumentsList = () => {
         isOutstanding: filters.isOutstanding,
         sortBy: sortConfig.key,
         sortDirection: sortConfig.direction,
-      };const response = await documentService.fetchDocuments(params);if (response.success) {
+      };
+
+      const response = await documentService.fetchDocuments(params);
+
+      if (response.success) {
         let documentsData = Array.isArray(response.data.items) ? response.data.items : [];
 
         // Update pagination info from server response
         setTotalItems(response.data.totalItems || 0);
-        setTotalPages(Math.ceil((response.data.totalItems || 0) / itemsPerPage));setDocuments(documentsData);
-      } else {setDocuments([]);
+        setTotalPages(Math.ceil((response.data.totalItems || 0) / itemsPerPage));
+        setDocuments(documentsData);
+      } else {
+        setDocuments([]);
         setTotalItems(0);
         setTotalPages(0);
         showToast("Lỗi tải danh sách tài liệu", "error");
       }
-    } catch (error) {setDocuments([]);
+    } catch (error) {
+      setDocuments([]);
       setTotalItems(0);
       setTotalPages(0);
       showToast("Lỗi tải danh sách tài liệu: " + error.message, "error");
@@ -123,6 +127,15 @@ const DocumentsList = () => {
       setIsFiltering(false);
     }
   }, [currentPage, itemsPerPage, searchDebounce, filters, sortConfig, showToast]);
+
+  // Load data on mount and when pagination/filters/sorting change
+  useEffect(() => {
+    const isInitialLoad = isInitialMount.current;
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    }
+    loadDocuments(isInitialLoad);
+  }, [currentPage, itemsPerPage, searchDebounce, filters.status, filters.dateFrom, filters.dateTo, filters.isOutstanding, sortConfig, loadDocuments]);
 
   // Handlers
   const handleAdd = () => {
@@ -173,7 +186,8 @@ const DocumentsList = () => {
       } else {
         showToast("Thêm tài liệu thành công!", "success");
       }
-    } catch (error) {showToast("Có lỗi xảy ra khi tải lại dữ liệu", "error");
+    } catch (error) {
+      showToast("Có lỗi xảy ra khi tải lại dữ liệu", "error");
     }
 
     setShowModal(false);
@@ -196,7 +210,8 @@ const DocumentsList = () => {
       } else {
         throw new Error('Failed to load document detail');
       }
-    } catch (error) {showToast("Lỗi khi xem chi tiết tài liệu: " + error.message, "error");
+    } catch (error) {
+      showToast("Lỗi khi xem chi tiết tài liệu: " + error.message, "error");
     }
   };
 
@@ -292,15 +307,6 @@ const DocumentsList = () => {
       icon: "bi bi-trash",
     },
   ];
-
-  // Helper function to format file size
-  const formatFileSize = (bytes) => {
-    if (!bytes) return "0 B";
-    const k = 1024;
-    const sizes = ["B", "KB", "MB", "GB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
-  };
 
   // Page Actions for the sticky action bar
   const pageActions = (

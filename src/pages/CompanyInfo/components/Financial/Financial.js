@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import clientDocumentService from "../../../../services/clientDocumentService";
@@ -7,7 +7,7 @@ import "./Financial.css";
 import SEO from "../../../../components/SEO/SEO";
 import { useI18n } from "../../../../hooks/useI18n";
 
-const FinancialReportRow = ({ item, t, onViewDocument }) => {
+const DocumentRow = ({ item, t, onViewDocument }) => {
   const handleViewClick = async () => {
     await onViewDocument(item.slug);
   };
@@ -38,13 +38,13 @@ const FinancialReportRow = ({ item, t, onViewDocument }) => {
             }}
           >
             <i className="fa fa-eye" style={{ marginRight: 6 }}></i>
-            Xem
+            {t("frontend.companyInfo.financial.view")}
           </button>
           <button
             className="btn-download-v1"
             onClick={handleViewClick}
             style={{
-              padding: "6px 16px",
+              padding: "6px",
               border: "1px solid #1976d2",
               background: "#fff",
               color: "#1976d2",
@@ -54,7 +54,7 @@ const FinancialReportRow = ({ item, t, onViewDocument }) => {
             }}
           >
             <i className="fa fa-download" style={{ marginRight: 6 }}></i>
-            Tải xuống
+            {t("frontend.companyInfo.financial.download")}
           </button>
         </div>
       </td>
@@ -62,48 +62,81 @@ const FinancialReportRow = ({ item, t, onViewDocument }) => {
   );
 };
 
-const Financial = () => {
+// documentType: "financial" | "other"
+const Financial = ({ documentType = "financial" }) => {
   const { t } = useTranslation();
   const { currentLanguage } = useI18n();
   const location = useLocation();
-  const [financialReports, setFinancialReports] = useState([]);
+  const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showFileModal, setShowFileModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const seoContent = {
-    vi: {
-      title: "Thông tin tài chính | ATTECH",
-      description:
-        "Xem báo cáo tài chính và thông tin tài chính của ATTECH.",
-      keywords:
-        "thông tin tài chính ATTECH, báo cáo tài chính, financial reports",
+  // Config based on documentType
+  const config = {
+    financial: {
+      seo: {
+        vi: {
+          title: "Thông tin tài chính | ATTECH",
+          description: "Xem báo cáo tài chính và thông tin tài chính của Công ty TNHH Kỹ thuật Quản lý bay.",
+          keywords: "thông tin tài chính ATTECH, báo cáo tài chính, financial reports",
+        },
+        en: {
+          title: "Financial Information | ATTECH",
+          description: "View financial reports and information of ATTECH.",
+          keywords: "ATTECH financial information, financial reports, annual reports",
+        },
+      },
+      icon: "fa-bar-chart",
+      title: { vi: "Thông tin tài chính", en: "Financial Information" },
+      desc: { vi: "Báo cáo tài chính và thông tin liên quan", en: "Financial reports and related information" },
+      noData: { vi: "Chưa có báo cáo tài chính", en: "No financial reports available" },
+      url: {
+        vi: "/thong-tin-cong-ty/thong-tin-tai-chinh",
+        en: "/en/company/financial",
+      },
+      fetchService: clientDocumentService.getFinancialDocuments,
     },
-    en: {
-      title: "Financial Information | ATTECH",
-      description: "View financial reports and information of ATTECH.",
-      keywords:
-        "ATTECH financial information, financial reports, annual reports",
+    other: {
+      seo: {
+        vi: {
+          title: "Thông tin khác | ATTECH",
+          description: "Xem các thông tin và tài liệu khác của.",
+          keywords: "thông tin khác ATTECH, tài liệu, documents",
+        },
+        en: {
+          title: "Other Information | ATTECH",
+          description: "View other information and documents.",
+          keywords: "ATTECH other information, documents",
+        },
+      },
+      icon: "fa-file-text",
+      title: { vi: "Thông tin khác", en: "Other Information" },
+      desc: { vi: "Các thông tin và tài liệu khác", en: "View other information and documents" },
+      noData: { vi: "Chưa có tài liệu", en: "No documents available" },
+      url: {
+        vi: "/thong-tin-cong-ty/thong-tin-khac",
+        en: "/en/company/other-info",
+      },
+      fetchService: clientDocumentService.getOtherDocuments,
     },
   };
 
-  const currentSEO = seoContent[currentLanguage] || seoContent.vi;
+  const currentConfig = config[documentType] || config.financial;
+  const currentSEO = currentConfig.seo[currentLanguage] || currentConfig.seo.vi;
 
   const handleViewDocument = async (slug) => {
     try {
       const response = await clientDocumentService.getDocumentBySlug(slug);
 
       if (response.success && response.data) {
-        // Handle multiple files
         if (response.data.documents && response.data.documents.length > 0) {
           if (response.data.documents.length === 1) {
-            
             const file = response.data.documents[0];
             const fullUrl = getApiUrl(file.url);
             window.open(fullUrl, "_blank");
           } else {
-            // Nhiều files → show modal cho user chọn
             setSelectedFiles(response.data.documents);
             setShowFileModal(true);
           }
@@ -119,31 +152,35 @@ const Financial = () => {
   };
 
   useEffect(() => {
-    const fetchFinancialReports = async () => {
+    const fetchDocuments = async () => {
       try {
         setLoading(true);
-        const response = await clientDocumentService.getDocuments({
+        setError(null);
+
+        const response = await currentConfig.fetchService({
+          page: 1,
           pageSize: 50,
-          sortBy: "timePosted",
-          sortDirection: "desc",
         });
+
         if (response.success && response.data && response.data.items) {
-          const transformedReports = response.data.items.map((item) => ({
+          const transformedDocs = response.data.items.map((item) => ({
             id: item.id,
-            title: currentLanguage === "vi" ? (item.titleVi || item.titleEn || item.title) : (item.titleEn || item.titleVi || item.title),
-            description:
-              currentLanguage === "vi" ? (item.descriptionVi || item.descriptionEn || item.description) : (item.descriptionEn || item.descriptionVi || item.description),
+            title: currentLanguage === "vi"
+              ? (item.titleVi || item.titleEn || item.title)
+              : (item.titleEn || item.titleVi || item.title),
+            description: currentLanguage === "vi"
+              ? (item.descriptionVi || item.descriptionEn || item.description)
+              : (item.descriptionEn || item.descriptionVi || item.description),
             date: item.timePosted
               ? new Date(item.timePosted).toLocaleDateString(currentLanguage === "vi" ? "vi-VN" : "en-US")
               : "",
-            slug: currentLanguage === "vi" ? (item.slugVi || item.slugEn) : (item.slugEn || item.slugVi),
-            file: null, // Will be loaded when user clicks view/download
+            slug: currentLanguage === "vi"
+              ? (item.slugVi || item.slugEn)
+              : (item.slugEn || item.slugVi),
           }));
-          setFinancialReports(transformedReports);
+          setDocuments(transformedDocs);
         } else {
-          setError(
-            response.message || t("frontend.companyInfo.financial.loadReportsError")
-          );
+          setError(response.message || t("frontend.companyInfo.financial.loadError"));
         }
       } catch (err) {
         setError(t("frontend.companyInfo.financial.errorLoading"));
@@ -152,8 +189,17 @@ const Financial = () => {
       }
     };
 
-    fetchFinancialReports();
-  }, [currentLanguage, t]);
+    fetchDocuments();
+  }, [currentLanguage, documentType]);
+
+  const renderHeader = () => (
+    <div className="financial-header">
+      <div>
+        <h1>{currentConfig.title[currentLanguage] || currentConfig.title.vi}</h1>
+        <p className="financial-desc">{currentConfig.desc[currentLanguage] || currentConfig.desc.vi}</p>
+      </div>
+    </div>
+  );
 
   if (loading) {
     return (
@@ -166,26 +212,9 @@ const Financial = () => {
           lang={currentLanguage}
         />
         <div className="financial-page">
-          <div className="financial-header">
-            <i
-              className="fa fa-bar-chart"
-              style={{ fontSize: 32, color: "#1976d2", marginRight: 18 }}
-            />
-            <div>
-              <h1>{t("frontend.companyInfo.financial.title")}</h1>
-              <p className="financial-desc">
-                {t("frontend.companyInfo.financial.description")}
-              </p>
-            </div>
-          </div>
-          <div
-            className="financial-info"
-            style={{ textAlign: "center", padding: 32 }}
-          >
-            <i
-              className="fa fa-spinner fa-spin"
-              style={{ fontSize: 24, color: "#1976d2" }}
-            ></i>
+          {renderHeader()}
+          <div className="financial-info" style={{ textAlign: "center", padding: 32 }}>
+            <i className="fa fa-spinner fa-spin" style={{ fontSize: 24, color: "#1976d2" }}></i>
             <p style={{ marginTop: 16, color: "#666" }}>{t("frontend.companyInfo.financial.loading")}</p>
           </div>
         </div>
@@ -204,26 +233,9 @@ const Financial = () => {
           lang={currentLanguage}
         />
         <div className="financial-page">
-          <div className="financial-header">
-            <i
-              className="fa fa-bar-chart"
-              style={{ fontSize: 32, color: "#1976d2", marginRight: 18 }}
-            />
-            <div>
-              <h1>{t("frontend.companyInfo.financial.title")}</h1>
-              <p className="financial-desc">
-                {t("frontend.companyInfo.financial.description")}
-              </p>
-            </div>
-          </div>
-          <div
-            className="financial-info"
-            style={{ textAlign: "center", padding: 32 }}
-          >
-            <i
-              className="fa fa-exclamation-triangle"
-              style={{ fontSize: 24, color: "#d32f2f" }}
-            ></i>
+          {renderHeader()}
+          <div className="financial-info" style={{ textAlign: "center", padding: 32 }}>
+            <i className="fa fa-exclamation-triangle" style={{ fontSize: 24, color: "#d32f2f" }}></i>
             <p style={{ marginTop: 16, color: "#d32f2f" }}>{error}</p>
           </div>
         </div>
@@ -237,52 +249,30 @@ const Financial = () => {
         title={currentSEO.title}
         description={currentSEO.description}
         keywords={currentSEO.keywords}
-        url={
-          currentLanguage === "vi"
-            ? "/thong-tin-cong-ty/thong-tin-tai-chinh"
-            : "/en/company/finance"
-        }
+        url={currentConfig.url[currentLanguage] || currentConfig.url.vi}
         lang={currentLanguage}
       />
       <div className="financial-page">
-        <div className="financial-header">
-          <i
-            className="fa fa-bar-chart"
-            style={{ fontSize: 32, color: "#1976d2", marginRight: 18 }}
-          />
-          <div>
-            <h1>{t("frontend.companyInfo.financial.title")}</h1>
-            <p className="financial-desc">
-              {t("frontend.companyInfo.financial.description")}
-            </p>
-          </div>
-        </div>
+        {renderHeader()}
         <div className="financial-info">
           <table className="financial-table">
             <thead>
               <tr>
-                <th>
-                  {t("frontend.companyInfo.financial.tableHeaders.title")}
-                </th>
+                <th>{t("frontend.companyInfo.financial.tableHeaders.title")}</th>
                 <th>{t("frontend.companyInfo.financial.tableHeaders.date")}</th>
-                <th>
-                  {t("frontend.companyInfo.financial.tableHeaders.document")}
-                </th>
+                <th>{t("frontend.companyInfo.financial.tableHeaders.document")}</th>
               </tr>
             </thead>
             <tbody>
-              {financialReports.length === 0 ? (
+              {documents.length === 0 ? (
                 <tr>
-                  <td
-                    colSpan={3}
-                    style={{ textAlign: "center", color: "#888", padding: 32 }}
-                  >
-                    {t("frontend.companyInfo.financial.noReports")}
+                  <td colSpan={3} style={{ textAlign: "center", color: "#888", padding: 32 }}>
+                    {currentConfig.noData[currentLanguage] || currentConfig.noData.vi}
                   </td>
                 </tr>
               ) : (
-                financialReports.map((item, idx) => (
-                  <FinancialReportRow
+                documents.map((item, idx) => (
+                  <DocumentRow
                     item={item}
                     key={idx}
                     t={t}
@@ -322,7 +312,7 @@ const Financial = () => {
               }}
             >
               <h3 style={{ marginTop: 0, marginBottom: 16 }}>
-                Chọn tài liệu để xem
+                {t("frontend.companyInfo.financial.selectFile")}
               </h3>
               <div>
                 {selectedFiles.map((file, idx) => (
@@ -349,14 +339,10 @@ const Financial = () => {
                         {file.originalFileName}
                       </div>
                       <div style={{ fontSize: 12, color: "#666" }}>
-                        {file.contentType} • {(file.fileSize / 1024).toFixed(0)}{" "}
-                        KB
+                        {file.contentType} • {(file.fileSize / 1024).toFixed(0)} KB
                       </div>
                     </div>
-                    <i
-                      className="fa fa-external-link"
-                      style={{ color: "#1976d2" }}
-                    ></i>
+                    <i className="fa fa-external-link" style={{ color: "#1976d2" }}></i>
                   </div>
                 ))}
               </div>
@@ -371,7 +357,7 @@ const Financial = () => {
                     cursor: "pointer",
                   }}
                 >
-                  Đóng
+                  {t("frontend.companyInfo.financial.close")}
                 </button>
               </div>
             </div>
@@ -383,4 +369,3 @@ const Financial = () => {
 };
 
 export default Financial;
-

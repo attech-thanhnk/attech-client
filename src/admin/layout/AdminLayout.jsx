@@ -172,10 +172,24 @@ const AdminLayout = () => {
 
       // Media Management
       {
-        path: "/admin/albums",
+        path: "/admin/media",
         label: "Quản lý thư viện",
         icon: "bi bi-images",
         requiredRoleId: ROLES.EDITOR,
+        subItems: [
+          {
+            path: "/admin/albums",
+            label: "Thư viện ảnh",
+            icon: "bi bi-images",
+            requiredRoleId: ROLES.EDITOR,
+          },
+          {
+            path: "/admin/videos",
+            label: "Thư viện video",
+            icon: "bi bi-play-circle",
+            requiredRoleId: ROLES.EDITOR,
+          },
+        ],
       },
 
       // Public Documents
@@ -315,7 +329,8 @@ const AdminLayout = () => {
       "/admin/notification-category": "Danh mục thông báo",
       "/admin/users": "Quản lý người dùng",
       "/admin/roles": "Quản lý vai trò",
-      "/admin/albums": "Quản lý thư viện",
+      "/admin/albums": "Quản lý thư viện ảnh",
+      "/admin/videos": "Quản lý thư viện video",
       "/admin/documents": "Quản lý tài liệu",
       "/admin/internal-documents": "Quản lý tài liệu nội bộ",
       "/admin/contacts": "Quản lý liên hệ",
@@ -487,7 +502,7 @@ const AdminLayout = () => {
           color: "#e2e8f0",
           position: "fixed",
           top: 0,
-          left: sidebarOpen ? 0 : "-280px", // Use exact pixel value
+          left: sidebarOpen ? 0 : "-280px",
           height: "100vh",
           overflowY: "auto",
           zIndex: 1040,
@@ -506,12 +521,8 @@ const AdminLayout = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <i
-              className="bi bi-gear-fill"
-              style={{ color: "#3b82f6", fontSize: "1.25rem" }}
-            ></i>
             <span style={{ fontWeight: "600", color: "#fff" }}>
-              Admin Panel
+              ATTECH Admin Panel
             </span>
           </div>
           <button

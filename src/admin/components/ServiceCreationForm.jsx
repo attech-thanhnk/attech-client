@@ -133,7 +133,7 @@ const ServiceCreationForm = ({
         }
 
         // Set featured image ID from BE response
-        if (editingService.featuredImageId !== null && editingService.featuredImageId !== undefined) {
+        if (editingService.featuredImageId != null) {
           setFeaturedImageId(editingService.featuredImageId);
         }
 
@@ -466,15 +466,14 @@ const ServiceCreationForm = ({
         isOutstanding: formData.isOutstanding,
         timePosted: new Date(formData.timePosted).toISOString(),
         featuredImageId: featuredImageId,
-        // Gộp gallery images và attachments thành 1 field attachmentIds
-        ...((galleryImages.length > 0 || attachments.length > 0) && {
-          attachmentIds: [
-            ...galleryImages.map((img) => img.attachmentId).filter(Boolean),
-            ...attachments
-              .map((att) => att.attachmentId || att.id)
-              .filter(Boolean),
-          ],
-        }),
+        // LUÔN gửi attachmentIds để BE biết chính xác user muốn gì
+        // [] = xóa hết, [1,2,3] = giữ những file này
+        attachmentIds: [
+          ...galleryImages.map((img) => img.attachmentId).filter(Boolean),
+          ...attachments
+            .map((att) => att.attachmentId || att.id)
+            .filter(Boolean),
+        ],
       };
       // Data prepared for backend
 

@@ -234,50 +234,63 @@ const ProductList = () => {
 
   // Component phân trang
   const Pagination = () => {
-    const pageNumbers = [];
-    let startPage = Math.max(1, currentPage - 2);
-    let endPage = Math.min(totalPages, currentPage + 2);
+    const getPageNumbers = () => {
+      const pages = [];
 
-    if (endPage - startPage < 4) {
-      if (currentPage <= 3) {
-        endPage = Math.min(5, totalPages);
+      if (totalPages <= 5) {
+        for (let i = 1; i <= totalPages; i++) {
+          pages.push(i);
+        }
       } else {
-        startPage = Math.max(1, totalPages - 4);
-      }
-    }
+        pages.push(1);
 
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(i);
-    }
+        if (currentPage > 3) {
+          pages.push('...');
+        }
+
+        const start = Math.max(2, currentPage - 1);
+        const end = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let i = start; i <= end; i++) {
+          if (!pages.includes(i)) {
+            pages.push(i);
+          }
+        }
+
+        if (currentPage < totalPages - 2) {
+          pages.push('...');
+        }
+
+        if (!pages.includes(totalPages)) {
+          pages.push(totalPages);
+        }
+      }
+
+      return pages;
+    };
 
     return (
       <div className="attech-pagination">
         <button
           className="attech-pagination-button"
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        >
-          <i className="fas fa-angle-double-left"></i>
-        </button>
-
-        <button
-          className="attech-pagination-button"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          <i className="fas fa-angle-left"></i>
+          ←
         </button>
 
-        {pageNumbers.map((number) => (
-          <button
-            key={number}
-            className={`attech-pagination-button ${
-              currentPage === number ? "active" : ""
-            }`}
-            onClick={() => handlePageChange(number)}
-          >
-            {number}
-          </button>
+        {getPageNumbers().map((page, index) => (
+          page === '...' ? (
+            <span key={`ellipsis-${index}`} className="attech-pagination-ellipsis">...</span>
+          ) : (
+            <button
+              key={page}
+              className={`attech-pagination-button ${currentPage === page ? "active" : ""}`}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </button>
+          )
         ))}
 
         <button
@@ -285,21 +298,8 @@ const ProductList = () => {
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          <i className="fas fa-angle-right"></i>
+          →
         </button>
-
-        <button
-          className="attech-pagination-button"
-          onClick={() => handlePageChange(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          <i className="fas fa-angle-double-right"></i>
-        </button>
-
-        {/* Tạm thời bỏ thông tin phân trang khi tắt phân trang */}
-        <span className="attech-pagination-info">
-          1-{filteredProducts.length} / {filteredProducts.length}
-        </span>
       </div>
     );
   };

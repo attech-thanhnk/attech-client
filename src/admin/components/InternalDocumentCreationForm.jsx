@@ -14,6 +14,7 @@ const InternalDocumentCreationForm = ({
     category: "",
     attachmentIds: [],
     status: 1,
+    expiryStatus: 0,
     timePosted: "",
   });
 
@@ -43,6 +44,7 @@ const InternalDocumentCreationForm = ({
         category: editData.category || "",
         attachmentIds: editData.attachmentIds || [],
         status: editData.status !== undefined ? editData.status : 1,
+        expiryStatus: editData.expiryStatus !== undefined ? editData.expiryStatus : 0,
         timePosted: formattedTime,
       });
 
@@ -143,6 +145,7 @@ const InternalDocumentCreationForm = ({
         category: formData.category,
         attachmentId: attachmentId,
         status: formData.status,
+        expiryStatus: formData.expiryStatus,
         timePosted: formData.timePosted || null
       };let result;
       if (editMode && editData?.id) {
@@ -339,6 +342,24 @@ const InternalDocumentCreationForm = ({
           >
             <option value={1}>Hoạt động</option>
             <option value={0}>Không hoạt động</option>
+          </select>
+        </div>
+
+        {/* Expiry Status */}
+        <div className="mb-3">
+          <label htmlFor="expiryStatus" className="form-label">
+            Tình trạng hiệu lực
+          </label>
+          <select
+            className="form-select"
+            id="expiryStatus"
+            name="expiryStatus"
+            value={formData.expiryStatus}
+            onChange={handleInputChange}
+            disabled={isSubmitting}
+          >
+            <option value={0}>Còn hiệu lực</option>
+            <option value={1}>Hết hiệu lực</option>
           </select>
         </div>
 

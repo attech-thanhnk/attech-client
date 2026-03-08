@@ -71,21 +71,18 @@ const Iso = () => {
   const documents = [
     {
       name: "Hệ thống chứng chỉ ISO 9001:2015",
-      size: "705.16 KB",
-      link: "https://attech.com.vn/wp-content/uploads/2015/03/He-thong-chung-chi-ISO-9001-20151.pdf",
-      icon: <Award size={24} />,
+      size: "705 KB",
+      link: "/assets/docs/He-thong-chung-chi-ISO-9001-20151.pdf",
     },
     {
       name: "Vilas 482 9-2020",
-      size: "495.1 KB",
-      link: "https://attech.com.vn/wp-content/uploads/2015/03/Vilas-482-9-2020.pdf",
-      icon: <Shield size={24} />,
+      size: "495 KB",
+      link: "/assets/docs/Vilas-482-9-2020.pdf",
     },
     {
       name: "ISO 14001:2015",
-      size: "187.52 KB",
-      link: "https://attech.com.vn/wp-content/uploads/2015/03/ISO-14001-2015.pdf",
-      icon: <CheckCircle2 size={24} />,
+      size: "188 KB",
+      link: "/assets/docs/ISO-14001-2015.pdf",
     },
   ];
 
@@ -128,7 +125,6 @@ const Iso = () => {
               >
                 <div className="timeline-content">
                   <div className="timeline-year">{event.year}</div>
-                  <div className="timeline-icon-wrapper">{event.icon}</div>
                   <p>{event.description}</p>
                 </div>
               </div>
@@ -172,7 +168,6 @@ const Iso = () => {
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
               >
-                {doc.icon}
                 <span className="doc-name">{doc.name}</span>
                 <Download className="download-icon" />
                 <span className="file-size">({doc.size})</span>

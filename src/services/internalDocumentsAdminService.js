@@ -17,6 +17,7 @@ const internalDocumentsAdminService = {
         keyword: params.keyword || "",
         category: params.category,
         status: params.status,
+        expiryStatus: params.expiryStatus,
         dateFrom: params.dateFrom,
         dateTo: params.dateTo,
       };
@@ -102,6 +103,7 @@ const internalDocumentsAdminService = {
         category: documentData.category,
         attachmentId: documentData.attachmentId || null, // Single attachmentId now
         status: documentData.status || 1,
+        expiryStatus: documentData.expiryStatus !== undefined ? documentData.expiryStatus : 0,
         timePosted: documentData.timePosted || null,
       };const response = await api.post(
         "/api/internal-documents/create",
@@ -137,6 +139,7 @@ const internalDocumentsAdminService = {
         category: documentData.category,
         attachmentId: documentData.attachmentId || null, // Single attachmentId now
         status: documentData.status || 1,
+        expiryStatus: documentData.expiryStatus !== undefined ? documentData.expiryStatus : 0,
         timePosted: documentData.timePosted || null,
       };const response = await api.put(
         `/api/internal-documents/update/${documentId}`,

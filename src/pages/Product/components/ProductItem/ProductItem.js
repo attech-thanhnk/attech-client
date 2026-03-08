@@ -40,7 +40,7 @@ const ProductItem = ({
             alignItems: 'center',
             justifyContent: 'center',
             gap: '6px',
-            color: '#3b82f6',
+            color: '#0a407c',
             textDecoration: 'none',
             fontWeight: '500',
             fontSize: '13px',
@@ -54,7 +54,6 @@ const ProductItem = ({
           }}
         >
           {t('frontend.products.viewDetails')}
-          <i className="fas fa-arrow-right" style={{ fontSize: '10px', transition: 'transform 0.2s ease' }}></i>
         </LocalizedLink>
       </div>
     </article>

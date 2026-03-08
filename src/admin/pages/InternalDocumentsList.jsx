@@ -79,7 +79,7 @@ const InternalDocumentsList = () => {
   useEffect(() => {
     const isInitialLoad = internalDocuments.length === 0 && !loading && !isFiltering;
     loadInternalDocuments(isInitialLoad);
-  }, [currentPage, itemsPerPage, searchDebounce, filters.category, filters.status, filters.dateFrom, filters.dateTo, sortConfig]);
+  }, [currentPage, itemsPerPage, searchDebounce, filters.category, filters.status, filters.expiryStatus, filters.dateFrom, filters.dateTo, sortConfig]);
 
   const showToast = useCallback((message, type = "info") => {
     setToast({ show: true, message, type });
@@ -101,6 +101,7 @@ const InternalDocumentsList = () => {
         keyword: searchDebounce || "",
         category: filters.category,
         status: filters.status,
+        expiryStatus: filters.expiryStatus,
         dateFrom: filters.dateFrom,
         dateTo: filters.dateTo,
         sortBy: sortConfig.key,
@@ -220,7 +221,7 @@ const InternalDocumentsList = () => {
       key: "title",
       label: "Tiêu đề",
       sortable: true,
-      width: "50%",
+      width: "40%",
       render: (row, rowIndex) => (
         <div className="d-flex align-items-start">
           <div>
@@ -240,7 +241,7 @@ const InternalDocumentsList = () => {
       key: "category",
       label: "Danh mục",
       sortable: true,
-      width: "15%",
+      width: "12%",
       render: (row) => {
         const category = categories.find(cat => cat.value === row.category);
         return (
@@ -254,7 +255,7 @@ const InternalDocumentsList = () => {
       key: "status",
       label: "Trạng thái",
       sortable: true,
-      width: "15%",
+      width: "12%",
       render: (row) => (
         <span className={`badge ${row.status === 1 ? 'bg-success' : 'bg-secondary'}`}>
           {row.status === 1 ? 'Hoạt động' : 'Không hoạt động'}
@@ -262,10 +263,21 @@ const InternalDocumentsList = () => {
       )
     },
     {
+      key: "expiryStatus",
+      label: "Hiệu lực",
+      sortable: true,
+      width: "12%",
+      render: (row) => (
+        <span className={`badge ${row.expiryStatus === 0 ? 'bg-success' : 'bg-warning text-dark'}`}>
+          {row.expiryStatus === 0 ? 'Còn hiệu lực' : 'Hết hiệu lực'}
+        </span>
+      )
+    },
+    {
       key: "timePosted",
       label: "Ngày đăng",
       sortable: true,
-      width: "20%",
+      width: "12%",
       render: (row) => {
         if (!row.timePosted) return "N/A";
         const date = new Date(row.timePosted);
@@ -450,9 +462,16 @@ const InternalDocumentsList = () => {
                 </p>
               </div>
               <div className="col-md-6" style={{paddingLeft: '8px'}}>
-                <p style={{wordBreak: 'break-word'}}><strong>Trạng thái:</strong> 
+                <p style={{wordBreak: 'break-word'}}><strong>Trạng thái:</strong>
                   <span className={`badge ms-2 ${selectedDocument.status === 1 ? 'bg-success' : 'bg-secondary'}`}>
                     {selectedDocument.status === 1 ? 'Hoạt động' : 'Không hoạt động'}
+                  </span>
+                </p>
+              </div>
+              <div className="col-md-6" style={{paddingRight: '8px'}}>
+                <p style={{wordBreak: 'break-word'}}><strong>Hiệu lực:</strong>
+                  <span className={`badge ms-2 ${selectedDocument.expiryStatus === 0 ? 'bg-success' : 'bg-warning text-dark'}`}>
+                    {selectedDocument.expiryStatus === 0 ? 'Còn hiệu lực' : 'Hết hiệu lực'}
                   </span>
                 </p>
               </div>

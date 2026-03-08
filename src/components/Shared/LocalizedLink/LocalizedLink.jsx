@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import { useI18n } from '../../../hooks/useI18n';
 import { getLocalizedRoute, buildNewsDetailUrl, buildProductDetailUrl, buildServiceDetailUrl } from '../../../utils/routeHelpers';
 
-/**
- * Smart Link component that automatically uses correct URL for current language
- */
 const LocalizedLink = ({ 
   to, 
   routeKey, 

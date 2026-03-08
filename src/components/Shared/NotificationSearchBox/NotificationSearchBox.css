@@ -93,8 +93,10 @@
 /* Container styles for different layouts */
 .notification-search-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-bottom: 18px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .notification-search-container-detail {
@@ -140,4 +142,37 @@
 
 .notification-sidebar-search .notification-suggestion-date {
   font-size: 11px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .notification-search-container {
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .notification-search-box-container {
+    width: 100%;
+  }
+
+  .notification-search-input-wrapper {
+    width: 100%;
+  }
+
+  .notification-search-box {
+    font-size: 14px !important;
+    min-width: 0 !important;
+  }
+
+  .notification-search-dropdown {
+    max-height: 250px;
+  }
+
+  .notification-suggestion-title {
+    font-size: 13px;
+  }
+
+  .notification-suggestion-date {
+    font-size: 11px;
+  }
 }

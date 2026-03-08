@@ -13,6 +13,10 @@ const DocumentCreationForm = ({
 }) => {
   const isEditMode = !!editingDocument;
 
+  // Categories state
+  const [categories, setCategories] = useState([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
+
   // Form data (like Album + 2 description fields + timePosted)
   const [formData, setFormData] = useState({
     titleVi: editingDocument?.titleVi || "",
@@ -22,7 +26,7 @@ const DocumentCreationForm = ({
     status: editingDocument?.status ?? 1,
     attachmentIds: editingDocument?.attachmentIds || [],
     featuredImageId: editingDocument?.featuredImageId || null,
-    newsCategoryId: editingDocument?.newsCategoryId || 1,
+    newsCategoryId: editingDocument?.newsCategoryId || "",
     timePosted: editingDocument?.timePosted
       ? editingDocument.timePosted.split("T")[0]
       : new Date().toISOString().split("T")[0]
@@ -50,6 +54,56 @@ const DocumentCreationForm = ({
   ];
 
   const maxFileSize = 50 * 1024 * 1024; // 50MB
+
+  // Fetch document categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoadingCategories(true);
+        const response = await api.get('/api/news-category/document-categories');
+
+        // Handle response format: {status: 1, data: [...], code: 200}
+        const categoryList = response.data?.data || [];
+        setCategories(categoryList);
+
+        if (categoryList.length > 0) {
+          // Check if current newsCategoryId exists in the list
+          const currentCategoryId = editingDocument?.newsCategoryId || formData.newsCategoryId;
+          const categoryExists = categoryList.some(cat => cat.id === currentCategoryId);
+
+          // If category doesn't exist in list, select first available
+          if (!categoryExists) {
+            setFormData(prev => ({ ...prev, newsCategoryId: categoryList[0].id }));
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+
+    fetchCategories();
+  }, [editingDocument]);
+
+  // Sync formData when editingDocument changes (for edit mode)
+  useEffect(() => {
+    if (editingDocument) {
+      setFormData({
+        titleVi: editingDocument.titleVi || "",
+        titleEn: editingDocument.titleEn || "",
+        descriptionVi: editingDocument.descriptionVi || "",
+        descriptionEn: editingDocument.descriptionEn || "",
+        status: editingDocument.status ?? 1,
+        attachmentIds: editingDocument.attachmentIds || [],
+        featuredImageId: editingDocument.featuredImageId || null,
+        newsCategoryId: editingDocument.newsCategoryId || "",
+        timePosted: editingDocument.timePosted
+          ? editingDocument.timePosted.split("T")[0]
+          : new Date().toISOString().split("T")[0]
+      });
+    }
+  }, [editingDocument]);
 
   // Load existing attachments if editing (like Album)
   useEffect(() => {
@@ -242,32 +296,45 @@ const DocumentCreationForm = ({
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     // Validating form data
-    
+
     if (!formData.titleVi.trim()) {
       newErrors.titleVi = "Tiêu đề tiếng Việt là bắt buộc";
     }
-    
+
+    if (!formData.newsCategoryId || formData.newsCategoryId < 1) {
+      newErrors.newsCategoryId = "Vui lòng chọn danh mục";
+    }
+
     const successfulFiles = documentFiles.filter(file => file.attachmentId && !file.uploading);
     if (successfulFiles.length === 0) {
       newErrors.attachmentIds = "Cần upload ít nhất 1 file tài liệu";
-    }setErrors(newErrors);
-    const isValid = Object.keys(newErrors).length === 0;return isValid;
+    }
+
+    setErrors(newErrors);
+    const isValid = Object.keys(newErrors).length === 0;
+    return isValid;
   };
 
-  const handleSave = async () => {if (!validateForm()) {setToast({
+  const handleSave = async () => {
+    if (!validateForm()) {
+      setToast({
         show: true,
         message: "Vui lòng kiểm tra lại thông tin",
         type: "error",
       });
       return;
-    }try {
+    }
+
+    try {
       setLoading(true);
-      
+
       // Get successful attachment IDs from files
       const successfulFiles = documentFiles.filter(file => file.attachmentId && !file.uploading);
-      const attachmentIds = successfulFiles.map(file => file.attachmentId);const documentData = {
+      const attachmentIds = successfulFiles.map(file => file.attachmentId);
+
+      const documentData = {
         titleVi: formData.titleVi,
         titleEn: formData.titleEn,
         descriptionVi: formData.descriptionVi,
@@ -275,28 +342,31 @@ const DocumentCreationForm = ({
         attachmentIds: attachmentIds,
         featuredImageId: featuredImageId,
         newsCategoryId: formData.newsCategoryId,
-        timePosted: new Date(formData.timePosted).toISOString()
-      };let response;
+        timePosted: new Date(formData.timePosted).toISOString(),
+        status: formData.status
+      };
+
+      let response;
       if (isEditMode) {
         response = await documentService.updateDocument(editingDocument.id, documentData);
       } else {
         response = await documentService.createDocument(documentData);
-      }if (response.success) {
+      }
+
+      if (response.success) {
         showToast(
           isEditMode ? "Cập nhật tài liệu thành công" : "Tạo tài liệu thành công",
           "success"
         );
-        
-        // Call success callback immediately if truly successful  
-        if (response.data && (response.data.id || response.data.data?.id)) {setTimeout(() => {
-            onSuccess();
-          }, 1500);
-        } else {throw new Error('API returned success but no document data');
-        }
+
+        setTimeout(() => {
+          onSuccess();
+        }, 1500);
       } else {
         throw new Error(response.message || "Operation failed");
       }
-    } catch (error) {showToast("Lỗi lưu tài liệu: " + error.message, "error");
+    } catch (error) {
+      showToast("Lỗi lưu tài liệu: " + error.message, "error");
     } finally {
       setLoading(false);
     }
@@ -360,6 +430,36 @@ const DocumentCreationForm = ({
               onChange={(e) => handleInputChange("descriptionEn", e.target.value)}
               placeholder="Describe document in English..."
             />
+          </div>
+        </div>
+
+        {/* Category */}
+        <div className="form-row">
+          <div className="form-group">
+            <label className="form-label">
+              Danh mục <span className="text-danger">*</span>
+            </label>
+            <select
+              className={`form-control ${errors.newsCategoryId ? 'is-invalid' : ''}`}
+              value={formData.newsCategoryId}
+              onChange={(e) => handleInputChange("newsCategoryId", parseInt(e.target.value))}
+              disabled={loadingCategories}
+            >
+              {loadingCategories ? (
+                <option value="">Đang tải...</option>
+              ) : categories.length === 0 ? (
+                <option value="">Không có danh mục</option>
+              ) : (
+                categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.titleVi}
+                  </option>
+                ))
+              )}
+            </select>
+            {errors.newsCategoryId && (
+              <div className="invalid-feedback">{errors.newsCategoryId}</div>
+            )}
           </div>
         </div>
 

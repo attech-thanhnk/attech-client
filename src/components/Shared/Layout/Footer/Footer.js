@@ -5,6 +5,7 @@ import MapComponent from "../../MapComponent/MapComponent";
 
 const Footer = () => {
   const { t, currentLanguage } = useI18n();
+  const currentYear = new Date().getFullYear();
 
   return (
     <div className="footer wow fadeIn" data-wow-delay="0.3s">
@@ -111,7 +112,7 @@ const Footer = () => {
         <div className="footer-social mt-4"></div>
         <div className="copyright mt-4">
           <div className="copyright-text">
-            © <a href="#">2025. {t("footer.copyright")}</a>
+            © <a href="#">{currentYear}. {t("footer.copyright")}</a>
             <span className="mx-2">|</span>
             <LocalizedLink routeKey="HOME">
               {t("navigation.home")}

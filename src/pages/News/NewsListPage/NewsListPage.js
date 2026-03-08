@@ -213,9 +213,9 @@ const NewsListPage = () => {
   return (
     <div className="news-list-root news-list-page newslist-minimal">
       <Helmet>
-        <title>{pageTitle} - ATTECH</title>
+        <title>{pageTitle} | ATTECH</title>
         <meta name="description" content={pageDescription} />
-        <meta property="og:title" content={`${pageTitle} - ATTECH`} />
+        <meta property="og:title" content={`${pageTitle} | ATTECH`} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
@@ -300,17 +300,57 @@ const NewsListPage = () => {
             >
               ←
             </button>
-            {[...Array(newsData.totalPages).keys()].map((page) => (
-              <button
-                key={page + 1}
-                onClick={() => handlePageChange(page + 1)}
-                className={`pagination-btn-minimal${
-                  currentPage === page + 1 ? " active" : ""
-                }`}
-              >
-                {page + 1}
-              </button>
-            ))}
+            {(() => {
+              const totalPages = newsData.totalPages;
+              const pages = [];
+
+              if (totalPages <= 5) {
+                // Show all pages if 5 or less
+                for (let i = 1; i <= totalPages; i++) {
+                  pages.push(i);
+                }
+              } else {
+                // Always show first page
+                pages.push(1);
+
+                if (currentPage > 3) {
+                  pages.push('...');
+                }
+
+                // Show pages around current
+                const start = Math.max(2, currentPage - 1);
+                const end = Math.min(totalPages - 1, currentPage + 1);
+
+                for (let i = start; i <= end; i++) {
+                  if (!pages.includes(i)) {
+                    pages.push(i);
+                  }
+                }
+
+                if (currentPage < totalPages - 2) {
+                  pages.push('...');
+                }
+
+                // Always show last page
+                if (!pages.includes(totalPages)) {
+                  pages.push(totalPages);
+                }
+              }
+
+              return pages.map((page, index) => (
+                page === '...' ? (
+                  <span key={`ellipsis-${index}`} className="pagination-ellipsis">...</span>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`pagination-btn-minimal${currentPage === page ? " active" : ""}`}
+                  >
+                    {page}
+                  </button>
+                )
+              ));
+            })()}
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === newsData.totalPages}

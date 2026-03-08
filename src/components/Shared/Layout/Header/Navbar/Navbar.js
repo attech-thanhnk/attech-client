@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback, memo, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import "./Navbar.css";
 import "./Navbar.mobile.css";
 import MenuItems from "./menuItemsComponent";
 import useIsMobile from "./useIsMobile";
 import { useI18n } from "../../../../../hooks/useI18n";
 import { useTheme } from "../../../../../contexts/ThemeContext";
+import { useAuth } from "../../../../../contexts/AuthContext";
 import { useClickOutside } from "../../../../../hooks/useClickOutside";
 import LocalizedLink from "../../../LocalizedLink/LocalizedLink";
 import debounce from "lodash/debounce";
@@ -49,6 +50,7 @@ const NavbarTop = ({
   toggleMobileMenu,
   menuData: rawMenuData,
   logoUrl,
+  user,
 }) => {
   const mobileMenuRef = useRef(null);
 
@@ -129,14 +131,24 @@ const NavbarTop = ({
                 />
               </button>
             </div>
-            <LocalizedLink
-              routeKey="LOGIN"
-              className="login-btn"
-              title={language === "vi" ? "Đăng nhập" : "Login"}
-              aria-label={language === "vi" ? "Đăng nhập" : "Login"}
-            >
-              <i className="fa fa-solid fa-user"></i>
-            </LocalizedLink>
+            {user ? (
+              <Link
+                to="/trang-noi-bo"
+                className="internal-page-btn"
+                title={language === "vi" ? "Trang nội bộ" : "Internal Page"}
+              >
+                <span>{language === "vi" ? "Trang nội bộ" : "Internal"}</span>
+              </Link>
+            ) : (
+              <LocalizedLink
+                routeKey="LOGIN"
+                className="login-btn"
+                title={language === "vi" ? "Đăng nhập" : "Login"}
+                aria-label={language === "vi" ? "Đăng nhập" : "Login"}
+              >
+                <i className="fa fa-solid fa-user"></i>
+              </LocalizedLink>
+            )}
           </div>
           <div
             className={`mobile-menu${mobileOpen ? " open" : ""}`}
@@ -207,15 +219,27 @@ const NavbarTop = ({
                       />
                     </button>
                   </div>
-                  <LocalizedLink
-                    routeKey="LOGIN"
-                    className="login-btn"
-                    title={language === "vi" ? "Đăng nhập" : "Login"}
-                    aria-label={language === "vi" ? "Đăng nhập" : "Login"}
-                    onClick={closeMobileMenu}
-                  >
-                    <i className="fa fa-solid fa-user login-user"></i>
-                  </LocalizedLink>
+                  {user ? (
+                    <Link
+                      to="/trang-noi-bo"
+                      className="internal-page-btn"
+                      title={language === "vi" ? "Trang nội bộ" : "Internal Page"}
+                      onClick={closeMobileMenu}
+                    >
+                      <i className="fa fa-solid fa-building"></i>
+                      <span>{language === "vi" ? "Nội bộ" : "Internal"}</span>
+                    </Link>
+                  ) : (
+                    <LocalizedLink
+                      routeKey="LOGIN"
+                      className="login-btn"
+                      title={language === "vi" ? "Đăng nhập" : "Login"}
+                      aria-label={language === "vi" ? "Đăng nhập" : "Login"}
+                      onClick={closeMobileMenu}
+                    >
+                      <i className="fa fa-solid fa-user login-user"></i>
+                    </LocalizedLink>
+                  )}
                 </div>
               </div>
               <nav>
@@ -290,6 +314,7 @@ const Navbar = () => {
     location.pathname === "/en/";
   const { currentLanguage, changeLanguage } = useI18n();
   const { isDarkMode, toggleDarkMode } = useTheme();
+  const { user } = useAuth();
   const {
     isGlobalSearchOpen,
     handleGlobalSearchOpen,
@@ -378,6 +403,7 @@ const Navbar = () => {
         toggleMobileMenu={toggleMobileMenu}
         menuData={rawMenuData}
         logoUrl={logoUrl}
+        user={user}
       />
       <NavbarBottom
         mobileOpen={mobileOpen}

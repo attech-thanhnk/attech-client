@@ -3,7 +3,6 @@
   padding: 20px;
 }
 
-
 .notification-list-page .container {
   max-width: 1320px;
   margin: 0 auto;
@@ -160,35 +159,45 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  padding: 2rem;
+  gap: 6px;
+  padding: 1.5rem 1rem;
+  flex-wrap: wrap;
 }
 .pagination-btn-notificationlist-minimal {
-  padding: 6px 16px;
+  padding: 8px 14px;
   border: 1.5px solid #e0e7ef;
   background: #fff;
-  color: #2563eb;
+  color: #0a407c;
   cursor: pointer;
-  border-radius: 999px;
-  font-size: 15px;
+  border-radius: 8px;
+  font-size: 14px;
   font-weight: 600;
   transition: all 0.18s;
-  min-width: 36px;
+  min-width: 40px;
+  min-height: 40px;
   outline: none;
-  box-shadow: 0 1px 4px rgba(37,99,235,0.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pagination-btn-notificationlist-minimal.active,
 .pagination-btn-notificationlist-minimal:hover:not(:disabled) {
-  background: #2563eb;
+  background: #0a407c;
   color: #fff;
-  border-color: #2563eb;
+  border-color: #0a407c;
 }
 .pagination-btn-notificationlist-minimal:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
   background: #f3f4f6;
-  color: #b0b7c3;
-  border-color: #e0e7ef;
+  color: #9ca3af;
+  border-color: #e5e7eb;
+}
+.pagination-notificationlist-minimal .pagination-ellipsis {
+  color: #6b7280;
+  padding: 0 4px;
+  font-weight: 600;
 }
 @media (max-width: 1024px) {
   .notificationlist-grid-minimal {
@@ -200,6 +209,9 @@
   }
   .notificationlist-img-link-minimal {
     height: 190px;
+  }
+  .notificationlist-minimal {
+    padding: 0;
   }
 }
 /* Notification Sections */
@@ -274,14 +286,17 @@
     font-size: 1.1rem;
     margin-bottom: 10px;
   }
-  .pagination-btn-notificationlist-minimal {
-    padding: 5px 10px;
-    font-size: 13px;
-    min-width: 28px;
-  }
   .pagination-notificationlist-minimal {
     gap: 4px;
-    margin-top: 14px;
+    padding: 1rem 0.5rem;
+    flex-wrap: wrap;
+  }
+  .pagination-btn-notificationlist-minimal {
+    padding: 6px 10px;
+    font-size: 13px;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 6px;
   }
   
   .notification-section {

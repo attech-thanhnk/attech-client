@@ -182,7 +182,6 @@ const AdminLoginPage = () => {
                 </>
               ) : (
                 <>
-                  <i className="bi bi-box-arrow-in-right"></i>
                   <span>Đăng nhập quản trị</span>
                 </>
               )}
@@ -196,7 +195,6 @@ const AdminLoginPage = () => {
                 className="btn btn-link"
                 onClick={() => navigate("/")}
               >
-                <i className="bi bi-arrow-left"></i>
                 Quay về trang chủ
               </button>
             </div>

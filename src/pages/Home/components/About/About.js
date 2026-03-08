@@ -41,8 +41,8 @@ const getProductsWithDynamicImages = (t, currentLanguage, aboutGalleries) => [
     routeKey: "SERVICE_DETAIL",
     slug:
       currentLanguage === "vi"
-        ? "bay-kiem-tra-hieu-chuan"
-        : "flight-inspection-service",
+        ? "dich-vu-bay-kiem-tra-hieu-chuan-bay-danh-gia-phuong-thuc-bay"
+        : "flight-inspection",
   },
   {
     titleKey: "frontend.home.services.industry.title",

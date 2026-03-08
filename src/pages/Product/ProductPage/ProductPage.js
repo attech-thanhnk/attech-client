@@ -10,14 +10,14 @@ const Product = () => {
 
   const seoContent = {
     vi: {
-      title: "Sản phẩm - ATTECH",
+      title: "Sản phẩm | ATTECH",
       description:
         "Các sản phẩm thiết bị hàng không của ATTECH, phục vụ cho ngành hàng không tại Việt Nam. Công ty TNHH Kỹ thuật Quản lý bay.",
       keywords:
         "sản phẩm ATTECH, thiết bị hàng không, CNS equipment, aviation products, sản phẩm hàng không",
     },
     en: {
-      title: "Products - ATTECH",
+      title: "Products | ATTECH",
       description:
         "ATTECH aviation equipment products serving the aviation industry in Vietnam. Air Traffic Technical Co., Ltd.",
       keywords:

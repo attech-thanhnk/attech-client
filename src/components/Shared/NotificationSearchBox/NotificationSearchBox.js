@@ -99,7 +99,8 @@ const NotificationSearchBox = ({
   }, []);
 
   const defaultStyle = {
-    padding: "7px 14px",
+    padding: "0 14px",
+    height: "38px",
     borderRadius: 20,
     border: "1.5px solid #e0e7ef",
     fontSize: 15,
@@ -108,6 +109,7 @@ const NotificationSearchBox = ({
     boxShadow: "0 1px 4px rgba(37,99,235,0.04)",
     transition: "border 0.18s",
     color: "#1a237e",
+    boxSizing: "border-box",
     ...style
   };
 

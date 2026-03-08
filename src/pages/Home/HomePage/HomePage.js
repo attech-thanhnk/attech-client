@@ -22,14 +22,14 @@ const Home = () => {
   const currentSEO = useMemo(() => {
     const seoContent = {
       vi: {
-        title: "Trang chủ | Công ty TNHH Kỹ thuật Quản lý bay - ATTECH",
+        title: "Trang chủ | Công ty TNHH Kỹ thuật Quản lý bay | ATTECH",
         description:
           "ATTECH là một trong những doanh nghiệp hàng đầu trong lĩnh vực kỹ thuật hàng không tại Việt Nam, chuyên cung cấp dịch vụ CNS, bay kiểm tra hiệu chuẩn và sản xuất thiết bị phục vụ ngành công nghiệp hàng không .",
         keywords:
           "ATTECH, kỹ thuật hàng không, CNS, quản lý bay, thiết bị hàng không, Vietnam aviation, VATM",
       },
       en: {
-        title: "Home | Air Traffic Technical Company - ATTECH",
+        title: "Home | Air Traffic Technical Company | ATTECH",
         description:
           "ATTECH is one of the leading enterprises in the field of aviation engineering in Vietnam, specializing in providing CNS services, flight inspection and calibration and manufacturing equipment for the aviation industry.",
         keywords:

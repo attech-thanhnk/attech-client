@@ -1,11 +1,11 @@
-/* Tech-inspired Service Card */
+/* Service Card - Clean Design */
 .service-item {
   padding: 0;
   background: #fff;
   border: none;
-  border-radius: 0;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
   height: 100%;
   display: flex;
@@ -14,56 +14,35 @@
 }
 
 .service-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #06b6d4, #10b981);
-  opacity: 1;
-  transition: all 0.3s ease;
+  display: none;
 }
 
 .service-item::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #3b82f6, #06b6d4, #10b981);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.service-item:hover::after {
-  opacity: 1;
+  display: none;
 }
 
 .service-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .service-img {
   position: relative;
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
   overflow: hidden;
-  background: #f8fafc;
+  background: #f1f5f9;
 }
 
 .service-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .service-item:hover .service-img img {
-  transform: scale(1.03);
-  filter: brightness(1.05);
+  transform: scale(1.05);
 }
 
 .service-overlay {
@@ -80,43 +59,27 @@
 }
 
 .service-item .card-body {
-  padding: 1rem 1rem 0.75rem 1rem;
+  padding: 1rem 1.25rem 0.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   background: transparent;
 }
 
-.service-item:hover .card-body {
-  transform: none;
-}
-
 .service-title {
   font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  position: relative;
 }
 
-.service-title::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #3b82f6;
-  transition: width 0.3s ease;
-}
-
-.service-item:hover .service-title::after {
-  width: 30px;
+.service-item:hover .service-title {
+  color: #0a407c;
 }
 
 .service-item .card-footer {
@@ -132,38 +95,20 @@
   justify-content: center;
   gap: 6px;
   width: 100%;
-  padding: 0.625rem 1rem;
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: #6b7280;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #0a407c;
+  background: #f8fafc;
+  border: none;
+  border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.service-detail-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.service-detail-btn:hover::before {
-  left: 100%;
 }
 
 .service-detail-btn:hover {
-  color: #3b82f6;
-  border-color: #3b82f6;
-  background: #f0f9ff;
+  color: #fff;
+  background: #0a407c;
   text-decoration: none;
 }
 
@@ -187,15 +132,21 @@
 /* Responsive */
 @media (max-width: 768px) {
   .service-item {
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .service-item:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .service-item .card-body {
-    padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+    padding: 1rem;
   }
 
   .service-item .card-footer {
-    padding: 0 1.25rem 1.25rem 1.25rem;
+    padding: 0 1rem 1rem;
   }
 
   .service-title {
@@ -203,46 +154,36 @@
   }
 
   .service-detail-btn {
-    padding: 0.6rem 0.875rem;
-    font-size: 0.75rem;
-  }
-
-  .service-overlay {
-    padding: 1.25rem;
-  }
-
-  .service-overlay p {
-    font-size: 0.85rem;
+    padding: 0.55rem 0.875rem;
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
   .service-item {
-    border-radius: 8px;
+    border-radius: 10px;
+  }
+
+  .service-img {
+    aspect-ratio: 16/9;
   }
 
   .service-item .card-body {
-    padding: 1rem 1rem 0.5rem 1rem;
+    padding: 0.875rem;
   }
 
   .service-item .card-footer {
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 0.875rem 0.875rem;
   }
 
   .service-title {
     font-size: 0.9rem;
+    margin-bottom: 0.25rem;
   }
 
   .service-detail-btn {
-    padding: 0.55rem 0.75rem;
-    font-size: 0.7rem;
-  }
-
-  .service-overlay {
-    padding: 1rem;
-  }
-
-  .service-overlay p {
-    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
   }
 }

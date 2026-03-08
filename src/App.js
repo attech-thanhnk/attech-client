@@ -5,7 +5,6 @@ import "./App.css";
 import "./styles/content-formatting.css";
 import LocalizedRoutes from "./routes/LocalizedRoutes";
 import { AdminRoutes } from "./admin";
-import UserDashboard from "./pages/User/UserDashboard";
 import { useLocation } from "react-router-dom";
 import ChatWidget from "./components/Shared/ChatWidget/ChatWidget";
 import BackToTopButton from "./components/Shared/Navigation/BackToTopButton/BackToTopButton";
@@ -33,14 +32,12 @@ const ScrollToTop = ({ children }) => {
 const AppContent = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
-  const isUserDashboard = location.pathname === "/trang-noi-bo" || location.pathname === "/en/internal";
+  const isUserDashboard = location.pathname.startsWith("/trang-noi-bo");
 
   return (
     <>
       <Routes>
         <Route path="/admin/*" element={<AdminRoutes />} />
-        <Route path="/trang-noi-bo" element={<UserDashboard />} />
-        <Route path="/en/internal" element={<UserDashboard />} />
         <Route path="*" element={<LocalizedRoutes />} />
       </Routes>
       {!isAdminRoute && !isUserDashboard && (

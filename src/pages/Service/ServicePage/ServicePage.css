@@ -72,6 +72,14 @@
   margin: 0 auto;
 }
 
+@media (max-width: 1024px) {
+  .page-service .service-content {
+    padding: 1rem;
+  }
+  .section-header {
+    margin-bottom: 0.5rem;
+  }
+}
 /* Responsive */
 @media (max-width: 768px) {
   .page-service .service-content {

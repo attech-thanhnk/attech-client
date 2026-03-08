@@ -88,11 +88,8 @@ api.interceptors.response.use(
         } catch (refreshError) {}
       }
 
-      // If refresh fails or no refresh token, redirect to login
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user_data");
-      window.location.href = "/dang-nhap";
+      // Don't auto-clear auth or redirect - let AuthContext handle auth state
+      // AuthContext uses localStorage data as primary source
       return Promise.reject(error);
     }
 

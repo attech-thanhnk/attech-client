@@ -206,6 +206,11 @@
   .notification-section .notification-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+  .notification-section {
+    margin-top: 0;
+    padding: 0;
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width: 992px) {

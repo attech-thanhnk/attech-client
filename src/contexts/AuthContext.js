@@ -35,118 +35,108 @@ const ROLES = {
 };
 
 
+// Helper to get initial user from localStorage
+const getInitialUser = () => {
+  const token = localStorage.getItem('auth_token');
+  if (!token || isTokenExpired(token)) {
+    return null;
+  }
+
+  // Try stored user data first
+  const storedUserData = localStorage.getItem('user_data');
+  if (storedUserData) {
+    try {
+      const user = JSON.parse(storedUserData);
+      return {
+        id: user.id,
+        name: user.fullName || user.username,
+        email: user.email,
+        username: user.username,
+        phone: user.phone,
+        roleId: user.roleId || 3,
+        roleName: user.roleName || 'editor',
+        status: user.status || 'active',
+        lastLogin: user.lastLogin
+      };
+    } catch (e) {
+      // Fall through to JWT decode
+    }
+  }
+
+  // Fallback to JWT decode
+  const decoded = decodeJWT(token);
+  if (decoded) {
+    return {
+      id: decoded.sub,
+      name: decoded.name || decoded.username,
+      email: decoded.email,
+      username: decoded.username || decoded.name,
+      roleId: decoded.roleId || 3,
+      roleName: decoded.roleName || 'editor',
+      status: 'active'
+    };
+  }
+
+  return null;
+};
+
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // Initialize user from localStorage immediately (no waiting for API)
+  const [user, setUser] = useState(() => getInitialUser());
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in on app start
-    const checkAuth = async () => {
+    // Optionally validate with server in background (don't block UI)
+    const validateAuth = async () => {
       const token = localStorage.getItem('auth_token');
-      
+
       if (!token) {
-        setLoading(false);
         return;
       }
 
       // Check if token is expired
       if (isTokenExpired(token)) {
         localStorage.removeItem('auth_token');
+        localStorage.removeItem('user_data');
         setUser(null);
-        setLoading(false);
         return;
       }
 
       try {
-        // Step 1: Validate token with server to get fresh user data
+        // Validate token with server to get fresh user data
         const response = await api.get('/api/auth/me');
         
         if (response.data.status === 1 && response.data.data) {
-          const user = response.data.data;
-          const userData = {
-            id: user.id,
-            name: user.fullName || user.username,
-            email: user.email,
-            username: user.username,
-            phone: user.phone,
-            roleId: user.roleId || 3,  // Default to editor
-            roleName: user.roleName || 'editor',
-            status: user.status || 'active',
-            lastLogin: user.lastLogin
+          const userData = response.data.data;
+          const freshUserData = {
+            id: userData.id,
+            name: userData.fullName || userData.username,
+            email: userData.email,
+            username: userData.username,
+            phone: userData.phone,
+            roleId: userData.roleId || 3,
+            roleName: userData.roleName || 'editor',
+            status: userData.status || 'active',
+            lastLogin: userData.lastLogin
           };
-          setUser(userData);
-        } else {
-          throw new Error('Invalid server response');
+          // Update with fresh data from server
+          setUser(freshUserData);
+          // Also update localStorage
+          localStorage.setItem('user_data', JSON.stringify(userData));
         }
       } catch (error) {
-        // If error is 403 (permission denied), keep user logged in with stored user data
-        if (error.response?.status === 403) {
-          // Try to get user data from localStorage first
-          const storedUserData = localStorage.getItem('user_data');
-          if (storedUserData) {
-            try {
-              const user = JSON.parse(storedUserData);
-              const userData = {
-                id: user.id,
-                name: user.fullName || user.username,
-                email: user.email,
-                username: user.username,
-                roleId: user.roleId || 3,
-                roleName: user.roleName || 'editor',
-                status: user.status || 'active'
-              };
-              setUser(userData);
-              return;
-            } catch (e) {
-              // Failed to parse stored user data
-            }
-          }
-          
-          // Fallback to JWT
-          const decoded = decodeJWT(token);
-          
-          if (decoded && decoded.exp > Date.now() / 1000) {
-            const userData = {
-              id: decoded.sub,
-              name: decoded.name || decoded.username,
-              email: decoded.email,
-              username: decoded.username || decoded.name,
-              roleId: decoded.roleId || 3,
-              roleName: decoded.roleName || 'editor',
-              status: 'active'
-            };
-            setUser(userData);
-          } else {
-            localStorage.removeItem('auth_token');
-            localStorage.removeItem('user_data');
-            setUser(null);
-          }
-        } else {
-          // For other errors, try JWT fallback
-          const decoded = decodeJWT(token);
-          
-          if (decoded && decoded.exp > Date.now() / 1000) {
-            const userData = {
-              id: decoded.sub,
-              name: decoded.name || decoded.username,
-              email: decoded.email,
-              username: decoded.username || decoded.name,
-              roleId: decoded.roleId || 2,
-              roleName: decoded.roleName || 'admin',
-              status: 'active'
-            };
-            setUser(userData);
-          } else {
-            localStorage.removeItem('auth_token');
-            setUser(null);
-          }
+        // API validation failed - but user is already set from localStorage
+        // Only clear if token is truly expired
+        if (isTokenExpired(token)) {
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('user_data');
+          setUser(null);
         }
+        // Otherwise keep the user logged in with cached data
       }
-      
-      setLoading(false);
     };
 
-    checkAuth();
+    validateAuth();
   }, []);
 
   const login = async (credentials) => {

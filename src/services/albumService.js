@@ -3,7 +3,7 @@ import { getApiBaseUrl } from '../config/apiConfig';
 
 /**
  * Album Service - API calls for album management
- * ✅ Sử dụng backend APIs có sẵn:
+ * Sử dụng backend APIs có sẵn:
  * - GET /api/news/albums - Lấy danh sách albums  
  * - POST /api/news/create-album - Tạo album
  * - GET /api/news/albums/slug/{slug} - Album theo slug
@@ -13,7 +13,7 @@ import { getApiBaseUrl } from '../config/apiConfig';
 
 const albumService = {
   /**
-   * Fetch all albums (✅ API có sẵn: GET /api/news/albums)
+   * Fetch all albums (API có sẵn: GET /api/news/albums)
    */
   fetchAlbums: async (params = {}) => {
     try {
@@ -204,7 +204,7 @@ const albumService = {
   },
 
   /**
-   * Upload images for album (✅ API có sẵn: POST /api/attachments/upload-album)
+   * Upload images for album (PI có sẵn: POST /api/attachments/upload-album)
    */
   uploadImages: async (files, options = {}) => {
     try {

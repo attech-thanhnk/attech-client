@@ -20,7 +20,8 @@ const SearchButton = ({
   const currentVariant = variants[variant] || variants.default;
 
   const baseStyle = {
-    padding: "7px 12px",
+    padding: "0 14px",
+    height: "38px",
     borderRadius: "0 20px 20px 0",
     border: "1.5px solid #e0e7ef",
     borderLeft: "none",
@@ -30,6 +31,10 @@ const SearchButton = ({
     color: currentVariant.color,
     transition: "background-color 0.18s",
     flexShrink: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxSizing: "border-box",
     ...style,
   };
 

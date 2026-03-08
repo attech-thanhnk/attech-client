@@ -198,7 +198,6 @@ const PartNews = () => {
                       className="news__read-more"
                     >
                       {t("common.readMore")}
-                      <i className="fas fa-arrow-right"></i>
                     </LocalizedLink>
                   </div>
                 </article>
@@ -283,7 +282,6 @@ const PartNews = () => {
                     className="news__read-more"
                   >
                     {t("common.readMore")}
-                    <i className="fas fa-arrow-right"></i>
                   </LocalizedLink>
                 </div>
               </article>

@@ -195,18 +195,18 @@ const NotificationListPage = () => {
   const pageTitle = getCategoryTitle();
   const pageDescription = currentCategory
     ? (currentLanguage === "vi"
-        ? `Danh sách thông báo ${currentCategory.titleVi}. Cập nhật thông tin từ ATTECH - Công ty TNHH Kỹ thuật Quản lý bay`
-        : `${currentCategory.titleEn} notifications list. Updates from ATTECH - Air Traffic Technical Co., Ltd`)
+        ? `Danh sách thông báo ${currentCategory.titleVi}. Cập nhật thông tin từ ATTECH | Công ty TNHH Kỹ thuật Quản lý bay`
+        : `${currentCategory.titleEn} notifications list. Updates from ATTECH | Air Traffic Technical Co., Ltd`)
     : (currentLanguage === "vi"
-        ? "Thông báo ATTECH - Cập nhật thông tin mới nhất"
-        : "ATTECH Notifications - Latest updates");
+        ? "Thông báo ATTECH | Cập nhật thông tin mới nhất"
+        : "ATTECH Notifications | Latest updates");
 
   return (
     <div className="notification-list-root notification-list-page notificationlist-minimal">
       <Helmet>
-        <title>{pageTitle} - ATTECH</title>
+        <title>{pageTitle} | ATTECH</title>
         <meta name="description" content={pageDescription} />
-        <meta property="og:title" content={`${pageTitle} - ATTECH`} />
+        <meta property="og:title" content={`${pageTitle} | ATTECH`} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
@@ -288,17 +288,48 @@ const NotificationListPage = () => {
             >
               ←
             </button>
-            {[...Array(notificationData.totalPages).keys()].map((page) => (
-              <button
-                key={page + 1}
-                onClick={() => handlePageChange(page + 1)}
-                className={`pagination-btn-notificationlist-minimal${
-                  currentPage === page + 1 ? " active" : ""
-                }`}
-              >
-                {page + 1}
-              </button>
-            ))}
+            {(() => {
+              const totalPages = notificationData.totalPages;
+              const pages = [];
+
+              if (totalPages <= 5) {
+                for (let i = 1; i <= totalPages; i++) {
+                  pages.push(i);
+                }
+              } else {
+                pages.push(1);
+                if (currentPage > 3) {
+                  pages.push('...');
+                }
+                const start = Math.max(2, currentPage - 1);
+                const end = Math.min(totalPages - 1, currentPage + 1);
+                for (let i = start; i <= end; i++) {
+                  if (!pages.includes(i)) {
+                    pages.push(i);
+                  }
+                }
+                if (currentPage < totalPages - 2) {
+                  pages.push('...');
+                }
+                if (!pages.includes(totalPages)) {
+                  pages.push(totalPages);
+                }
+              }
+
+              return pages.map((page, index) => (
+                page === '...' ? (
+                  <span key={`ellipsis-${index}`} className="pagination-ellipsis">...</span>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`pagination-btn-notificationlist-minimal${currentPage === page ? " active" : ""}`}
+                  >
+                    {page}
+                  </button>
+                )
+              ));
+            })()}
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === notificationData.totalPages}

@@ -1,4 +1,4 @@
-name: Deploy Frontend to Production
+name: Deploy Frontend
 
 on:
   push:
@@ -67,7 +67,7 @@ jobs:
 
             # Verify .env.production exists
             if [ ! -f .env.production ]; then
-              echo "❌ .env.production not found!"
+              echo ".env.production not found!"
               exit 1
             fi
 
@@ -79,16 +79,16 @@ jobs:
 
             # Update nginx config if changed
             git pull
-            ./update-nginx.sh || echo "⚠️ Nginx config unchanged"
+            ./update-nginx.sh || echo "Nginx config unchanged"
 
             # Restart proxy to ensure routing is updated
             docker compose --env-file .env.production -f docker-compose.fullstack.yml -f docker-compose.fullstack.production.yml restart proxy
 
             # Health check
             sleep 10
-            curl -f https://attech.online || exit 1
+            curl -f https://beta.attech.com.vn || exit 1
 
-            echo "✅ Frontend deployed successfully!"
+            echo "Frontend deployed successfully!"
 
       # 6. Thông báo thành công
       - name: Deployment Success
@@ -96,4 +96,4 @@ jobs:
         run: |
           echo "Deployment thanh cong!"
           echo "Image: ghcr.io/attech-thanhnk/attech-client:${{ github.sha }}"
-          echo "Website: https://attech.online"
+          echo "Website: https://beta.attech.com.vn"

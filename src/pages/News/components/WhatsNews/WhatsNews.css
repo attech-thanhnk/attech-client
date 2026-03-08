@@ -183,7 +183,11 @@
     width: 100%;
     height: auto;
 }
-
+@media (max-width: 1024px) {
+    .whats-news-area {
+        padding: 0;
+    }
+}
 /* Responsive Design */
 @media (max-width: 991px) {
     .whats-news-area {

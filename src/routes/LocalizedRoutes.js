@@ -5,6 +5,7 @@ import { useI18n } from "../hooks/useI18n";
 import { getLanguageFromPath } from "../utils/routeHelpers";
 import MainLayout from "../components/Shared/Layout/MainLayout";
 import RouteWrapper from "../components/Shared/RouteWrapper/RouteWrapper";
+import ProtectedRoute from "../components/Auth/ProtectedRoute";
 
 // Lazy load pages for code splitting
 const Home = lazy(() => import("../pages/Home/HomePage/HomePage"));
@@ -48,6 +49,9 @@ const ContactPage = lazy(() =>
 const Financial = lazy(() =>
   import("../pages/CompanyInfo/components/Financial/Financial")
 );
+const InformationAnnouncement = lazy(() =>
+  import("../pages/CompanyInfo/components/InformationAnnouncement/InformationAnnouncement")
+);
 const History = lazy(() =>
   import("../pages/CompanyInfo/components/History/History")
 );
@@ -67,6 +71,12 @@ const Gallery = lazy(() =>
 const GalleryDetail = lazy(() =>
   import("../pages/CompanyInfo/components/Gallery/GalleryDetail")
 );
+const MediaLibrary = lazy(() =>
+  import("../pages/CompanyInfo/components/MediaLibrary/MediaLibrary")
+);
+const VideoGallery = lazy(() =>
+  import("../pages/CompanyInfo/components/VideoGallery/VideoGallery")
+);
 const CompanyInfoPage = lazy(() =>
   import("../pages/CompanyInfo/CompanyInfoPage/CompanyInfoPage")
 );
@@ -77,6 +87,7 @@ const AdminLoginPage = lazy(() => import("../pages/Auth/AdminLoginPage"));
 const UserDashboard = lazy(() => import("../pages/User/UserDashboard"));
 const InternalDocuments = lazy(() => import("../pages/User/InternalDocuments"));
 const ContactDirectory = lazy(() => import("../pages/User/ContactDirectory"));
+const GlobalDocumentSearch = lazy(() => import("../pages/User/GlobalDocumentSearch"));
 
 // Minimal loading component to avoid double loading indicators
 const PageLoader = () => {
@@ -130,10 +141,18 @@ const LocalizedRoutes = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/trang-noi-bo" element={<UserDashboard />}>
+          <Route
+            path="/trang-noi-bo"
+            element={
+              <ProtectedRoute fallbackPath="/dang-nhap">
+                <UserDashboard />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<div>Dashboard content</div>} />
-            <Route path=":category" element={<InternalDocuments />} />
+            <Route path="tim-kiem" element={<GlobalDocumentSearch />} />
             <Route path="danh-ba" element={<ContactDirectory />} />
+            <Route path=":category" element={<InternalDocuments />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
@@ -305,41 +324,49 @@ const LocalizedRoutes = () => {
           {/* Company Info Routes - Nested with sidebar layout */}
           {/* Vietnamese */}
           <Route path="/thong-tin-cong-ty" element={<CompanyInfoPage />}>
-            <Route index element={<Financial />} />
-            <Route path="thong-tin-tai-chinh" element={<Financial />} />
+            <Route index element={<Financial documentType="financial" />} />
+            <Route path="cong-bo-thong-tin" element={<InformationAnnouncement />} />
+            <Route path="thong-tin-tai-chinh" element={<Financial documentType="financial" />} />
+            <Route path="thong-tin-khac" element={<Financial documentType="other" />} />
             <Route path="lich-su-ra-doi" element={<History />} />
             <Route path="co-cau-to-chuc" element={<Structure />} />
             <Route path="ban-lanh-dao" element={<Leadership />} />
             <Route path="nganh-nghe-kinh-doanh" element={<Business />} />
             <Route path="he-thong-chung-chi-iso" element={<Iso />} />
-            <Route path="thu-vien-cong-ty" element={<Gallery />} />
+            <Route path="thu-vien-cong-ty" element={<MediaLibrary />} />
+            <Route path="thu-vien-anh" element={<Gallery />} />
             <Route
-              path="thu-vien-cong-ty/:slug"
+              path="thu-vien-anh/:slug"
               element={
                 <RouteWrapper>
                   <GalleryDetail />
                 </RouteWrapper>
               }
             />
+            <Route path="thu-vien-video" element={<VideoGallery />} />
           </Route>
           {/* English */}
           <Route path="/en/company" element={<CompanyInfoPage />}>
-            <Route index element={<Financial />} />
-            <Route path="finance" element={<Financial />} />
+            <Route index element={<Financial documentType="financial" />} />
+            <Route path="information-announcement" element={<InformationAnnouncement />} />
+            <Route path="financial" element={<Financial documentType="financial" />} />
+            <Route path="other-info" element={<Financial documentType="other" />} />
             <Route path="history" element={<History />} />
             <Route path="structure" element={<Structure />} />
             <Route path="leadership" element={<Leadership />} />
             <Route path="business" element={<Business />} />
             <Route path="iso" element={<Iso />} />
-            <Route path="gallery" element={<Gallery />} />
+            <Route path="gallery" element={<MediaLibrary />} />
+            <Route path="photos" element={<Gallery />} />
             <Route
-              path="gallery/:slug"
+              path="photos/:slug"
               element={
                 <RouteWrapper>
                   <GalleryDetail />
                 </RouteWrapper>
               }
             />
+            <Route path="videos" element={<VideoGallery />} />
           </Route>
 
           {/* Contact Routes */}
@@ -350,11 +377,11 @@ const LocalizedRoutes = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dang-nhap" element={<LoginPage />} />
           <Route path="/en/login" element={<LoginPage />} />
-          
+
           {/* Admin Login Routes */}
           <Route path="/admin-login" element={<AdminLoginPage />} />
           <Route path="/en/admin-login" element={<AdminLoginPage />} />
-          
+
           {/* User Dashboard Routes - Outside MainLayout */}
           {/* 404 Not Found */}
           <Route path="*" element={<NotFoundPage />} />

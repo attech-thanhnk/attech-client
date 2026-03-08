@@ -1,5 +1,5 @@
 .business-fields {
-    padding: 50px 20px;
+    padding: 20px;
     background: #fff;
     font-family: "Times New Roman", Times, serif;
     color: #000;
@@ -185,7 +185,7 @@
   
   @media (max-width: 480px) {
     .business-fields {
-      padding: 20px 10px;
+      padding: 0;
     }
   
     .certificate-header h1 {
@@ -337,4 +337,102 @@
     border: none;
     border-top: 1px solid #ddd;
     margin: 2em 0;
+  }
+
+  /* Managed Content Mobile Responsive */
+  @media (max-width: 768px) {
+    .business-fields .managed-content {
+      padding: 0 15px;
+    }
+
+    .business-fields .managed-content h1 {
+      font-size: 1.5rem;
+    }
+
+    .business-fields .managed-content h2 {
+      font-size: 1.3rem;
+    }
+
+    .business-fields .managed-content h3 {
+      font-size: 1.15rem;
+    }
+
+    .business-fields .managed-content p,
+    .business-fields .managed-content li {
+      font-size: 0.95rem;
+    }
+
+    .business-fields .managed-content ul,
+    .business-fields .managed-content ol {
+      padding-left: 1.5em;
+    }
+
+    .business-fields .managed-content table {
+      font-size: 0.9rem;
+    }
+
+    .business-fields .managed-content table td,
+    .business-fields .managed-content table th {
+      padding: 6px;
+    }
+
+    .business-fields .managed-content blockquote {
+      padding-left: 0.75em;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .business-fields .managed-content {
+      padding: 0 10px;
+    }
+
+    .business-fields .managed-content h1 {
+      font-size: 1.3rem;
+    }
+
+    .business-fields .managed-content h2 {
+      font-size: 1.15rem;
+    }
+
+    .business-fields .managed-content h3 {
+      font-size: 1.05rem;
+    }
+
+    .business-fields .managed-content p,
+    .business-fields .managed-content li {
+      font-size: 0.9rem;
+    }
+
+    .business-fields .managed-content ul,
+    .business-fields .managed-content ol {
+      padding-left: 1.25em;
+    }
+
+    .business-fields .managed-content table {
+      font-size: 0.85rem;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .business-fields .managed-content table td,
+    .business-fields .managed-content table th {
+      padding: 5px;
+      min-width: 80px;
+    }
+
+    .business-fields .managed-content img {
+      margin: 0.75em auto;
+    }
+
+    .business-fields .managed-content blockquote {
+      padding-left: 0.5em;
+      font-size: 0.9rem;
+    }
+
+    .business-fields .managed-content pre {
+      padding: 0.75em;
+      font-size: 0.85rem;
+    }
   }

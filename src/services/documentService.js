@@ -1,16 +1,6 @@
 import api from '../api';
 import { getApiBaseUrl } from '../config/apiConfig';
 
-/**
- * Document Service - API calls for document management
- * ✅ Sử dụng backend APIs cho documents:
- * - GET /api/news/documents - Lấy danh sách documents  
- * - POST /api/news/create-document - Tạo document
- * - PUT /api/news/update-document/{id} - Update document
- * - DELETE /api/news/delete/{id} - Xóa document
- * - GET /api/news/documents/{id} - Lấy detail document
- */
-
 const documentService = {
   /**
    * Fetch all documents
@@ -38,7 +28,9 @@ const documentService = {
       if (params.sortBy) {
         queryParams.sortBy = params.sortBy;
         queryParams.sortDirection = params.sortDirection || 'desc';
-      }const response = await api.get('/api/news/documents', { params: queryParams });// Handle API response format
+      }
+      const response = await api.get('/api/news/documents', { params: queryParams });
+      // Handle API response format
       if (response.data && response.data.status === 1 && response.data.data) {
         const dataObj = response.data.data;
         return {
@@ -68,7 +60,8 @@ const documentService = {
    * Get document by ID
    */
   getDocumentById: async (documentId) => {
-    try {const response = await api.get(`/api/news/documents/${documentId}`);if (response.data && response.data.status === 1) {
+    try {const response = await api.get(`/api/news/documents/${documentId}`);
+    if (response.data && response.data.status === 1) {
         return {
           success: true,
           data: response.data.data
@@ -90,23 +83,29 @@ const documentService = {
    * Create new document
    */
   createDocument: async (documentData) => {
-    try {const payload = {
+    try {
+      const payload = {
         titleVi: documentData.titleVi,
         titleEn: documentData.titleEn || '',
         descriptionVi: documentData.descriptionVi || '',
         descriptionEn: documentData.descriptionEn || '',
         attachmentIds: documentData.attachmentIds || [],
         featuredImageId: documentData.featuredImageId || null,
-        newsCategoryId: documentData.newsCategoryId || 1,
+        newsCategoryId: parseInt(documentData.newsCategoryId),
         timePosted: documentData.timePosted || new Date().toISOString(),
-        status: documentData.status || 1
-      };const response = await api.post('/api/news/create-document', payload);return {
+        status: documentData.status ?? 1
+      };
+
+      const response = await api.post('/api/news/create-document', payload);
+
+      return {
         success: true,
         data: response.data,
         message: 'Tạo tài liệu thành công'
       };
-    } catch (error) {const errorMessage = error.response?.data?.message || error.response?.data?.Message || error.message || 'Lỗi tạo tài liệu';
-      
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.response?.data?.Message || error.message || 'Lỗi tạo tài liệu';
+
       return {
         success: false,
         message: errorMessage,
@@ -121,22 +120,28 @@ const documentService = {
    * Update document
    */
   updateDocument: async (documentId, documentData) => {
-    try {const payload = {
+    try {
+      const payload = {
         titleVi: documentData.titleVi,
         titleEn: documentData.titleEn || '',
         descriptionVi: documentData.descriptionVi || '',
         descriptionEn: documentData.descriptionEn || '',
         attachmentIds: documentData.attachmentIds || [],
         featuredImageId: documentData.featuredImageId || null,
-        newsCategoryId: documentData.newsCategoryId || 1,
+        newsCategoryId: parseInt(documentData.newsCategoryId),
         timePosted: documentData.timePosted || new Date().toISOString(),
-        status: documentData.status || 1
-      };const response = await api.put(`/api/news/update-document/${documentId}`, payload);return {
+        status: documentData.status ?? 1
+      };
+
+      const response = await api.put(`/api/news/update-document/${documentId}`, payload);
+
+      return {
         success: true,
         data: response.data,
         message: 'Cập nhật tài liệu thành công'
       };
-    } catch (error) {return {
+    } catch (error) {
+      return {
         success: false,
         message: error.response?.data?.message || error.response?.data?.Message || 'Lỗi cập nhật tài liệu',
         data: null,

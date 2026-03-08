@@ -138,7 +138,6 @@ const InternalDocuments = () => {
 
         {error && !loading && (
           <div className="error-message text-center py-5">
-            <i className="bi bi-exclamation-triangle text-warning fs-1"></i>
             <p className="mt-3 text-danger">{error}</p>
             <button
               className="btn btn-outline-primary btn-sm mt-2"
@@ -210,6 +209,9 @@ const InternalDocuments = () => {
                                 {formatFileSize(doc.attachment.fileSize)}
                               </small>
                             )}
+                            <span className={`badge ${doc.expiryStatus === 0 ? 'bg-success' : 'bg-warning text-dark'}`}>
+                              {doc.expiryStatus === 0 ? 'Còn hiệu lực' : 'Hết hiệu lực'}
+                            </span>
                           </div>
                         </div>
                         <div className="doc-actions">

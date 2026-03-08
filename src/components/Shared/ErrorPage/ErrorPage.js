@@ -5,7 +5,7 @@ import "./ErrorPage.css";
 
 const ErrorPage = ({ 
   title = "Nội dung không tồn tại",
-  message = "Xin lỗi, nội dung bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.",
+  message = "Nội dung bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.",
   suggestions = [
     "Kiểm tra lại đường link",
     "Tìm kiếm nội dung khác", 

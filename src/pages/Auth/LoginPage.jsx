@@ -193,7 +193,6 @@ const LoginPage = () => {
               className="btn btn-link"
               onClick={() => navigate("/")}
             >
-              <i className="bi bi-arrow-left"></i>
               {t("auth.login.backToHome")}
             </button>
 
@@ -202,7 +201,6 @@ const LoginPage = () => {
               className="btn btn-outline-primary"
               onClick={() => navigate("/admin-login")}
             >
-              <i className="bi bi-shield-check"></i>
               {t("auth.login.adminLogin")}
             </button>
           </div>

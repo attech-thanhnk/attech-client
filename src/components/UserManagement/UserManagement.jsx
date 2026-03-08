@@ -511,21 +511,21 @@ const UserManagement = () => {
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">✅</div>
+          <div className="stat-icon"></div>
           <div className="stat-info">
             <div className="stat-number">{users.filter(u => u.status === 'active').length}</div>
             <div className="stat-label">Active Users</div>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">🔒</div>
+          <div className="stat-icon"></div>
           <div className="stat-info">
             <div className="stat-number">{roles.length}</div>
             <div className="stat-label">User Roles</div>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">🛡️</div>
+          <div className="stat-icon"></div>
           <div className="stat-info">
             <div className="stat-number">{permissions.length}</div>
             <div className="stat-label">Permissions</div>
