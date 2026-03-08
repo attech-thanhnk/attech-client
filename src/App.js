@@ -60,21 +60,17 @@ const App = () => {
   useEffect(() => {
     // Đánh dấu app đã load
     if (!window.__APP_LOADED__) {
-      // Check and refresh translations if needed
-      checkTranslationsVersion();
+      // Chờ ĐỒNG THỜI: 800ms tối thiểu VÀ i18n API xong
+      // → đảm bảo mọi re-render từ i18n xảy ra khi overlay còn hiện (production fix)
+      const minDelay = new Promise((resolve) =>
+        setTimeout(resolve, 800)
+      );
+      const i18nReady = checkTranslationsVersion().catch(() => { }); // không block nếu lỗi
 
-      // Progressive loading strategy:
-      // - Tối thiểu 800ms để tránh flash
-      const minLoadingTime = 800;
-
-      const minTimer = setTimeout(() => {
+      Promise.all([minDelay, i18nReady]).then(() => {
         setIsLoading(false);
-        window.__APP_LOADED__ = true; // Đánh dấu đã load
-      }, minLoadingTime);
-
-      return () => {
-        clearTimeout(minTimer);
-      };
+        window.__APP_LOADED__ = true;
+      });
     }
   }, []);
 

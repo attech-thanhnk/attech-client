@@ -73,6 +73,17 @@ class ApiBackend {
       .then((translations) => {
         // Only update if we actually got translations
         if (translations && Object.keys(translations).length > 0) {
+          // So sánh với cache hiện tại — nếu giống nhau thì bỏ qua, tránh re-render toàn app
+          const cacheKey = `i18n_${language}_data`;
+          try {
+            const existing = localStorage.getItem(cacheKey);
+            const newJson = JSON.stringify(translations);
+            if (existing === newJson) {
+              // Data không thay đổi → không cần emit, tránh layout flash
+              return;
+            }
+          } catch (_) { }
+
           // Store translations and timestamp in localStorage
           try {
             localStorage.setItem(cacheKey, JSON.stringify(translations));
@@ -214,7 +225,7 @@ export const checkTranslationsVersion = async () => {
       clearTranslationsCache();
       await reloadTranslations();
     }
-  } catch (error) {}
+  } catch (error) { }
 };
 
 // Force clear function for immediate use
