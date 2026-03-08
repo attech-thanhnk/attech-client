@@ -22,20 +22,37 @@
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
+    .page-company-info {
+        flex-direction: column;
+    }
+
+    .company-content {
+        margin-left: 0 !important;
+        width: 100%;
+        padding: 0;
+    }
+
     .company-content.sidebar-expanded,
     .company-content.sidebar-collapsed {
         margin-left: 0;
         padding: 0;
     }
-    
-    /* Hide sidebar on mobile or make it overlay */
+
+    /* Hide sidebar on tablet/mobile */
     .page-company-info .sidebar-company-info {
-        transform: translateX(-100%);
-        z-index: 1000;
+        display: none;
     }
-    
-    .page-company-info .sidebar-company-info:not(.resize) {
-        transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+    .company-content {
+        padding: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-company-info {
+        min-height: auto;
     }
 }
 
