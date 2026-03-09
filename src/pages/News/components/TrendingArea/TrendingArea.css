@@ -157,12 +157,12 @@
     background: white;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .trending-area .trand-right-single:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px rgba(192, 117, 117, 0.5);
 }
 
 .trending-area .trand-right-img {
@@ -612,16 +612,14 @@
 /* Đảm bảo style trending-bottom giữ nguyên như cũ khi dùng Swiper */
 .trending-bottom-swiper .single-bottom {
     background: white;
-    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     height: 100%;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
     border: none;
 }
 .trending-bottom-swiper .single-bottom:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 .trending-bottom-swiper .trend-bottom-img {
     position: relative;

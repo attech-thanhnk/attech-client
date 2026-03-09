@@ -1,12 +1,12 @@
 import React from "react";
 import "./MapComponent.css";
 
-const MapComponent = ({ lat, lng, zoom = 15, height = "180px", embedUrl }) => {
+const MapComponent = ({ lat, lng, zoom = 15, embedUrl }) => {
   // Ưu tiên dùng embedUrl nếu có, không thì tự tạo từ lat/lng
   const mapSrc = embedUrl || `https://maps.google.com/maps?q=${lat},${lng}&z=${zoom}&output=embed`;
 
   return (
-    <div className="map-container" style={{ height, width: "100%" }}>
+    <div className="map-container" style={{ width: "100%" }}>
       <iframe
         src={mapSrc}
         width="100%"

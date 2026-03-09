@@ -1,7 +1,6 @@
 /* Container chính của trang - giống notification */
 .news-detail-page {
   padding: 2rem 0;
-  background-color: #f8f9fa;
   min-height: 100vh;
 }
 
@@ -597,7 +596,7 @@
 
 .news-detail-page .news-sidebar {
   position: sticky;
-  top: 160px;
+  /* top: 160px; */
   height: fit-content;
   background: #fff;
   border-radius: 12px;
