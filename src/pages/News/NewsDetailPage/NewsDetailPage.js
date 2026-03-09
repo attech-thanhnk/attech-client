@@ -480,32 +480,8 @@ const NewsDetailPage = () => {
                         th: ["style", "class"],
                         a: ["href", "target", "rel"],
                       },
-                      allowedStyles: {
-                        "*": {
-                          color: [
-                            /^\#(0x)?[0-9a-f]+$/i,
-                            /^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)$/,
-                          ],
-                          "text-align": [
-                            /^left$/,
-                            /^right$/,
-                            /^center$/,
-                            /^justify$/,
-                          ],
-                          "font-size": [/^\d+(?:px|em|%)$/],
-                          "font-weight": [
-                            /^(?:normal|bold|bolder|lighter|[1-9]00)$/,
-                          ],
-                          "background-color": [
-                            /^\#(0x)?[0-9a-f]+$/i,
-                            /^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)$/,
-                          ],
-                          margin: [/^\d+(?:px|em|%)$/],
-                          padding: [/^\d+(?:px|em|%)$/],
-                          width: [/^\d+(?:px|em|%)$/],
-                          height: [/^\d+(?:px|em|%)$/],
-                        },
-                      },
+                      // Disable style parsing - postcss doesn't work in browser
+                      parseStyleAttributes: false,
                     }),
                   }}
                 />
