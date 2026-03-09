@@ -63,7 +63,7 @@ const SidebarCompanyInfo = ({ openSidebar, setOpenSidebar }) => {
       labelVi: "Thông tin tài chính",
       labelEn: "Financial Info",
       pathVi: "/thong-tin-cong-ty/thong-tin-tai-chinh",
-      pathEn: "/en/company/finance", 
+      pathEn: "/en/company/financial", 
       icon: "fas fa-chart-line"
     },
     {
@@ -92,8 +92,9 @@ const SidebarCompanyInfo = ({ openSidebar, setOpenSidebar }) => {
         <button onClick={() => setOpenSidebar(!openSidebar)}>
           <i className="fa fa-solid fa-bars"></i>
         </button>
-        <div>{!openSidebar && <span>THÔNG TIN CÔNG TY</span>}</div>
-        <hr />
+        <span className="top-sidebar-title">
+          {currentLanguage === 'vi' ? 'THÔNG TIN CÔNG TY' : 'COMPANY INFO'}
+        </span>
       </div>
 
       <div className="sidebar-nav-items">

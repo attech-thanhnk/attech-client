@@ -14,7 +14,7 @@
 
 .information-announcement-header h1 {
   margin: 0 0 8px 0;
-  font-size: 24px;
+  font-size: 2rem;
   color: #0a407c;
 }
 
@@ -121,5 +121,8 @@
 
   .info-card-content p {
     font-size: 13px;
+  }
+  .information-announcement-header h1 {
+  font-size: 1.5rem;
   }
 }

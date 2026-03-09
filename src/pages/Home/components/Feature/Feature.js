@@ -86,7 +86,7 @@ const Feature = () => {
           params={{
             slug:
               currentLanguage === "vi"
-                ? "bay-kiem-tra-hieu-chuan"
+                ? "dich-vu-bay-kiem-tra-hieu-chuan-bay-danh-gia-phuong-thuc-bay"
                 : "flight-inspection-service",
           }}
           className="feature-link"
