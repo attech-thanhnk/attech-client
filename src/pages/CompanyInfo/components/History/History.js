@@ -68,41 +68,65 @@ const History = () => {
   ];
 
   const companyInfo = {
-    name: {
-      vietnamese: "Công ty TNHH Kỹ thuật Quản lý bay",
-      international: "Air Traffic Technical Company Limited",
-      short: "ATTECH CO.,LTD",
+  name: {
+    vietnamese: "Công ty TNHH Kỹ thuật Quản lý bay",
+    international: "Air Traffic Technical Company Limited",
+    short: "ATTECH CO.,LTD",
+  },
+  headquarters: {
+    address: {
+      vi: "Số 5/200 Đường Nguyễn Sơn, phường Bồ Đề, Thành phố Hà Nội",
+      en: "No. 5/200 Nguyen Son Street, Bo De Ward, Hanoi City, Vietnam",
     },
-    headquarters: {
-      address: "Số 5/200 Đường Nguyễn Sơn, phường Bồ Đề, Thành phố Hà Nội",
-      phone: "024.38721514",
-      fax: "024.38730398",
-      email: "attech@attech.com.vn",
-      website: "attech.com.vn",
+    phone: "024.38721514",
+    fax: "024.38730398",
+    email: "attech@attech.com.vn",
+    website: "attech.com.vn",
+  },
+  capital: {
+    vi: "279.084.000.000 đồng",
+    en: "279,084,000,000 VND",
+  },
+  branches: [
+    {
+      name: {
+        vi: "Xí nghiệp chế tạo thiết bị Hàng không",
+        en: "Aviation Equipment Manufacturing Enterprise",
+      },
+      address: {
+        vi: "Tổ 6, Phường Long Biên, Thành phố Hà Nội",
+        en: "Group 6, Long Bien Ward, Hanoi City, Vietnam",
+      },
+      phone: "024.38759625",
+      fax: "024.38759625",
     },
-    capital: "279.084.000.000 đồng",
-    branches: [
-      {
-        name: "Xí nghiệp chế tạo thiết bị Hàng không",
-        address: "Tổ 6, Phường Long Biên, Thành phố Hà Nội",
-        phone: "024.38759625",
-        fax: "024.38759625",
+    {
+      name: {
+        vi: "Chi nhánh tại thành phố Hồ Chí Minh",
+        en: "Ho Chi Minh City Branch",
       },
-      {
-        name: "Chi nhánh tại thành phố Hồ Chí Minh",
-        address: "58 Trường Sơn –Phường Tân Sơn Hòa – Thành phố Hồ Chí Minh",
-        phone: "(84.28) 8456081",
-        fax: "(84.28) 8456081",
+      address: {
+        vi: "58 Trường Sơn – Phường Tân Sơn Hòa – Thành phố Hồ Chí Minh",
+        en: "58 Truong Son Street, Tan Son Hoa Ward, Ho Chi Minh City, Vietnam",
       },
-      {
-        name: "Ban Quản lý dự án đầu tư và xây dựng chuyên ngành",
-        address: "Số 5/200 Đường Nguyễn Sơn, phường Bồ Đề, Thành phố Hà Nội",
-        phone: "024.38723747",
-        fax: "024.38759625",
-        email: "attech-pmu@attech.com.vn",
+      phone: "(84.28) 8456081",
+      fax: "(84.28) 8456081",
+    },
+    {
+      name: {
+        vi: "Ban Quản lý dự án đầu tư và xây dựng chuyên ngành",
+        en: "Specialized Investment and Construction Project Management Unit",
       },
-    ],
-  };
+      address: {
+        vi: "Số 5/200 Đường Nguyễn Sơn, phường Bồ Đề, Thành phố Hà Nội",
+        en: "No. 5/200 Nguyen Son Street, Bo De Ward, Hanoi City, Vietnam",
+      },
+      phone: "024.38723747",
+      fax: "024.38759625",
+      email: "attech-pmu@attech.com.vn",
+    },
+  ],
+};
 
   return (
     <>
@@ -166,7 +190,7 @@ const History = () => {
               <h3>{t("frontend.companyInfo.history.headquarters")}</h3>
               <p>
                 <strong>{t("frontend.companyInfo.history.address")}:</strong>{" "}
-                {companyInfo.headquarters.address}
+                {companyInfo.headquarters.address[currentLanguage]}
               </p>
               <p>
                 <strong>{t("frontend.companyInfo.history.phone")}:</strong>{" "}
@@ -193,7 +217,7 @@ const History = () => {
             </div>
             <div className="info-card" data-aos="fade-up" data-aos-delay="200">
               <h3>{t("frontend.companyInfo.history.capital")}</h3>
-              <p>{companyInfo.capital}</p>
+              {companyInfo.capital[currentLanguage]}
             </div>
           </div>
           <div className="branches-section" data-aos="fade-up">
@@ -201,12 +225,12 @@ const History = () => {
             <div className="branches-grid">
               {companyInfo.branches.map((branch, index) => (
                 <div key={index} className="branch-card">
-                  <h4>{branch.name}</h4>
+                  <h4>{branch.name[currentLanguage]}</h4>
                   <p>
                     <strong>
                       {t("frontend.companyInfo.history.address")}:
                     </strong>{" "}
-                    {branch.address}
+                    {branch.address[currentLanguage]}
                   </p>
                   <p>
                     <strong>{t("frontend.companyInfo.history.phone")}:</strong>{" "}
