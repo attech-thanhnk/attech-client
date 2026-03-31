@@ -19,7 +19,7 @@ export const useFormWithConfirm = (
   const [originalData, setOriginalData] = useState(null);
   const [hasChanges, setHasChanges] = useState(false); // Track thay đổi
 
-  // Kiểm tra xem có dữ liệu thay đổi không (so với dữ liệu gốc)
+  // Kiểm tra xem có dữ liệu thay đổi không
   const hasUnsavedChanges = useCallback(() => {
     if (!originalData) return false;
 
@@ -71,7 +71,7 @@ export const useFormWithConfirm = (
   }, [emptyData]);
 
   const handleEdit = useCallback((item) => {
-    setEditMode(true);// Convert status from number to string for form compatibility
+    setEditMode(true);
     // Nếu status đã là string rồi thì giữ nguyên, nếu là number thì chuyển đổi
     const convertedStatus =
       typeof item.status === "string"

@@ -46,9 +46,9 @@ const History = () => {
       description: t("frontend.companyInfo.history.timeline.1986.description"),
     },
     {
-      year: "1989",
-      title: t("frontend.companyInfo.history.timeline.1989.title"),
-      description: t("frontend.companyInfo.history.timeline.1989.description"),
+      year: "1991",
+      title: t("frontend.companyInfo.history.timeline.1991.title"),
+      description: t("frontend.companyInfo.history.timeline.1991.description"),
     },
     {
       year: "1998",
@@ -78,14 +78,14 @@ const History = () => {
       vi: "Số 5/200 Đường Nguyễn Sơn, phường Bồ Đề, Thành phố Hà Nội",
       en: "No. 5/200 Nguyen Son Street, Bo De Ward, Hanoi City, Vietnam",
     },
-    phone: "024.38721514",
+    phone: "024.38271914",
     fax: "024.38730398",
     email: "attech@attech.com.vn",
     website: "attech.com.vn",
   },
   capital: {
-    vi: "279.084.000.000 đồng",
-    en: "279,084,000,000 VND",
+    vi: "296.454.918.204 đồng",
+    en: "296.454.918.204 VND",
   },
   branches: [
     {
