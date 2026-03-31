@@ -14,7 +14,7 @@ const Gallery = () => {
 
   const text = currentLanguage === 'vi' ? {
     title: "Thư viện ảnh",
-    desc: "Hình ảnh hoạt động và sự kiện của công ty",
+    desc: "Hình ảnh hoạt động và sự kiện của Công ty",
     noAlbums: "Chưa có album nào",
   } : {
     title: "Photo Gallery",

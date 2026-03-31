@@ -12,9 +12,9 @@ const CompanyInfoPage = () => {
 
   const seoContent = {
     vi: {
-      title: "Thông tin công ty | ATTECH",
+      title: "Thông tin Công ty | ATTECH",
       description:
-        "Tìm hiểu về ATTECH - lịch sử, cơ cấu tổ chức, ban lãnh đạo, ngành nghề kinh doanh và hệ thống chứng chỉ ISO của công ty.",
+        "Tìm hiểu về ATTECH - lịch sử, cơ cấu tổ chức, ban lãnh đạo, ngành nghề kinh doanh và hệ thống chứng chỉ ISO của Công ty.",
       keywords:
         "thông tin ATTECH, về ATTECH, lịch sử ATTECH, ban lãnh đạo, ISO certification",
     },

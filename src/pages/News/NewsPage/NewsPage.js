@@ -16,7 +16,7 @@ const NewsPage = () => {
     vi: {
       title: "Trang tin tức | ATTECH",
       description:
-        "Cập nhật tin tức mới nhất về các hoạt động, sự kiện, thông tin trong lĩnh vực hàng không của công ty TNHH Kỹ thuật Quản lý bay",
+        "Cập nhật tin tức mới nhất về các hoạt động, sự kiện, thông tin trong lĩnh vực hàng không của Công ty TNHH Kỹ thuật Quản lý bay",
       keywords:
         "tin tức ATTECH, tin hàng không, aviation news, hoạt động ATTECH",
     },

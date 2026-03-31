@@ -20,7 +20,7 @@ const StaticContentList = () => {
       titleVi: "Ngành nghề kinh doanh",
       titleEn: "Business Fields",
       translationKey: "frontend.companyInfo.business.fullContent",
-      description: "Thông tin về các ngành nghề kinh doanh của công ty",
+      description: "Thông tin về các ngành nghề kinh doanh của Công ty",
       route: "/thong-tin-cong-ty/nganh-nghe-kinh-doanh",
     },
     {
@@ -36,7 +36,7 @@ const StaticContentList = () => {
       titleVi: "Lịch sử hình thành",
       titleEn: "Company History",
       translationKey: "frontend.companyInfo.history.fullContent",
-      description: "Lịch sử phát triển và các mốc quan trọng của công ty",
+      description: "Lịch sử phát triển và các mốc quan trọng của Công ty",
       route: "/thong-tin-cong-ty/lich-su-ra-doi",
     },
     {

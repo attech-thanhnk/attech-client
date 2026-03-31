@@ -8,15 +8,14 @@
 html {
   overflow-x: hidden;
   overflow-y: scroll;
+  scroll-behavior: auto !important; /* Force instant scroll */
   /* Luôn giữ scrollbar space → tránh layout shift ngang khi content load */
-  max-width: 100vw;
 }
 
 html,
 body {
   background: #fff !important;
   overflow-x: hidden;
-  max-width: 100vw;
   width: 100%;
 }
 
@@ -28,7 +27,6 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   overflow-x: hidden;
-  max-width: 100vw;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }

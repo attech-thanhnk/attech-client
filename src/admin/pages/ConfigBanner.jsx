@@ -583,7 +583,7 @@ const ConfigBanner = () => {const [activeMainTab, setActiveMainTab] = useState('
           onClick={() => setActiveMainTab('companyinfo')}
         >
           <i className="bi bi-building"></i>
-          Ảnh thông tin công ty
+          Ảnh thông tin Công ty
         </button>
       </div>
       <div className="tab-description">

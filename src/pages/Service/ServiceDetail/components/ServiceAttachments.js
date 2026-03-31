@@ -39,9 +39,6 @@ const ImageGallery = React.memo(({ images, t }) => {
               loading="lazy"
               onClick={() => window.open(`${getApiBaseUrl()}${image.url}`, '_blank')}
             />
-            <div className="image-caption">
-              <span className="image-title">{image.originalFileName?.split('.')[0] || `Image ${index + 1}`}</span>
-            </div>
           </div>
         ))}
       </div>

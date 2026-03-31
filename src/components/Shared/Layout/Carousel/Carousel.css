@@ -1,3 +1,10 @@
+/* Wrapper carousel - background che khoảng trắng khi scroll */
+.carousel-wrapper {
+    width: 100%;
+    padding-top: 120px;
+    background: #6ba6e9;
+}
+
 .carousel .carousel-inner .carousel-item {
     position: relative;
     overflow: hidden;
@@ -13,7 +20,7 @@
 
 #carouselId {
     transition: none !important;
-    margin-top: 120px;
+    margin-top: 0;
 }
 
 @keyframes subtle-zoom {
@@ -45,6 +52,9 @@
 }
 
 @media (max-width: 1024px) {
+    .carousel-wrapper {
+        padding-top: 70px;
+    }
     #carouselId {
         position: relative;
         left: 50%;
@@ -77,6 +87,9 @@
 }
 
 @media (max-width: 576px) {
+    .carousel-wrapper {
+        padding-top: 60px;
+    }
     .carousel .carousel-inner .carousel-item {
         height: 300px;
     }
@@ -89,9 +102,6 @@
     .carousel .carousel-inner .carousel-item::after {
         margin-top: 48px;
     }
-    #carouselId {
-    margin-top: 60px;
-}
 
 }
 

@@ -11,22 +11,22 @@ const MediaLibrary = () => {
   const config = {
     vi: {
       seo: {
-        title: "Thư viện công ty | ATTECH",
+        title: "Thư viện Công ty | ATTECH",
         description: "Xem thư viện ảnh và video của ATTECH.",
         keywords: "thư viện ATTECH, hình ảnh, video, gallery",
       },
-      title: "Thư viện công ty",
-      description: "Khám phá hình ảnh và video hoạt động của công ty",
+      title: "Thư viện Công ty",
+      description: "Khám phá hình ảnh và video hoạt động của Công ty",
       cards: [
         {
           title: "Thư viện ảnh",
-          description: "Xem các album hình ảnh hoạt động, sự kiện và dự án của công ty",
+          description: "Xem các album hình ảnh hoạt động, sự kiện và dự án của Công ty",
           icon: "fa-image",
           link: "/thong-tin-cong-ty/thu-vien-anh",
         },
         {
           title: "Thư viện video",
-          description: "Xem các video giới thiệu, hoạt động và sự kiện của công ty",
+          description: "Xem các video giới thiệu, hoạt động và sự kiện của Công ty",
           icon: "fa-play-circle",
           link: "/thong-tin-cong-ty/thu-vien-video",
         },

@@ -45,12 +45,12 @@ export class ATTECHAIEngine {
       },
       
       company: {
-        keywords: ['công ty', 'attech', 'lịch sử', 'giới thiệu', 'about', 'history', 'vatm'],
+        keywords: ['Công ty', 'attech', 'lịch sử', 'giới thiệu', 'about', 'history', 'vatm'],
         concepts: ['thành lập 1986', 'thành viên VATM', 'kinh nghiệm 38 năm', 'đối tác tin cậy'],
         responses: {
-          history: 'ATTECH - Công ty TNHH Kỹ thuật Quản lý bay được thành lập năm 1986, là thành viên của Tổng công ty Quản lý bay Việt Nam (VATM). Với 38 năm phát triển, chúng tôi đã trở thành đơn vị dẫn đầu về kỹ thuật hàng không.',
+          history: 'ATTECH - Công ty TNHH Kỹ thuật Quản lý bay được thành lập năm 1986, là thành viên của Tổng Công ty Quản lý bay Việt Nam (VATM). Với 38 năm phát triển, chúng tôi đã trở thành đơn vị dẫn đầu về kỹ thuật hàng không.',
           achievements: 'ATTECH tự hào với 150+ dự án thành công, phục vụ 20+ sân bay quốc tế, xuất khẩu thiết bị sang 5 quốc gia ASEAN, và nhận được nhiều bằng khen từ Bộ GTVT.',
-          vision: 'Tầm nhìn của ATTECH: Trở thành công ty kỹ thuật hàng không hàng đầu khu vực, đóng góp vào sự phát triển bền vững của ngành hàng không Việt Nam và quốc tế.'
+          vision: 'Tầm nhìn của ATTECH: Trở thành Công ty kỹ thuật hàng không hàng đầu khu vực, đóng góp vào sự phát triển bền vững của ngành hàng không Việt Nam và quốc tế.'
         }
       }
     };
@@ -286,7 +286,7 @@ export class ATTECHAIEngine {
   generateFallbackResponse(intent) {
     const fallbacks = {
       greeting: [
-        '👋 Xin chào! Tôi là AI Assistant của ATTECH. Tôi có thể giúp bạn về:\n\n🛩️ **Dịch vụ CNS/ATM**\n📡 **Sản phẩm hàng không**\n✈️ **Bay kiểm tra hiệu chuẩn**\n🏢 **Thông tin công ty**\n\nBạn quan tâm đến lĩnh vực nào?',
+        '👋 Xin chào! Tôi là AI Assistant của ATTECH. Tôi có thể giúp bạn về:\n\n🛩️ **Dịch vụ CNS/ATM**\n📡 **Sản phẩm hàng không**\n✈️ **Bay kiểm tra hiệu chuẩn**\n🏢 **Thông tin Công ty**\n\nBạn quan tâm đến lĩnh vực nào?',
         '🎯 Chào mừng đến với ATTECH! Với 38 năm kinh nghiệm, chúng tôi chuyên về:\n\n• Hệ thống CNS/ATM\n• Thiết bị hàng không\n• Dịch vụ kỹ thuật\n\nTôi có thể hỗ trợ gì cho bạn?'
       ],
       unknown: [

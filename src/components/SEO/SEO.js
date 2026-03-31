@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const SEO = ({
   title = "ATTECH - Công ty TNHH Kỹ thuật Quản lý bay",
-  description = "ATTECH là công ty hàng đầu trong lĩnh vực kỹ thuật hàng không, cung cấp dịch vụ CNS, bay kiểm tra hiệu chuẩn và sản xuất thiết bị hàng không chất lượng cao.",
+  description = "ATTECH là Công ty hàng đầu trong lĩnh vực kỹ thuật hàng không, cung cấp dịch vụ CNS, bay kiểm tra hiệu chuẩn và sản xuất thiết bị hàng không chất lượng cao.",
   keywords = "ATTECH, kỹ thuật hàng không, CNS, quản lý bay, bay kiểm tra, thiết bị hàng không, Vietnam aviation",
   image = null,
   url = "",

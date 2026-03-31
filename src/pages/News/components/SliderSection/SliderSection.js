@@ -111,7 +111,7 @@ const SliderSection = () => {
         <div className="col-lg-4">
           <div className="latest_post">
             <div className="d-flex justify-content-between align-items-center m-0">
-              <p>Hoạt động công ty</p>
+              <p>Hoạt động Công ty</p>
               <ViewAllButton to="/news/notification/all" />
             </div>
             <div className="fixed_announcement">

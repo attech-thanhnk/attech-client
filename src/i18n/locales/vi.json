@@ -83,10 +83,10 @@
         }
       },
       "newsCategories": {
-        "companyActivities": "Hoạt động công ty",
-        "partyCommittee": "Đảng bộ công ty",
-        "youthUnion": "Đoàn thanh niên công ty",
-        "tradeUnion": "Công đoàn công ty",
+        "companyActivities": "Hoạt động Công ty",
+        "partyCommittee": "Đảng bộ Công ty",
+        "youthUnion": "Đoàn thanh niên Công ty",
+        "tradeUnion": "Công đoàn Công ty",
         "aviationNews": "Tin ngành hàng không"
       }
     },
@@ -246,10 +246,10 @@
         }
       },
       "newsCategories": {
-        "companyActivities": "Hoạt động công ty",
-        "partyCommittee": "Đảng bộ công ty",
-        "youthUnion": "Đoàn thanh niên công ty",
-        "tradeUnion": "Công đoàn công ty",
+        "companyActivities": "Hoạt động Công ty",
+        "partyCommittee": "Đảng bộ Công ty",
+        "youthUnion": "Đoàn thanh niên Công ty",
+        "tradeUnion": "Công đoàn Công ty",
         "aviationNews": "Tin ngành hàng không"
       }
     },
@@ -342,7 +342,8 @@
         "phone": "Điện thoại",
         "fax": "Fax",
         "email": "Hòm thư điện tử",
-        "address": "Địa chỉ"
+        "address": "Địa chỉ",
+        "addressValue": "Số 5/200 đường Nguyễn Sơn, phường Bồ Đề, Thành phố Hà Nội"
       },
       "form": {
         "namePlaceholder": "Họ và tên",
@@ -397,11 +398,11 @@
           },
           "2008": {
             "title": "Chuyển đổi và thành lập Trung tâm Dịch vụ Kỹ thuật Bảo đảm hoạt động bay",
-            "description": "Năm 2008, Trung tâm Quản lý bay dân dụng Việt Nam chuyển thành Tổng công ty Bảo đảm hoạt động bay Việt Nam. Ngày 23/3/2009, Trung tâm Dịch vụ Kỹ thuật Bảo đảm hoạt động bay được thành lập trên cơ sở tổ chức lại Trung tâm Dịch vụ Kỹ thuật Quản lý bay."
+            "description": "Năm 2008, Trung tâm Quản lý bay dân dụng Việt Nam chuyển thành Tổng Công ty Bảo đảm hoạt động bay Việt Nam. Ngày 23/3/2009, Trung tâm Dịch vụ Kỹ thuật Bảo đảm hoạt động bay được thành lập trên cơ sở tổ chức lại Trung tâm Dịch vụ Kỹ thuật Quản lý bay."
           },
           "2010": {
             "title": "Thành lập Công ty TNHH Kỹ thuật Quản lý bay",
-            "description": "Ngày 22/7/2010, Công ty TNHH Kỹ thuật Quản lý bay được thành lập trên cơ sở tổ chức lại Trung tâm Dịch vụ Kỹ thuật Bảo đảm hoạt động bay, do Tổng công ty Quản lý bay Việt Nam sở hữu 100% vốn điều lệ."
+            "description": "Ngày 22/7/2010, Công ty TNHH Kỹ thuật Quản lý bay được thành lập trên cơ sở tổ chức lại Trung tâm Dịch vụ Kỹ thuật Bảo đảm hoạt động bay, do Tổng Công ty Quản lý bay Việt Nam sở hữu 100% vốn điều lệ."
           }
         }
       },
@@ -432,9 +433,9 @@
       "leadership": {
         "title": "Ban lãnh đạo của Công ty TNHH Kỹ thuật Quản lý bay",
         "positions": {
-          "chairman": "Chủ tịch công ty",
-          "director": "Giám đốc công ty",
-          "viceDirector": "Phó giám đốc công ty"
+          "chairman": "Chủ tịch Công ty",
+          "director": "Giám đốc Công ty",
+          "viceDirector": "Phó giám đốc Công ty"
         }
       },
       "iso": {
@@ -444,15 +445,16 @@
         "commitmentTitle": "Cam Kết Về Hệ Thống Quản Lý Chất Lượng",
         "commitmentParagraph1": "Công ty TNHH Kỹ thuật Quản lý bay cam kết xây dựng, lập thành văn bản, áp dụng và duy trì hệ thống quản lý chất lượng đồng thời thường xuyên nâng cao hiệu lực và hiệu quả của hệ thống theo các yêu cầu của tiêu chuẩn ISO 9001:2015.",
         "commitmentParagraph2": "Chính sách chất lượng được Lãnh đạo Công ty tuyên bố ngày 01/01/2018.",
-        "commitmentParagraph3": "Hiện đại, chất lượng, an toàn, tiện dụng và hiệu quả như là một thuộc tính của sản phẩm và dịch vụ hàng không. Tầm nhìn của chúng tôi là trở thành tổ hợp công ty đa sở hữu hoạt động kinh doanh trên các lĩnh vực: Cung cấp dịch vụ thông tin, dẫn đường, giám sát hàng không; Cung cấp dịch vụ bay kiểm tra hiệu chuẩn hàng không; Sản xuất công nghiệp hàng không.",
+        "commitmentParagraph3": "Hiện đại, chất lượng, an toàn, tiện dụng và hiệu quả như là một thuộc tính của sản phẩm và dịch vụ hàng không. Tầm nhìn của chúng tôi là trở thành tổ hợp Công ty đa sở hữu hoạt động kinh doanh trên các lĩnh vực: Cung cấp dịch vụ thông tin, dẫn đường, giám sát hàng không; Cung cấp dịch vụ bay kiểm tra hiệu chuẩn hàng không; Sản xuất công nghiệp hàng không.",
         "commitmentParagraph4": "Để đảm bảo rằng 'Sản phẩm và dịch vụ của chúng tôi an toàn, chất lượng và tiện dụng theo tiêu chuẩn hàng không'.",
         "documentsTitle": "Tài Liệu Đính Kèm",
         "timeline": {
           "2005": "Công ty được tổ chức đánh giá BVQI của Anh cấp giấy chứng nhận đạt tiêu chuẩn Quốc tế ISO 9001:2000.",
           "2008": "Ngày 29/01/2008, Hệ thống quản lý chất lượng của Công ty được tổ chức Quốc tế TUV NORD của CHLB Đức đánh giá tái chứng nhận và cấp Chứng chỉ Hệ thống quản lý chất lượng ISO 9001:2000.",
           "2011": "Ngày 15/01/2011, Công ty hoàn thành chuyển đổi từ tiêu chuẩn TCVN ISO 9001:2000 sang TCVN ISO 9001:2008 và được tổ chức Quốc tế BSi của Vương quốc Anh cấp chứng chỉ ISO 9001:2008.",
-          "2018": "Chính sách  chất lượng được Lãnh đạo Công ty tuyên bố ngày 01/01/2018. Hiện đại, chất lượng, an toàn, tiện dụng và hiệu quả như một thuộc tính của sản phẩm và dịch vụ hàng không. Tầm nhìn của chúng tôi là trở thành tổ hợp công ty đa sở hữu hoạt động kinh doanh trên các lĩnh vực: Cung cấp dịch vụ thông tin, dẫn đường, giám sát hàng không; Cung cấp dịch vụ bay hiệu chuẩn hàng không; Sản xuất công nghiệp hàng không. Mong muốn của quý khách hàng là nguồn cảm hứng sáng tạo, động lực đầu tư, mục tiêu quản lý của chúng tôi. Chúng tôi thực hiện: Sáng tạo không ngừng, Đầu tư hiệu quả, Nhân viên chuyên nghiệp, Quản lý tinh thông. Để đảm bảo rằng Sản phẩm và dịch vụ của chúng tôi an toàn, chất lượng và tiện dụng theo tiêu chuẩn hàng không. Chi tiết nội dung chính sách chất lượng như file đính kèm.",
-          "2020": "Hệ thống quản lý chất lượng của Công ty được duy trì, định kỳ đánh giá giám sát 1 lần/năm và đánh giá tái chứng nhận 3 năm/lần."
+          "2018": "Chính sách  chất lượng được Lãnh đạo Công ty tuyên bố ngày 01/01/2018. Hiện đại, chất lượng, an toàn, tiện dụng và hiệu quả như một thuộc tính của sản phẩm và dịch vụ hàng không. Tầm nhìn của chúng tôi là trở thành tổ hợp Công ty đa sở hữu hoạt động kinh doanh trên các lĩnh vực: Cung cấp dịch vụ thông tin, dẫn đường, giám sát hàng không; Cung cấp dịch vụ bay hiệu chuẩn hàng không; Sản xuất công nghiệp hàng không. Mong muốn của quý khách hàng là nguồn cảm hứng sáng tạo, động lực đầu tư, mục tiêu quản lý của chúng tôi. Chúng tôi thực hiện: Sáng tạo không ngừng, Đầu tư hiệu quả, Nhân viên chuyên nghiệp, Quản lý tinh thông. Để đảm bảo rằng Sản phẩm và dịch vụ của chúng tôi an toàn, chất lượng và tiện dụng theo tiêu chuẩn hàng không. Chi tiết nội dung chính sách chất lượng như file đính kèm.",
+          "2020": "Hệ thống quản lý chất lượng của Công ty được duy trì, định kỳ đánh giá giám sát 1 lần/năm và đánh giá tái chứng nhận 3 năm/lần.",
+          "present": "Hiện tại"
         }
       },
       "gallery": {
@@ -505,7 +507,7 @@
     "fax": "024.38720398",
     "email": "attech@attech.com.vn",
     "quickLinks": "Liên kết nhanh",
-    "mapTitle": "Bản đồ chỉ dẫn công ty TNHH Kỹ thuật Quản lý bay",
+    "mapTitle": "Bản đồ chỉ dẫn Công ty TNHH Kỹ thuật Quản lý bay",
     "copyright": "Bản quyền thuộc sở hữu của ATTECH."
   }
 }

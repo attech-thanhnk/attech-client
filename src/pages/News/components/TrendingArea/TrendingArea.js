@@ -33,7 +33,6 @@ const TrendingArea = () => {
 
         const categorySlug = currentLanguage === "vi" ? "hoat-dong-cong-ty" : "company-activities";
 
-        // Gá»i API 1 láº§n song song
         const mainNews = await getNewsByCategorySlug(categorySlug, {
           pageNumber: 1,
           pageSize: 30,

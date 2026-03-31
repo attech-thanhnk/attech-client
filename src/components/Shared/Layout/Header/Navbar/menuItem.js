@@ -329,28 +329,28 @@ const fallbackMenuItems = [
         submenu: [
           {
             key: "company-activities",
-            labelVi: "Hoạt động công ty",
+            labelVi: "Hoạt động Công ty",
             labelEn: "Company Activities",
             pathVi: "/tin-tuc/hoat-dong-cong-ty",
             pathEn: "/en/news/company-activities",
           },
           {
             key: "company-party",
-            labelVi: "Đảng bộ công ty",
+            labelVi: "Đảng bộ Công ty",
             labelEn: "Company Party",
             pathVi: "/tin-tuc/dang-bo-cong-ty",
             pathEn: "/en/news/company-party",
           },
           {
             key: "company-youth-union",
-            labelVi: "Đoàn thanh niên công ty",
+            labelVi: "Đoàn thanh niên Công ty",
             labelEn: "Company Youth Union",
             pathVi: "/tin-tuc/doan-thanh-nien-cong-ty",
             pathEn: "/en/news/company-youth-union",
           },
           {
             key: "company-union",
-            labelVi: "Công đoàn công ty",
+            labelVi: "Công đoàn Công ty",
             labelEn: "Company Union",
             pathVi: "/tin-tuc/cong-doan-cong-ty",
             pathEn: "/en/news/company-union",
@@ -405,7 +405,7 @@ const fallbackMenuItems = [
   },
   {
     key: "company",
-    labelVi: "Thông tin công ty",
+    labelVi: "Thông tin Công ty",
     labelEn: "Company Info",
     pathVi: "/thong-tin-cong-ty",
     pathEn: "/en/company",
@@ -454,7 +454,7 @@ const fallbackMenuItems = [
       },
       {
         key: "gallery",
-        labelVi: "Thư viện công ty",
+        labelVi: "Thư viện Công ty",
         labelEn: "Company Gallery",
         pathVi: "/thong-tin-cong-ty/thu-vien-cong-ty",
         pathEn: "/en/company/gallery",

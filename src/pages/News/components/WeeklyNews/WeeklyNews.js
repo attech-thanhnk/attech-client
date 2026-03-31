@@ -14,9 +14,9 @@ import { DEFAULT_NEWS_IMAGE } from "../../../../constants/defaultImages";
 
 // Dùng ID thực từ database cho các danh mục con
 const childCategoryIds = [
-  CATEGORY_IDS.COMPANY_PARTY, // Đảng bộ công ty
-  CATEGORY_IDS.COMPANY_UNION, // Công đoàn công ty
-  CATEGORY_IDS.COMPANY_YOUTH_UNION, // Đoàn thanh niên công ty
+  CATEGORY_IDS.COMPANY_PARTY, // Đảng bộ Công ty
+  CATEGORY_IDS.COMPANY_UNION, // Công đoàn Công ty
+  CATEGORY_IDS.COMPANY_YOUTH_UNION, // Đoàn thanh niên Công ty
 ];
 
 // Helper functions for fallback data
@@ -37,11 +37,11 @@ const getCategorySlugById = (id, lang) => {
 const getCategoryTitleById = (id, lang) => {
   const mapping = {
     [CATEGORY_IDS.COMPANY_PARTY]:
-      lang === "vi" ? "Đảng bộ công ty" : "Company Party Committee",
+      lang === "vi" ? "Đảng bộ Công ty" : "Company Party Committee",
     [CATEGORY_IDS.COMPANY_UNION]:
-      lang === "vi" ? "Công đoàn công ty" : "Company Union",
+      lang === "vi" ? "Công đoàn Công ty" : "Company Union",
     [CATEGORY_IDS.COMPANY_YOUTH_UNION]:
-      lang === "vi" ? "Đoàn thanh niên công ty" : "Company Youth Union",
+      lang === "vi" ? "Đoàn thanh niên Công ty" : "Company Youth Union",
   };
   return mapping[id] || "";
 };

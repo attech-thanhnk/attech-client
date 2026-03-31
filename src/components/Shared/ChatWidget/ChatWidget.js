@@ -48,7 +48,7 @@ const ChatWidget = () => {
       type: 'received',
       text: newMode 
         ? '👨‍💼 Bạn đã chuyển sang chế độ chat với bộ phận hỗ trợ ATTECH. Nhân viên tư vấn sẽ phản hồi trong vài phút...\n\n💡 Để được hỗ trợ nhanh nhất, vui lòng mô tả cụ thể nhu cầu của bạn.'
-        : '🤖 Bạn đã chuyển về chế độ AI Assistant. Tôi có thể trả lời ngay các câu hỏi về dịch vụ, sản phẩm và thông tin công ty ATTECH!',
+        : '🤖 Bạn đã chuyển về chế độ AI Assistant. Tôi có thể trả lời ngay các câu hỏi về dịch vụ, sản phẩm và thông tin Công ty ATTECH!',
       timestamp: new Date(),
       status: 'sent'
     };
@@ -246,7 +246,7 @@ const ChatWidget = () => {
                 <button className="quick-reply-btn" onClick={() => handleQuickReply('Thông tin liên hệ ATTECH')}>
                   📞 Liên hệ
                 </button>
-                <button className="quick-reply-btn" onClick={() => handleQuickReply('Giới thiệu về công ty ATTECH')}>
+                <button className="quick-reply-btn" onClick={() => handleQuickReply('Giới thiệu về Công ty ATTECH')}>
                   🏢 Về ATTECH
                 </button>
               </div>

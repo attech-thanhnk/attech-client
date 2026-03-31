@@ -16,7 +16,7 @@ const InformationAnnouncement = () => {
         keywords: "thông tin công bố ATTECH, thông tin tài chính, tài liệu",
       },
       title: "Thông tin công bố",
-      description: "Xem các thông tin và tài liệu công bố của công ty",
+      description: "Xem các thông tin và tài liệu công bố của Công ty",
       cards: [
         {
           title: "Thông tin tài chính",
@@ -26,7 +26,7 @@ const InformationAnnouncement = () => {
         },
         {
           title: "Thông tin khác",
-          description: "Xem các thông tin và tài liệu khác của công ty",
+          description: "Xem các thông tin và tài liệu khác của Công ty",
           icon: "fa-file-text",
           link: "/thong-tin-cong-ty/thong-tin-khac",
         },

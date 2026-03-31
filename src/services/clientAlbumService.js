@@ -3,7 +3,7 @@ import { getApiUrl } from '../config/apiConfig';
 
 /**
  * Client Album Service - Public APIs for company gallery
- * 🎯 For "Thư viện công ty" in Company Introduction
+ * 🎯 For "Thư viện Công ty" in Company Introduction
  * 
  * API Endpoints:
  * - GET /api/client/albums - NewsDto[] (featured image only)

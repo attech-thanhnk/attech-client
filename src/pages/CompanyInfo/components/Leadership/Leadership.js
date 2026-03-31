@@ -56,7 +56,7 @@ export default function Leadership() {
     vi: {
       title: "Ban lãnh đạo | ATTECH",
       description:
-        "Giới thiệu ban lãnh đạo ATTECH gồm Chủ tịch Công ty, Giám đốc và các Phó giám đốc công ty kỹ thuật quản lý bay.",
+        "Giới thiệu ban lãnh đạo ATTECH gồm Chủ tịch Công ty, Giám đốc và các Phó giám đốc Công ty kỹ thuật quản lý bay.",
       keywords:
         "ban lãnh đạo ATTECH, leadership, management team, giám đốc ATTECH",
     },

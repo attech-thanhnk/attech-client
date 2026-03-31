@@ -68,7 +68,7 @@ const SidebarCompanyInfo = ({ openSidebar, setOpenSidebar }) => {
     },
     {
       key: "gallery",
-      labelVi: "Thư viện công ty", 
+      labelVi: "Thư viện Công ty", 
       labelEn: "Company Gallery",
       pathVi: "/thong-tin-cong-ty/thu-vien-cong-ty",
       pathEn: "/en/company/gallery",

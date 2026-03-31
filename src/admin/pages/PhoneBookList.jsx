@@ -43,7 +43,7 @@ const DEPARTMENTS = {
     "Ban Quản lý dự án đầu tư và xây dựng chuyên ngành",
   ],
   "Tổng Công ty Quản lý bay Việt Nam": [
-    "Tổng công ty Quản lý bay Việt Nam",
+    "Tổng Công ty Quản lý bay Việt Nam",
     "Công ty Quản lý bay miền Bắc",
     "Công ty Quản lý bay miền Nam",
     "Công ty Quản lý bay miền Trung",

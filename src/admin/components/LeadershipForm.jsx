@@ -138,7 +138,7 @@ const LeadershipForm = ({ content, onSuccess, onCancel }) => {
         <div className="leader-section">
           <h3 className="section-title">
             <i className="fas fa-crown"></i>
-            Chủ tịch công ty
+            Chủ tịch Công ty
           </h3>
           <div className="leader-fields">
             <div className="form-group">
@@ -150,7 +150,7 @@ const LeadershipForm = ({ content, onSuccess, onCancel }) => {
                 onChange={(e) =>
                   handleInputChange("chairman", null, "name", e.target.value)
                 }
-                placeholder="Nhập họ tên Chủ tịch công ty"
+                placeholder="Nhập họ tên Chủ tịch Công ty"
               />
             </div>
           </div>

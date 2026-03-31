@@ -18,10 +18,10 @@ const VideoGallery = () => {
       seo: {
         title: "Thư viện video | ATTECH",
         description: "Xem các video giới thiệu và hoạt động của ATTECH.",
-        keywords: "video ATTECH, giới thiệu công ty, hoạt động",
+        keywords: "video ATTECH, giới thiệu Công ty, hoạt động",
       },
       title: "Thư viện video",
-      description: "Xem các video giới thiệu, hoạt động và sự kiện của công ty",
+      description: "Xem các video giới thiệu, hoạt động và sự kiện của Công ty",
       noVideos: "Chưa có video nào",
       loading: "Đang tải...",
       close: "Đóng",

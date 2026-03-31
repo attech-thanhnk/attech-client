@@ -11,7 +11,8 @@ const Carousel = () => {
   const { getCarouselImages, loading } = useBannerSettings();
 
   // Get slides from banner settings with fallback to default images
-  const slides = getCarouselImages();
+  // Dùng ảnh mobile khi màn hình <= 768px
+  const slides = getCarouselImages(window.innerWidth <= 768);
 
   useEffect(() => {
     // Initialize carousel
@@ -36,10 +37,10 @@ const Carousel = () => {
   // Bỏ skeleton vì đã có fallback, carousel luôn có ít nhất 1 ảnh
 
   return (
-    <div className="w-100" style={carouselStyle}>
+    <div className="carousel-wrapper" style={carouselStyle}>
       <div
         id="carouselId"
-        className="carousel slide w-100 mt-120"
+        className="carousel slide w-100"
         data-bs-ride="carousel"
         data-bs-pause="hover"
         data-bs-interval="5000"

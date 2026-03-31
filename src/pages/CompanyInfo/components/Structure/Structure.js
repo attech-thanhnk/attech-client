@@ -15,7 +15,7 @@ export default function Structure() {
     vi: {
       title: "Cơ cấu tổ chức | ATTECH",
       description:
-        "Xem cơ cấu tổ chức và sơ đồ bộ máy quản lý của ATTECH, công ty kỹ thuật quản lý bay hàng đầu Việt Nam.",
+        "Xem cơ cấu tổ chức và sơ đồ bộ máy quản lý của ATTECH, Công ty kỹ thuật quản lý bay hàng đầu Việt Nam.",
       keywords:
         "cơ cấu tổ chức ATTECH, sơ đồ tổ chức, organizational structure, company structure",
     },
@@ -29,7 +29,7 @@ export default function Structure() {
   };
 
   const currentSEO = seoContent[currentLanguage] || seoContent.vi;
-  const structureChartUrl = getStructureChart();
+  const structureChartUrl = getStructureChart(currentLanguage);
 
   return (
     <>

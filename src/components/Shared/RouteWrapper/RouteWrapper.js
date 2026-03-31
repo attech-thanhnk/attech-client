@@ -7,10 +7,11 @@ const RouteWrapper = ({ children }) => {
   const prevParams = useRef();
 
   useEffect(() => {
-    // Scroll to top on route change
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Log route change for debugging (remove in production)// Store current params for next comparison
+    // Instant scroll để tránh hiển thị khoảng trắng khi chuyển trang
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+
+    // Store current params for next comparison
     prevParams.current = params;
   }, [location.pathname, params.slug, params.category]);
 

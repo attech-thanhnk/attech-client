@@ -207,15 +207,23 @@ export const getAllBannerSettings = async () => {
         Banner1: { url: null, description: null },
         Banner2: { url: null, description: null },
         Banner3: { url: null, description: null },
-        Logo: { url: null, description: null }
+        Banner1Mobile: { url: null, description: null },
+        Banner2Mobile: { url: null, description: null },
+        Banner3Mobile: { url: null, description: null },
+        Logo: { url: null, description: null },
+        LogoEn: { url: null, description: null }
       };
     }
   } catch (error) {
     return {
       Banner1: { url: null, description: null },
-      Banner2: { url: null, description: null }, 
+      Banner2: { url: null, description: null },
       Banner3: { url: null, description: null },
-      Logo: { url: null, description: null }
+      Banner1Mobile: { url: null, description: null },
+      Banner2Mobile: { url: null, description: null },
+      Banner3Mobile: { url: null, description: null },
+      Logo: { url: null, description: null },
+      LogoEn: { url: null, description: null }
     };
   }
 };
@@ -302,10 +310,14 @@ export const deleteBannerSetting = async (key) => {
 export const getBannerKeys = () => {
   return [
     // === MAIN SETTINGS - Tab "Logo & Banner chính" ===
-    { key: 'Banner1', label: 'Banner Carousel 1', description: 'Banner carousel đầu tiên trên trang chủ', category: 'settings' },
-    { key: 'Banner2', label: 'Banner Carousel 2', description: 'Banner carousel thứ hai trên trang chủ', category: 'settings' },
-    { key: 'Banner3', label: 'Banner Carousel 3', description: 'Banner carousel thứ ba trên trang chủ', category: 'settings' },
-    { key: 'Logo', label: 'Logo website', description: 'Logo chính hiển thị trên header', category: 'settings' },
+    { key: 'Banner1', label: 'Banner Carousel 1', description: 'Banner carousel đầu tiên trên trang chủ (Desktop)', category: 'settings' },
+    { key: 'Banner2', label: 'Banner Carousel 2', description: 'Banner carousel thứ hai trên trang chủ (Desktop)', category: 'settings' },
+    { key: 'Banner3', label: 'Banner Carousel 3', description: 'Banner carousel thứ ba trên trang chủ (Desktop)', category: 'settings' },
+    { key: 'Banner1Mobile', label: 'Banner Carousel 1 (Mobile)', description: 'Banner carousel đầu tiên trên trang chủ cho mobile', category: 'settings' },
+    { key: 'Banner2Mobile', label: 'Banner Carousel 2 (Mobile)', description: 'Banner carousel thứ hai trên trang chủ cho mobile', category: 'settings' },
+    { key: 'Banner3Mobile', label: 'Banner Carousel 3 (Mobile)', description: 'Banner carousel thứ ba trên trang chủ cho mobile', category: 'settings' },
+    { key: 'Logo', label: 'Logo website (VI)', description: 'Logo chính hiển thị trên header (Tiếng Việt)', category: 'settings' },
+    { key: 'LogoEn', label: 'Logo website (EN)', description: 'Logo hiển thị trên header khi chuyển sang tiếng Anh', category: 'settings' },
     
     // === HOME CONTENT - Tab "Ảnh trang chủ" ===
     // Feature service backgrounds
@@ -344,13 +356,14 @@ export const getBannerKeys = () => {
     // Home Hero Background
     { key: 'HomeHeroBackground', label: 'Ảnh nền trang chủ', description: 'Ảnh nền trang chủ', category: 'homecontent' },
 
-    // === COMPANY INFO - Tab "Thông tin công ty" ===
+    // === COMPANY INFO - Tab "Thông tin Công ty" ===
     // Structure
-    { key: 'StructureChart', label: 'Sơ đồ cơ cấu tổ chức', description: 'Sơ đồ tổ chức công ty (SVG/PNG)', category: 'companyinfo' },
+    { key: 'StructureChart', label: 'Sơ đồ cơ cấu tổ chức (VI)', description: 'Sơ đồ tổ chức Công ty - Tiếng Việt (SVG/PNG)', category: 'companyinfo' },
+    { key: 'StructureChartEn', label: 'Sơ đồ cơ cấu tổ chức (EN)', description: 'Sơ đồ tổ chức Công ty - Tiếng Anh (SVG/PNG)', category: 'companyinfo' },
 
     // Leadership
-    { key: 'LeaderChairman', label: 'Ảnh Chủ tịch công ty', description: 'Ảnh Chủ tịch công ty', category: 'companyinfo' },
-    { key: 'LeaderDirector', label: 'Ảnh Giám đốc', description: 'Ảnh Giám đốc công ty', category: 'companyinfo' },
+    { key: 'LeaderChairman', label: 'Ảnh Chủ tịch Công ty', description: 'Ảnh Chủ tịch Công ty', category: 'companyinfo' },
+    { key: 'LeaderDirector', label: 'Ảnh Giám đốc', description: 'Ảnh Giám đốc Công ty', category: 'companyinfo' },
     { key: 'LeaderViceDirector1', label: 'Ảnh Phó Giám đốc 1', description: 'Ảnh Phó Giám đốc thứ nhất', category: 'companyinfo' },
     { key: 'LeaderViceDirector2', label: 'Ảnh Phó Giám đốc 2', description: 'Ảnh Phó Giám đốc thứ hai', category: 'companyinfo' },
     { key: 'LeaderViceDirector3', label: 'Ảnh Phó Giám đốc 3', description: 'Ảnh Phó Giám đốc thứ ba', category: 'companyinfo' }

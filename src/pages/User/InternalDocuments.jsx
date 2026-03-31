@@ -23,7 +23,7 @@ const InternalDocuments = () => {
     "quan-ly-nhan-su": "Quản lý nhân sự",
     "quan-ly-tai-chinh": "Quản lý tài chính",
     "quan-ly-ky-thuat": "Quản lý kỹ thuật & KHCN",
-    "van-ban-cong-ty": "Văn bản công ty",
+    "van-ban-cong-ty": "Văn bản Công ty",
     "van-ban-nhan-su": "Văn bản về nhân sự",
     "van-ban-cong-doan": "Văn bản công đoàn",
     "tu-dien-nang-luc": "Từ điển năng lực",

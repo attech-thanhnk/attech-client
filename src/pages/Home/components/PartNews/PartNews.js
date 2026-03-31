@@ -58,7 +58,7 @@ const PartNews = () => {
         }
 
         // Step 2: Lấy 4 categories cố định cho trang chủ (ID: 2,3,4,5)
-        const featuredCategoryIds = [2, 3, 4, 5]; // Hoạt động công ty, Đảng bộ, Công đoàn, Đoàn TN
+        const featuredCategoryIds = [2, 3, 4, 5]; // Hoạt động Công ty, Đảng bộ, Công đoàn, Đoàn TN
 
         // Step 3: Load tin cho TỪNG category riêng biệt bằng API category slug
         const newsGroupsWithData = await Promise.all(

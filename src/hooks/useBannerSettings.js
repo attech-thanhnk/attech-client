@@ -114,8 +114,28 @@ export const useBannerSettings = () => {
 
   /**
    * Get carousel images with fallback for first image
+   * @param {boolean} isMobile - Whether to get mobile version
    */
-  const getCarouselImages = () => {
+  const getCarouselImages = (isMobile = false) => {
+    if (isMobile) {
+      // Mobile: ưu tiên ảnh mobile, fallback sang desktop
+      return [
+        {
+          img: getBannerUrl('Banner1Mobile') || getBannerUrl('Banner1') || '/assets/images/banner/banner_attech_1.webp',
+          className: 'carousel-img-1',
+        },
+        {
+          img: getBannerUrl('Banner2Mobile') || getBannerUrl('Banner2'),
+          className: 'carousel-img-2',
+        },
+        {
+          img: getBannerUrl('Banner3Mobile') || getBannerUrl('Banner3'),
+          className: 'carousel-img-3',
+        },
+      ].filter(item => item.img);
+    }
+
+    // Desktop
     return [
       {
         img: getBannerUrl('Banner1') || '/assets/images/banner/banner_attech_1.webp',
@@ -129,7 +149,7 @@ export const useBannerSettings = () => {
         img: getBannerUrl('Banner3'),
         className: 'carousel-img-3',
       },
-    ].filter(item => item.img); // Remove null images
+    ].filter(item => item.img);
   };
 
   /**
@@ -198,8 +218,13 @@ export const useBannerSettings = () => {
 
   /**
    * Get structure chart from API only
+   * @param {string} language - 'vi' or 'en'
    */
-  const getStructureChart = () => {
+  const getStructureChart = (language = 'vi') => {
+    if (language === 'en') {
+      // Tiếng Anh: ưu tiên StructureChartEn, fallback sang StructureChart
+      return getBannerUrl('StructureChartEn') || getBannerUrl('StructureChart');
+    }
     return getBannerUrl('StructureChart');
   };
 

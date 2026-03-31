@@ -218,7 +218,7 @@ const internalDocumentsAdminService = {
       { value: "quan-ly-nhan-su", label: "Quản lý nhân sự" },
       { value: "quan-ly-tai-chinh", label: "Quản lý tài chính" },
       { value: "quan-ly-ky-thuat", label: "Quản lý kỹ thuật & KHCN" },
-      { value: "van-ban-cong-ty", label: "Văn bản công ty" },
+      { value: "van-ban-cong-ty", label: "Văn bản Công ty" },
       { value: "van-ban-nhan-su", label: "Văn bản về nhân sự" },
       {
         value: "van-ban-chk-va-bo-xay-dung",

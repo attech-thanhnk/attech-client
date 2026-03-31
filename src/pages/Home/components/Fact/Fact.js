@@ -19,7 +19,7 @@ const Fact = () => {
         <div className="fact__banner" aria-hidden="true">
           <img 
             src={factImageUrl} 
-            alt="Äáº¡i há»™i Äáº£ng"
+            alt=""
             className={`fact__image ${imageLoaded ? 'loaded' : ''}`}
             loading="lazy"
             onLoad={handleImageLoad}

@@ -44,6 +44,7 @@ const NewsCreationForm = ({
     slugEn: editingNews?.slugEn || "",
     newsCategoryId: editingNews?.newsCategoryId || "",
     isOutstanding: editingNews?.isOutstanding || false,
+    hasEnglishVersion: editingNews?.hasEnglishVersion ?? false,
     status: editingNews?.status ?? 1,
     timePosted: editingNews?.timePosted
       ? editingNews.timePosted.split("T")[0]
@@ -467,6 +468,7 @@ const NewsCreationForm = ({
         newsCategoryId: parseInt(formData.newsCategoryId),
         status: formData.status,
         isOutstanding: formData.isOutstanding,
+        hasEnglishVersion: formData.hasEnglishVersion ?? false,
         timePosted: new Date(formData.timePosted).toISOString(),
         featuredImageId: featuredImageId,
         // LUÔN gửi attachmentIds để BE biết chính xác user muốn gì
@@ -715,25 +717,50 @@ const NewsCreationForm = ({
                 }
               />
             </div>
-
             <div className="form-group">
-              <label
+              <div
                 style={{
                   display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
+                  flexDirection: "column",
+                  gap: "12px",
                   marginTop: "28px",
                 }}
               >
-                <input
-                  type="checkbox"
-                  checked={formData.isOutstanding}
-                  onChange={(e) =>
-                    handleInputChange("isOutstanding", e.target.checked)
-                  }
-                />
-                Tin nổi bật
-              </label>
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    margin: 0,
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={formData.isOutstanding}
+                    onChange={(e) =>
+                      handleInputChange("isOutstanding", e.target.checked)
+                    }
+                  />
+                  Tin nổi bật
+                </label>
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    margin: 0,
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={formData.hasEnglishVersion}
+                    onChange={(e) =>
+                      handleInputChange("hasEnglishVersion", e.target.checked)
+                    }
+                  />
+                  Có phiên bản tiếng Anh
+                </label>
+              </div>
             </div>
           </div>
         </div>

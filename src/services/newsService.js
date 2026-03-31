@@ -134,6 +134,7 @@ export const createNews = async (newsData) => {
       slugVi: newsData.slugVi || "",  // Fixed casing
       slugEn: newsData.slugEn || "",  // Fixed casing
       isOutstanding: newsData.isOutstanding || false,
+      hasEnglishVersion: newsData.hasEnglishVersion ?? false,
 
       // Status - fixed casing
       status: typeof newsData.status === "number"
@@ -181,6 +182,7 @@ export const updateNews = async (id, newsData) => {
       slugVi: newsData.slugVi || "",  // Fixed casing
       slugEn: newsData.slugEn || "",  // Fixed casing
       isOutstanding: newsData.isOutstanding || false,
+      hasEnglishVersion: newsData.hasEnglishVersion ?? false,
 
       // Status - fixed casing
       status: typeof newsData.status === "number"

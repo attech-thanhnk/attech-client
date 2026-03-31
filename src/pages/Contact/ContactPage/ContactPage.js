@@ -182,7 +182,7 @@ const ContactPage = () => {
                     {t("frontend.contact.details.address")}:
                     <br />
                     <span>
-                      Số 5/200 đường Nguyễn Sơn, phường Bồ Đề, Thành phố Hà Nội
+                      {t("frontend.contact.details.addressValue")}
                     </span>
                   </h4>
                 </div>

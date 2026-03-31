@@ -32,7 +32,7 @@ const CompanyInfoBanner = () => {
     } catch (error) {
       setToast({
         show: true,
-        message: 'Không thể tải danh sách ảnh thông tin công ty!',
+        message: 'Không thể tải danh sách ảnh thông tin Công ty!',
         type: 'error'
       });
     } finally {

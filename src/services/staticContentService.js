@@ -88,7 +88,7 @@ const staticContentService = {
         titleVi: "Ngành nghề kinh doanh",
         titleEn: "Business Fields",
         translationKey: "frontend.companyInfo.business.fullContent",
-        description: "Thông tin về các ngành nghề kinh doanh của công ty",
+        description: "Thông tin về các ngành nghề kinh doanh của Công ty",
         route: "/thong-tin-cong-ty/nganh-nghe-kinh-doanh",
       },
       // Add more pages here as needed

@@ -62,7 +62,7 @@ const Iso = () => {
       icon: <Shield className="timeline-icon" />,
     },
     {
-      year: "Hiện tại",
+      year: t("frontend.companyInfo.iso.timeline.present"),
       description: t("frontend.companyInfo.iso.timeline.2020"),
       icon: <Award className="timeline-icon" />,
     },

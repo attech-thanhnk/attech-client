@@ -318,7 +318,8 @@
         "phone": "Phone",
         "fax": "Fax",
         "email": "Email",
-        "address": "Address"
+        "address": "Address",
+        "addressValue": "No. 5/200 Nguyen Son Street, Bo De Ward, Hanoi City, Vietnam"
       },
       "form": {
         "namePlaceholder": "Full Name",
@@ -474,7 +475,9 @@
           "2008": "On January 29, 2008, the company's quality management system was evaluated by TUV NORD of Germany for re-certification and issued the second ISO 9001:2000 Quality Management System Certificate.",
           "2011": "On January 15, 2011, the company completed the transition from TCVN ISO 9001:2000 to TCVN ISO 9001:2008 standard and was issued ISO 9001:2008 certificate by BSi of the United Kingdom.",
           "2017": "The company's quality management system is maintained, periodically monitored once a year and re-certified every 3 years. Latest certificate issuance: January 15, 2017.",
-          "2018": "The company transitioned from ISO 9001:2008 to ISO 9001:2015, effective from January 1, 2018."
+          "2018": "The company transitioned from ISO 9001:2008 to ISO 9001:2015, effective from January 1, 2018.",
+          "2020": "The company's quality management system is maintained, periodically monitored once a year and re-certified every 3 years.",
+          "present": "Present"
         }
       },
       "gallery": {

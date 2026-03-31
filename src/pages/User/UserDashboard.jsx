@@ -14,7 +14,7 @@ const CATEGORY_LABELS = {
   "quan-ly-nhan-su": "Quản lý nhân sự",
   "quan-ly-tai-chinh": "Quản lý tài chính",
   "quan-ly-ky-thuat": "Quản lý kỹ thuật & KHCN",
-  "van-ban-cong-ty": "Văn bản công ty",
+  "van-ban-cong-ty": "Văn bản Công ty",
   "van-ban-nhan-su": "Văn bản về nhân sự",
   "van-ban-cong-doan": "Văn bản công đoàn",
   "tu-dien-nang-luc": "Từ điển năng lực",
@@ -243,7 +243,7 @@ const UserDashboard = () => {
                     }}
                   >
                     <i className="bi bi-file-earmark-text"></i>
-                    <span>Văn bản công ty</span>
+                    <span>Văn bản Công ty</span>
                   </a>
                 </li>
                 <li className="nav-item">
@@ -524,7 +524,7 @@ const UserDashboard = () => {
                     <div className="quick-section-grid">
                       <button className="quick-btn" onClick={() => navigate("/trang-noi-bo/van-ban-cong-ty")}>
                         <i className="bi bi-file-earmark-text"></i>
-                        <span>Văn bản công ty</span>
+                        <span>Văn bản Công ty</span>
                       </button>
                       <button className="quick-btn" onClick={() => navigate("/trang-noi-bo/van-ban-nhan-su")}>
                         <i className="bi bi-file-earmark-text"></i>

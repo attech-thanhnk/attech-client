@@ -16,7 +16,7 @@ const History = () => {
     vi: {
       title: "Lịch sử ra đời | ATTECH",
       description:
-        "Tìm hiểu về lịch sử hình thành và phát triển của ATTECH từ khi thành lập đến nay, những cột mốc quan trọng trong hành trình trở thành công ty hàng đầu về kỹ thuật hàng không.",
+        "Tìm hiểu về lịch sử hình thành và phát triển của ATTECH từ khi thành lập đến nay, những cột mốc quan trọng trong hành trình trở thành Công ty hàng đầu về kỹ thuật hàng không.",
       keywords:
         "lịch sử ATTECH, hành trình phát triển, company history, ATTECH timeline",
     },
