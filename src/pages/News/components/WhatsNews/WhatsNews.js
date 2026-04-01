@@ -121,7 +121,7 @@ const WhatsNews = () => {
                       <div>Loading aviation news...</div>
                     ) : newsToShow.length === 0 ? (
                       <div className="no-news-message">
-                        <p>Hiện tại chưa có tin tức trong mục này.</p>
+                        <p>{t("frontend.news.noNewsInCategory")}</p>
                       </div>
                     ) : (
                       newsToShow.map((news, idx) => {

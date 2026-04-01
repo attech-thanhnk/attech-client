@@ -1,8 +1,22 @@
 /* Wrapper carousel - background che khoảng trắng khi scroll */
 .carousel-wrapper {
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     padding-top: 120px;
-    background: #6ba6e9;
+    background: #0a407c;
+    position: relative;
+}
+
+/* Pseudo-element mở rộng background lên trên để che khi vuốt nhanh */
+.carousel-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -200px;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: #0a407c;
+    z-index: -1;
 }
 
 .carousel .carousel-inner .carousel-item {
@@ -55,6 +69,10 @@
     .carousel-wrapper {
         padding-top: 70px;
     }
+    .carousel-wrapper::before {
+        top: -150px;
+        height: 150px;
+    }
     #carouselId {
         position: relative;
         left: 50%;
@@ -89,6 +107,10 @@
 @media (max-width: 576px) {
     .carousel-wrapper {
         padding-top: 60px;
+    }
+    .carousel-wrapper::before {
+        top: -100px;
+        height: 100px;
     }
     .carousel .carousel-inner .carousel-item {
         height: 300px;

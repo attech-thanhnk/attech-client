@@ -490,3 +490,15 @@
     grid-template-columns: 1fr;
   }
 }
+
+.no-news-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.no-news-message p {
+  margin: 0;
+  font-size: 15px;
+}
