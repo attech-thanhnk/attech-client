@@ -101,7 +101,7 @@ const internalDocumentsAdminService = {
         title: documentData.title,
         description: documentData.description || "",
         category: documentData.category,
-        attachmentId: documentData.attachmentId || null, // Single attachmentId now
+        attachmentIds: documentData.attachmentIds || [],
         status: documentData.status || 1,
         expiryStatus: documentData.expiryStatus !== undefined ? documentData.expiryStatus : 0,
         timePosted: documentData.timePosted || null,
@@ -137,7 +137,7 @@ const internalDocumentsAdminService = {
         title: documentData.title,
         description: documentData.description || "",
         category: documentData.category,
-        attachmentId: documentData.attachmentId || null, // Single attachmentId now
+        attachmentIds: documentData.attachmentIds || [],
         status: documentData.status || 1,
         expiryStatus: documentData.expiryStatus !== undefined ? documentData.expiryStatus : 0,
         timePosted: documentData.timePosted || null,

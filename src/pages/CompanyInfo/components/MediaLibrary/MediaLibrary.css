@@ -96,7 +96,11 @@
   opacity: 1;
   transform: translateX(0);
 }
-
+@media (max-width: 992px) {
+  .media-library-page {
+    padding: 16px;
+  }
+}
 @media (max-width: 768px) {
   .media-library-page {
     padding: 16px;

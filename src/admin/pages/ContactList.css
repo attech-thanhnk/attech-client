@@ -200,7 +200,6 @@
   align-items: center;
 }
 
-
 .btn {
   height: 42px;
   display: flex;
@@ -242,7 +241,6 @@
   box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
 }
 
-/* Extra Small Buttons */
 .btn-xs {
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
@@ -264,7 +262,6 @@
   border-color: #117a8b;
 }
 
-/* Table Container */
 .table-container {
   background: white;
   border-radius: 12px;
@@ -274,7 +271,6 @@
   border: 1px solid #e9ecef;
 }
 
-/* Message Preview */
 .message-preview {
   max-width: 300px;
   word-break: break-word;
@@ -286,14 +282,12 @@
   color: #495057;
 }
 
-/* Contact Item Cards for Mobile */
 .contact-card {
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #667eea;
 }
 
 .contact-card-header {

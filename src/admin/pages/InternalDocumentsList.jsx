@@ -480,23 +480,28 @@ const InternalDocumentsList = () => {
                   <p><strong>Ngày đăng:</strong> {new Date(selectedDocument.timePosted).toLocaleDateString("vi-VN")}</p>
                 </div>
               )}
-              {selectedDocument.attachment && (
+              {selectedDocument.attachments && selectedDocument.attachments.length > 0 && (
                 <div className="col-md-12">
-                  <p><strong>File đính kèm:</strong> 
-                    <div className="d-block mt-2">
-                      <a 
-                        href={getApiUrl(selectedDocument.attachment.url)} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="btn btn-outline-primary btn-sm"
-                        style={{wordBreak: 'break-all'}}
-                      >
-                        <i className="fas fa-download me-1"></i>
-                        {selectedDocument.attachment.originalFileName}
-                      </a>
-                    </div>
-                    <small className="text-muted ms-2">({Math.round(selectedDocument.attachment.fileSize / 1024)} KB)</small>
-                  </p>
+                  <p><strong>File đính kèm ({selectedDocument.attachments.length}):</strong></p>
+                  <div className="d-flex flex-column gap-2 mt-2">
+                    {selectedDocument.attachments.map((attachment, index) => (
+                      <div key={attachment.id || index} className="d-flex align-items-center gap-2">
+                        <a
+                          href={getApiUrl(attachment.url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-outline-primary btn-sm"
+                          style={{wordBreak: 'break-all', flex: 1}}
+                        >
+                          <i className="fas fa-download me-1"></i>
+                          {attachment.originalFileName}
+                        </a>
+                        <small className="text-muted">
+                          ({Math.round(attachment.fileSize / 1024)} KB)
+                        </small>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

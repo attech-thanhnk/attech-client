@@ -482,6 +482,10 @@
   .service-content-wrap {
     padding: 8px;
   }
+  .service-detail-card {
+    box-shadow: none;
+    padding: 0;
+  }
 
   .service-header h1 {
     font-size: 22px;
@@ -632,7 +636,7 @@
 
 @media (max-width: 900px) {
   .service-detail-card {
-    padding: 1.5rem 0.7rem 1.5rem 0.7rem;
+    padding: 0;
   }
   .service-detail-imgbox {
     max-width: 100%;

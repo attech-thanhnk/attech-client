@@ -209,23 +209,6 @@
   font-size: 1.5rem;
 }
 
-.about-hero-overlay .about-content-title::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 60px;
-  height: 3px;
-  background: #0a3781;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.about-hero-column:hover .about-content-title::after {
-  transform: scaleX(1);
-}
-
 .about-hero-content p {
   font-size: 15px;
   line-height: 1.5;
@@ -297,7 +280,7 @@
     grid-template-columns: 1fr;
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0;
   }
 
   .about-hero-column {

@@ -134,7 +134,6 @@ const ContactPage = () => {
         <div className="container">
           <div className="heading text-center">
             <h2>{t("frontend.contact.title")}</h2>
-            <p>{t("frontend.contact.description")}</p>
           </div>
           {/* Thông báo dạng toast nổi, không làm nhảy layout */}
           {notification && (
@@ -146,7 +145,7 @@ const ContactPage = () => {
               {notification}
             </div>
           )}
-          <div className="row">
+          <div className="contact-card row">
             <div className="col-md-5">
               <div className="title">
                 <h3>{t("frontend.contact.details.title")}</h3>
@@ -157,7 +156,9 @@ const ContactPage = () => {
                   <h4 className="d-inline-block">
                     {t("frontend.contact.details.phone")}:
                     <br />
-                    <span>(+84.24) 38271914</span>
+                    <a href="tel:+842438271914" className="info-link">
+                      (+84.24) 38271914
+                    </a>
                   </h4>
                 </div>
                 <div className="info">
@@ -173,7 +174,9 @@ const ContactPage = () => {
                   <h4 className="d-inline-block">
                     {t("frontend.contact.details.email")}:
                     <br />
-                    <span>attech@attech.com.vn</span>
+                    <a href="mailto:attech@attech.com.vn" className="info-link">
+                      attech@attech.com.vn
+                    </a>
                   </h4>
                 </div>
                 <div className="info">
@@ -181,9 +184,14 @@ const ContactPage = () => {
                   <h4 className="d-inline-block">
                     {t("frontend.contact.details.address")}:
                     <br />
-                    <span>
+                    <a
+                      href="https://maps.app.goo.gl/JUfvR3LQoz2fkaN8A"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="info-link"
+                    >
                       {t("frontend.contact.details.addressValue")}
-                    </span>
+                    </a>
                   </h4>
                 </div>
               </div>

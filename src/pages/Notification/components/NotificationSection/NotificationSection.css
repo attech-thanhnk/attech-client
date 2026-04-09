@@ -215,7 +215,7 @@
 
 @media (max-width: 992px) {
   .notification-section {
-    padding: 20px;
+    padding: 0;
   }
 
   .notification-section .notification-grid {

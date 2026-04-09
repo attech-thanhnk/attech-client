@@ -2,7 +2,12 @@ import api from "../api";
 import { getApiBaseUrl } from "../config/apiConfig";
 import { processWysiwygContent } from "../utils/contentUtils";
 
-// Real category IDs from your database (updated based on API response)
+// Helper function to get current language
+const getCurrentLanguage = () => {
+  const currentLang = localStorage.getItem("i18nextLng") || "vi";
+  return currentLang.startsWith("en") ? "en" : "vi";
+};
+
 export const CATEGORY_IDS = {
   ACTIVITY_NEWS: 1,             // "tin-hoat-dong" / "activity-news" (parent category)
   COMPANY_ACTIVITIES: 2,        // "hoat-dong-cong-ty" / "company-activities"
@@ -47,7 +52,8 @@ export async function getNews(params = {}) {
       pageNumber,
       pageSize,
       sortBy,
-      sortDirection
+      sortDirection,
+      lang: getCurrentLanguage()
     };
 
     // Add optional filters
@@ -101,7 +107,9 @@ export async function getNewsById(id) {
 export async function getNewsBySlug(slug, language = "vi") {
   try {
     // Use client detail endpoint
-    const response = await api.get(`/api/news/client/detail/${slug}`);
+    const response = await api.get(`/api/news/client/detail/${slug}`, {
+      params: { lang: getCurrentLanguage() }
+    });
 
     if (
       response.data &&
@@ -145,7 +153,8 @@ export async function getFeaturedNews(limit = 5) {
         pageSize: limit,
         isOutstanding: true,
         sortBy: "timePosted",
-        sortDirection: "desc"
+        sortDirection: "desc",
+        lang: getCurrentLanguage()
       }
     });
 
@@ -177,7 +186,8 @@ export async function getOutstandingNews(params = {}) {
         pageNumber,
         pageSize,
         sortBy,
-        sortDirection
+        sortDirection,
+        lang: getCurrentLanguage()
       }
     });
 
@@ -222,7 +232,8 @@ export async function getLatestNews(limit = 10) {
         pageNumber: 1,
         pageSize: limit,
         sortBy: "timePosted",
-        sortDirection: "desc"
+        sortDirection: "desc",
+        lang: getCurrentLanguage()
       }
     });
 
@@ -255,7 +266,8 @@ export async function getNewsByCategory(categoryId, params = {}) {
         pageSize,
         categoryId,
         sortBy,
-        sortDirection
+        sortDirection,
+        lang: getCurrentLanguage()
       }
     });
 
@@ -306,7 +318,8 @@ export async function getNewsByCategorySlug(categorySlug, params = {}) {
         pageNumber,
         pageSize,
         sortBy,
-        sortDirection
+        sortDirection,
+        lang: getCurrentLanguage()
       }
     });
 
@@ -351,7 +364,8 @@ export async function getRelatedNews(newsId, categoryId, limit = 5) {
         pageSize: limit + 1, // Get one extra to exclude current
         categoryId,
         sortBy: "timePosted",
-        sortDirection: "desc"
+        sortDirection: "desc",
+        lang: getCurrentLanguage()
       }
     });
 
@@ -380,7 +394,7 @@ export async function searchNews(searchTerm, params = {}) {
       pageNumber = 1,
       pageSize = 10,
       categoryId = "",
-      sortBy = "timePosted", 
+      sortBy = "timePosted",
       sortDirection = "desc"
     } = params;
 
@@ -389,11 +403,12 @@ export async function searchNews(searchTerm, params = {}) {
       pageNumber,
       pageSize,
       sortBy,
-      sortDirection
+      sortDirection,
+      lang: getCurrentLanguage()
     };
 
     if (categoryId) queryParams.categoryId = categoryId;
-    
+
     const response = await api.get("/api/news/client/search", {
       params: queryParams
     });

@@ -244,7 +244,6 @@ const ProductDetail = () => {
         {/* Attachments Section - Documents Only */}
         {product.attachments && product.attachments.documents?.length > 0 && (
           <div className="product-attachments">
-            <h3>{t("frontend.products.attachedDocuments")}</h3>
 
             {/* Documents List */}
             {product.attachments.documents?.length > 0 && (

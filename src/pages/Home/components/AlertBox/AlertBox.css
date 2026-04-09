@@ -168,7 +168,7 @@
 }
 
 .swiper-pagination-bullet-active {
-    background: #3b82f6;
+    background: #365691;
     width: 28px;
     border-radius: 5px;
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
@@ -219,7 +219,7 @@
 }
 @media (max-width: 1200px) {
     .alert-box {
-    padding: 10px 20px;
+    padding: 10px 16px;
 }
 }
 @media (max-width: 640px) {

@@ -48,16 +48,16 @@ const InternalDocumentCreationForm = ({
         timePosted: formattedTime,
       });
 
-      // Load existing attachment if any
-      if (editData.attachment) {
-        const existingAttachment = {
-          id: editData.attachment.id,
-          fileName: editData.attachment.originalFileName,
-          fileSize: editData.attachment.fileSize,
-          url: editData.attachment.url,
+      // Load existing attachments if any
+      if (editData.attachments && editData.attachments.length > 0) {
+        const existingAttachments = editData.attachments.map(att => ({
+          id: att.id,
+          fileName: att.originalFileName,
+          fileSize: att.fileSize,
+          url: att.url,
           uploading: false
-        };
-        setAttachments([existingAttachment]);
+        }));
+        setAttachments(existingAttachments);
       }
     }
   }, [editMode, editData]);
@@ -103,6 +103,10 @@ const InternalDocumentCreationForm = ({
       newErrors.attachments = "Vui lòng tải lên ít nhất một file đính kèm";
     }
 
+    if (attachments.length > 5) {
+      newErrors.attachments = "Tối đa 5 files được phép";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -115,48 +119,67 @@ const InternalDocumentCreationForm = ({
 
     setIsSubmitting(true);
 
-    try {let attachmentId = null;
+    try {
+      const attachmentIds = [];
 
-      // Step 1: Upload file first if there's a new file
-      if (attachments.length > 0 && attachments[0].file) {const file = attachments[0].file; // Take first file only
-        const uploadFormData = new FormData();
-        uploadFormData.append('file', file);
+      // Step 1: Upload all new files
+      const newFiles = attachments.filter(att => att.file);
+      if (newFiles.length > 0) {
+        for (const attachment of newFiles) {
+          const uploadFormData = new FormData();
+          uploadFormData.append('file', attachment.file);
 
-        try {
-          const response = await api.post("/api/attachments", uploadFormData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });if (response.data?.status === 1 && response.data?.data?.id) {
-            attachmentId = response.data.data.id;} else {
-            throw new Error('Invalid upload response');
+          try {
+            const response = await api.post("/api/attachments", uploadFormData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            });
+            if (response.data?.status === 1 && response.data?.data?.id) {
+              attachmentIds.push(response.data.data.id);
+            } else {
+              throw new Error('Invalid upload response');
+            }
+          } catch (uploadError) {
+            setErrors({ general: `Lỗi upload file "${attachment.fileName}". Vui lòng thử lại.` });
+            setIsSubmitting(false);
+            return;
           }
-        } catch (uploadError) {setErrors({ general: "Lỗi upload file. Vui lòng thử lại." });
-          return;
         }
-      } else if (editMode && attachments.length > 0 && !attachments[0].file && attachments[0].id) {
-        // Keep existing attachment if no new file uploaded
-        attachmentId = attachments[0].id;}
+      }
 
-      // Step 2: Create/Update document with attachmentId
+      // Keep existing attachments (for edit mode)
+      const existingAttachments = attachments.filter(att => !att.file && att.id);
+      existingAttachments.forEach(att => {
+        attachmentIds.push(att.id);
+      });
+
+      // Step 2: Create/Update document with attachmentIds
       const documentData = {
         title: formData.title,
         description: formData.description,
         category: formData.category,
-        attachmentId: attachmentId,
+        attachmentIds: attachmentIds,
         status: formData.status,
         expiryStatus: formData.expiryStatus,
         timePosted: formData.timePosted || null
-      };let result;
+      };
+
+      let result;
       if (editMode && editData?.id) {
         result = await internalDocumentsAdminService.updateInternalDocument(editData.id, documentData);
       } else {
         result = await internalDocumentsAdminService.createInternalDocument(documentData);
-      }if (result.success) {onSuccess?.(result.data, editMode ? 'update' : 'create');
-      } else {setErrors({ general: result.message });
       }
-    } catch (error) {setErrors({ 
-        general: error.message || `Lỗi ${editMode ? 'cập nhật' : 'tạo'} tài liệu nội bộ` 
+
+      if (result.success) {
+        onSuccess?.(result.data, editMode ? 'update' : 'create');
+      } else {
+        setErrors({ general: result.message });
+      }
+    } catch (error) {
+      setErrors({
+        general: error.message || `Lỗi ${editMode ? 'cập nhật' : 'tạo'} tài liệu nội bộ`
       });
     } finally {
       setIsSubmitting(false);
@@ -251,6 +274,13 @@ const InternalDocumentCreationForm = ({
             onChange={(e) => {
               const files = Array.from(e.target.files);
               if (files.length > 0) {
+                // Check total files limit
+                if (attachments.length + files.length > 5) {
+                  alert(`Chỉ được upload tối đa 5 files. Hiện tại có ${attachments.length} files, bạn chọn thêm ${files.length} files.`);
+                  e.target.value = ''; // Reset input
+                  return;
+                }
+
                 const processedFiles = files.map((file, index) => ({
                   id: Date.now() + Math.random() + index,
                   fileName: file.name,
@@ -262,9 +292,10 @@ const InternalDocumentCreationForm = ({
                 setAttachments(updatedAttachments);
                 handleAttachmentsChange(updatedAttachments);
               }
+              e.target.value = ''; // Reset input to allow re-selecting same file
             }}
             className={`form-control ${errors.attachments ? 'is-invalid' : ''}`}
-            disabled={isSubmitting}
+            disabled={isSubmitting || attachments.length >= 5}
           />
           <small className="form-text text-muted">
             Chọn nhiều file tài liệu. Hỗ trợ PDF, Word, Excel, Text. Tối đa 5 files.

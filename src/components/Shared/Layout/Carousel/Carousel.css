@@ -67,7 +67,7 @@
 
 @media (max-width: 1024px) {
     .carousel-wrapper {
-        padding-top: 70px;
+        padding-top: 60px;
     }
     .carousel-wrapper::before {
         top: -150px;

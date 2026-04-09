@@ -62,11 +62,11 @@ const ProductList = () => {
   });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Thêm state cho phân trang
+  // ThÃªm state cho phÃ¢n trang
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;
 
-  // Thêm state để theo dõi kích thước màn hình
+  // ThÃªm state Ä‘á»ƒ theo dÃµi kÃ­ch thÆ°á»›c mÃ n hÃ¬nh
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // Handle window resize
@@ -151,7 +151,7 @@ const ProductList = () => {
     loadData();
   }, [currentLanguage, category]);
 
-  // Đồng bộ selectedCategory với route
+  // Äá»“ng bá»™ selectedCategory vá»›i route
   useEffect(() => {
     setSelectedCategory(category || "");
   }, [category]);
@@ -190,7 +190,7 @@ const ProductList = () => {
     setCurrentPage(1);
   }, [products, selectedCategory, searchTerm, sortBy]);
 
-  // Khôi phục lại phân trang như ban đầu
+  // KhÃ´i phá»¥c láº¡i phÃ¢n trang nhÆ° ban Ä‘áº§u
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -232,7 +232,7 @@ const ProductList = () => {
     });
   };
 
-  // Component phân trang
+  // Component phÃ¢n trang
   const Pagination = () => {
     const getPageNumbers = () => {
       const pages = [];
@@ -276,7 +276,7 @@ const ProductList = () => {
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          ←
+          â†
         </button>
 
         {getPageNumbers().map((page, index) => (
@@ -298,7 +298,7 @@ const ProductList = () => {
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          →
+          â†’
         </button>
       </div>
     );
@@ -332,7 +332,7 @@ const ProductList = () => {
               onClick={() => setIsSidebarOpen(true)}
             >
               <i className="fas fa-filter"></i>
-              <span>Menu</span>
+              <span>{currentLanguage === "en" ? "Categories" : "Danh mục"}</span>
             </button>
 
             <div className="attech-search-container">

@@ -191,6 +191,11 @@
     min-height: 600px;
     padding: 80px 0;
   }
+  .play-button {
+  width: 50px;
+  height: 50px;
+}
+
 
   .hero-section h1 {
     font-size: 2.5rem;

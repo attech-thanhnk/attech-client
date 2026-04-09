@@ -69,9 +69,14 @@ const Financial = ({ documentType = "financial" }) => {
   const location = useLocation();
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
   const [showFileModal, setShowFileModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [totalItems, setTotalItems] = useState(0);
+  const pageSize = 10;
 
   // Config based on documentType
   const config = {
@@ -126,6 +131,13 @@ const Financial = ({ documentType = "financial" }) => {
   const currentConfig = config[documentType] || config.financial;
   const currentSEO = currentConfig.seo[currentLanguage] || currentConfig.seo.vi;
 
+  // Reset to page 1 and clear documents when language or documentType changes
+  useEffect(() => {
+    setCurrentPage(1);
+    setDocuments([]);
+    setHasMore(false);
+  }, [currentLanguage, documentType]);
+
   const handleViewDocument = async (slug) => {
     try {
       const response = await clientDocumentService.getDocumentBySlug(slug);
@@ -154,12 +166,17 @@ const Financial = ({ documentType = "financial" }) => {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        setLoading(true);
+        const isFirstPage = currentPage === 1;
+        if (isFirstPage) {
+          setLoading(true);
+        } else {
+          setLoadingMore(true);
+        }
         setError(null);
 
         const response = await currentConfig.fetchService({
-          page: 1,
-          pageSize: 50,
+          page: currentPage,
+          pageSize: pageSize,
         });
 
         if (response.success && response.data && response.data.items) {
@@ -178,7 +195,17 @@ const Financial = ({ documentType = "financial" }) => {
               ? (item.slugVi || item.slugEn)
               : (item.slugEn || item.slugVi),
           }));
-          setDocuments(transformedDocs);
+
+          // Append new items instead of replacing
+          if (isFirstPage) {
+            setDocuments(transformedDocs);
+          } else {
+            setDocuments(prev => [...prev, ...transformedDocs]);
+          }
+
+          setTotalItems(response.data.totalItems || 0);
+          const totalLoaded = currentPage * pageSize;
+          setHasMore(totalLoaded < (response.data.totalItems || 0));
         } else {
           setError(response.message || t("frontend.companyInfo.financial.loadError"));
         }
@@ -186,11 +213,12 @@ const Financial = ({ documentType = "financial" }) => {
         setError(t("frontend.companyInfo.financial.errorLoading"));
       } finally {
         setLoading(false);
+        setLoadingMore(false);
       }
     };
 
     fetchDocuments();
-  }, [currentLanguage, documentType]);
+  }, [currentLanguage, documentType, currentPage]);
 
   const renderHeader = () => (
     <div className="financial-header">
@@ -282,6 +310,29 @@ const Financial = ({ documentType = "financial" }) => {
               )}
             </tbody>
           </table>
+
+          {/* Load More */}
+          {hasMore && (
+            <div className="financial-load-more-wrap">
+              <button
+                className="financial-load-more-btn"
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                disabled={loadingMore}
+              >
+                {loadingMore ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin"></i>
+                    {currentLanguage === "vi" ? "Đang tải..." : "Loading..."}
+                  </>
+                ) : (
+                  <>
+                    <i className="fa fa-angle-down"></i>
+                    {currentLanguage === "vi" ? "Xem thêm" : "Load More"}
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* File Selection Modal */}

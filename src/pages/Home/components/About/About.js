@@ -152,7 +152,6 @@ export default function About() {
                       className="custom-btn-more"
                     >
                       {t("common.viewMore")}
-                      <ArrowIcon />
                     </LocalizedLink>
                   </div>
                 </div>

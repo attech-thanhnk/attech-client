@@ -173,70 +173,75 @@ const InternalDocuments = () => {
               {internalDocs.length > 0 ? (
                 <>
                   <div className="documents-list">
-                    {internalDocs.map((doc) => (
-                      <div
-                        key={doc.id}
-                        className={`document-item${doc.attachment ? " is-clickable" : ""}`}
-                        role={doc.attachment ? "button" : undefined}
-                        tabIndex={doc.attachment ? 0 : undefined}
-                        onClick={() => {
-                          if (doc.attachment) {
-                            window.open(getApiUrl(doc.attachment.url), "_blank", "noopener,noreferrer");
-                          }
-                        }}
-                        onKeyDown={(event) => {
-                          if (!doc.attachment) {
-                            return;
-                          }
-                          if (event.key === "Enter" || event.key === " ") {
-                            event.preventDefault();
-                            window.open(getApiUrl(doc.attachment.url), "_blank", "noopener,noreferrer");
-                          }
-                        }}
-                      >
-                        <div className="doc-icon">
-                          <i
-                            className={`bi ${getDocumentIcon(
-                              doc.attachment?.contentType
-                            )} fs-1`}
-                          ></i>
-                        </div>
-                        <div className="doc-info">
-                          <h5>{doc.title}</h5>
-                          <p>{doc.description || "Không có mô tả"}</p>
-                          <div className="d-flex align-items-center gap-3 mt-2">
-                            <small className="text-muted">
-                              <i className="bi bi-calendar me-1"></i>
-                              {doc.timePosted
-                                ? new Date(doc.timePosted).toLocaleDateString("vi-VN")
-                                : new Date(doc.createdDate).toLocaleDateString("vi-VN")}
-                            </small>
-                            {doc.attachment && (
+                    {internalDocs.map((doc) => {
+                      const hasAttachments = doc.attachments && doc.attachments.length > 0;
+                      const firstAttachment = hasAttachments ? doc.attachments[0] : null;
+
+                      return (
+                        <div
+                          key={doc.id}
+                          className="document-item"
+                        >
+                          <div className="doc-icon">
+                            <i
+                              className={`bi ${getDocumentIcon(
+                                firstAttachment?.contentType
+                              )} fs-1`}
+                            ></i>
+                          </div>
+                          <div className="doc-info" style={{ flex: 1 }}>
+                            <h5>{doc.title}</h5>
+                            <p>{doc.description || "Không có mô tả"}</p>
+                            <div className="d-flex align-items-center gap-3 mt-2">
                               <small className="text-muted">
-                                <i className="bi bi-file-earmark me-1"></i>
-                                {formatFileSize(doc.attachment.fileSize)}
+                                <i className="bi bi-calendar me-1"></i>
+                                {doc.timePosted
+                                  ? new Date(doc.timePosted).toLocaleDateString("vi-VN")
+                                  : new Date(doc.createdDate).toLocaleDateString("vi-VN")}
                               </small>
+                              {hasAttachments && (
+                                <small className="text-muted">
+                                  <i className="bi bi-paperclip me-1"></i>
+                                  {doc.attachments.length} file{doc.attachments.length > 1 ? 's' : ''}
+                                </small>
+                              )}
+                              <span className={`badge ${doc.expiryStatus === 0 ? 'bg-success' : 'bg-warning text-dark'}`}>
+                                {doc.expiryStatus === 0 ? 'Còn hiệu lực' : 'Hết hiệu lực'}
+                              </span>
+                            </div>
+
+                            {/* Display all attachments */}
+                            {hasAttachments && (
+                              <div className="mt-3">
+                                <div className="d-flex flex-wrap gap-2">
+                                  {doc.attachments.map((attachment, idx) => (
+                                    <a
+                                      key={attachment.id || idx}
+                                      href={getApiUrl(attachment.url)}
+                                      download={attachment.originalFileName}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="btn btn-outline-primary btn-sm"
+                                      style={{ border: "1px solid" }}
+                                      onClick={(event) => event.stopPropagation()}
+                                      title={`${attachment.originalFileName} (${formatFileSize(attachment.fileSize)})`}
+                                    >
+                                      <i className="bi bi-download me-1"></i>
+                                      {attachment.originalFileName.length > 30
+                                        ? attachment.originalFileName.substring(0, 30) + '...'
+                                        : attachment.originalFileName}
+                                      <small className="ms-2 text-muted">
+                                        ({formatFileSize(attachment.fileSize)})
+                                      </small>
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
                             )}
-                            <span className={`badge ${doc.expiryStatus === 0 ? 'bg-success' : 'bg-warning text-dark'}`}>
-                              {doc.expiryStatus === 0 ? 'Còn hiệu lực' : 'Hết hiệu lực'}
-                            </span>
                           </div>
                         </div>
-                        <div className="doc-actions">
-                          {doc.attachment && (
-                            <a
-                              href={getApiUrl(doc.attachment.url)}
-                              download={doc.attachment.originalFileName}
-                              className="btn btn-outline-success btn-sm"
-                              onClick={(event) => event.stopPropagation()}
-                            >
-                              <i className="bi bi-download me-1"></i>
-                              Tải về
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   {/* Pagination */}

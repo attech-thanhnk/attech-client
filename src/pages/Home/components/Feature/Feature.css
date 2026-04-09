@@ -32,11 +32,11 @@
   align-items: center;
   overflow: hidden;
   animation: fadeInUp 0.8s ease-out forwards;
-  background-color: #5d95d6; /* Fallback color khi ảnh chưa load */
+  background-color: #83b4ed; 
   background-size: cover;
   background-position: center;
   height: 100%;
-  min-height: 220px; /* Chiều cao tối thiểu cố định - tránh layout shift */
+  min-height: 220px;
   backdrop-filter: blur(0px);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
@@ -313,6 +313,9 @@
 @media (max-width: 1023px) {
   .feature-container {
     grid-template-columns: repeat(4, 1fr); /* 3 banner + 1 tin tức */
+  }
+  .feature-section {
+    padding: 10px 16px;
   }
 
   .notify-wrapper {

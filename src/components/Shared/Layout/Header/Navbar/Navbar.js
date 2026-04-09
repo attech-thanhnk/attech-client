@@ -175,7 +175,7 @@ const NavbarTop = ({
                 onClick={closeMobileMenu}
                 aria-label={language === "vi" ? "Đóng menu" : "Close menu"}
               >
-                ×
+                x
               </button>
             </div>
             <div className="mobile-menu-content">

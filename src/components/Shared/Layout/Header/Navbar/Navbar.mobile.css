@@ -112,13 +112,13 @@
     background: #0a407c;
   }
   .logo img {
-    height: 50px !important;
+    height: 60px !important;
   }
   .navbar-toggle {
     display: flex !important;
     width: 40px;
     height: 40px;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     align-items: center;
     justify-content: center;
@@ -143,7 +143,7 @@
   }
   .hamburger-icon {
     font-size: 1.4rem;
-    color: white !important;
+    color: rgba(255, 255, 255, 0.658) !important;
     transition: color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
   }
@@ -681,8 +681,8 @@
     justify-content: center;
   }
   .mobile-actions .lang-btn.active {
-    background: linear-gradient(135deg, #0f9fdb, #0a7bc4);
-    box-shadow: 0 2px 8px rgba(15, 159, 219, 0.3);
+    background: linear-gradient(135deg, #0facdb, #0a66c4);
+    box-shadow: 0 2px 3px rgb(195 222 233 / 30%);
   }
   .mobile-actions .lang-btn img {
     width: 20px;
@@ -691,15 +691,15 @@
   }
   .mobile-actions .login-btn {
     padding: 20px 16px !important;
-    background: linear-gradient(135deg, #0f9fdb, #0a7bc4) !important;
+    background: linear-gradient(135deg, #74b0c9, #4d91bd) !important;
     color: white !important;
     text-decoration: none !important;
     border-radius: 10px !important;
-    font-size: 0.9rem !important;
+    font-size: 1rem !important;
     font-weight: 500 !important;
     transition: none !important;
     transform: none !important;
-    box-shadow: 0 2px 8px rgba(15, 159, 219, 0.3) !important;
+    box-shadow: 0 2px 8px rgb(10 144 199 / 30%) !important;
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;

@@ -250,12 +250,12 @@
 }
 @media (max-width: 1320px) {
     .part_news__container {
-        padding: 0 20px;
+        padding: 0 16px;
     }
 }
 @media (max-width: 1022px) {
     .part_news__container {
-        padding: 0 20px;
+        padding: 16px;
     }
 }
 /* Responsive Design */

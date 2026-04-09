@@ -97,11 +97,11 @@
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
-  padding: 1rem 2.5rem;
+  padding: 1rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   color: #fff;
-  background: #3b82f6;
+  background: #325389;
   border-radius: 10px;
   text-decoration: none;
   border: none;
@@ -125,22 +125,6 @@
 .product-contact-btn i {
   font-size: 1rem;
 }
-
-/* Alternative simpler style - comment out the above and uncomment below if preferred */
-/*
-.product-detail-desc {
-  font-size: 1.15rem;
-  color: #6b7280;
-  margin-bottom: 32px;
-  text-align: center;
-  line-height: 1.7;
-  max-width: 600px;
-  font-style: italic;
-  padding: 16px 0;
-  border-top: 2px solid #e5e7eb;
-  border-bottom: 2px solid #e5e7eb;
-}
-*/
 
 /* Article Content */
 .article-content {
@@ -269,7 +253,7 @@
   padding: 0.7rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #005bea;
+  color: #093275;
   background: #f3f8fd;
   border-radius: 2rem;
   text-decoration: none;
@@ -537,7 +521,7 @@
 /* Responsive Styles */
 @media (max-width: 1024px) {
   .product-content-wrap {
-    padding: 16px;
+    padding: 12px;
   }
 
   .product-detail-card {
