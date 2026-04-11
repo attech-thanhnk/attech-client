@@ -190,7 +190,7 @@ const ProductList = () => {
     setCurrentPage(1);
   }, [products, selectedCategory, searchTerm, sortBy]);
 
-  // KhÃ´i phá»¥c láº¡i phÃ¢n trang nhÆ° ban Ä‘áº§u
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -232,7 +232,7 @@ const ProductList = () => {
     });
   };
 
-  // Component phÃ¢n trang
+
   const Pagination = () => {
     const getPageNumbers = () => {
       const pages = [];
@@ -276,7 +276,7 @@ const ProductList = () => {
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          â†
+        {"<"}
         </button>
 
         {getPageNumbers().map((page, index) => (
@@ -298,7 +298,7 @@ const ProductList = () => {
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          â†’
+        {">"}
         </button>
       </div>
     );
