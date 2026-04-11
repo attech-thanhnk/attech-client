@@ -50,16 +50,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   position: relative;
   height: 100%;
   border: 1px solid #edf2f7;
 }
 
 .notification-section .notification-grid article:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
   border-color: #e2e8f0;
+}
+
+.notification-section .image-wrapper-link {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .notification-section .image-wrapper {
@@ -80,7 +83,8 @@
   transition: transform 0.5s ease;
 }
 
-.notification-section .notification-grid article:hover img {
+.notification-section .notification-grid article:hover img,
+.notification-section .image-wrapper-link:hover img {
   transform: scale(1.1);
 }
 

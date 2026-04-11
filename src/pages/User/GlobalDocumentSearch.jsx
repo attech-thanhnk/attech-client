@@ -122,7 +122,7 @@ const GlobalDocumentSearch = () => {
                                     placeholder="Nhập từ khóa tìm kiếm..."
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
-                                    style={{ width: "320px" }}
+                                    style={{ maxWidth: "320px", width: "100%" }}
                                     autoFocus
                                 />
                                 <button type="submit" className="btn btn-primary">
@@ -190,27 +190,32 @@ const GlobalDocumentSearch = () => {
                             {docs.length > 0 ? (
                                 <>
                                     <div className="documents-list">
-                                        {docs.map((doc) => (
+                                        {docs.map((doc) => {
+                                            const hasAttachments = doc.attachments && doc.attachments.length > 0;
+                                            const firstAttachment = hasAttachments ? doc.attachments[0] : null;
+                                            const hasSingleAttachment = hasAttachments && doc.attachments.length === 1;
+
+                                            return (
                                             <div
                                                 key={doc.id}
-                                                className={`document-item${doc.attachment ? " is-clickable" : ""}`}
-                                                role={doc.attachment ? "button" : undefined}
-                                                tabIndex={doc.attachment ? 0 : undefined}
+                                                className={`document-item${hasSingleAttachment ? " is-clickable" : ""}`}
+                                                role={hasSingleAttachment ? "button" : undefined}
+                                                tabIndex={hasSingleAttachment ? 0 : undefined}
                                                 onClick={() => {
-                                                    if (doc.attachment) {
+                                                    if (hasSingleAttachment) {
                                                         window.open(
-                                                            getApiUrl(doc.attachment.url),
+                                                            getApiUrl(firstAttachment.url),
                                                             "_blank",
                                                             "noopener,noreferrer"
                                                         );
                                                     }
                                                 }}
                                                 onKeyDown={(event) => {
-                                                    if (!doc.attachment) return;
+                                                    if (!hasSingleAttachment) return;
                                                     if (event.key === "Enter" || event.key === " ") {
                                                         event.preventDefault();
                                                         window.open(
-                                                            getApiUrl(doc.attachment.url),
+                                                            getApiUrl(firstAttachment.url),
                                                             "_blank",
                                                             "noopener,noreferrer"
                                                         );
@@ -220,7 +225,7 @@ const GlobalDocumentSearch = () => {
                                                 <div className="doc-icon">
                                                     <i
                                                         className={`bi ${getDocumentIcon(
-                                                            doc.attachment?.contentType
+                                                            firstAttachment?.contentType
                                                         )} fs-1`}
                                                     ></i>
                                                 </div>
@@ -243,32 +248,49 @@ const GlobalDocumentSearch = () => {
                                                                 ? new Date(doc.timePosted).toLocaleDateString("vi-VN")
                                                                 : new Date(doc.createdDate).toLocaleDateString("vi-VN")}
                                                         </small>
-                                                        {doc.attachment && (
+                                                        {hasAttachments && (
                                                             <small className="text-muted">
-                                                                <i className="bi bi-file-earmark me-1"></i>
-                                                                {formatFileSize(doc.attachment.fileSize)}
+                                                                <i className="bi bi-paperclip me-1"></i>
+                                                                {doc.attachments.length} file{doc.attachments.length > 1 ? 's' : ''}
                                                             </small>
                                                         )}
                                                         <span className={`badge ${doc.expiryStatus === 0 ? 'bg-success' : 'bg-warning text-dark'}`}>
                                                             {doc.expiryStatus === 0 ? 'Còn hiệu lực' : 'Hết hiệu lực'}
                                                         </span>
                                                     </div>
-                                                </div>
-                                                <div className="doc-actions">
-                                                    {doc.attachment && (
-                                                        <a
-                                                            href={getApiUrl(doc.attachment.url)}
-                                                            download={doc.attachment.originalFileName}
-                                                            className="btn btn-outline-success btn-sm"
-                                                            onClick={(event) => event.stopPropagation()}
-                                                        >
-                                                            <i className="bi bi-download me-1"></i>
-                                                            Tải về
-                                                        </a>
+
+                                                    {/* Display all attachments */}
+                                                    {hasAttachments && (
+                                                        <div className="mt-3">
+                                                            <div className="d-flex flex-wrap gap-2">
+                                                                {doc.attachments.map((attachment, idx) => (
+                                                                    <a
+                                                                        key={attachment.id || idx}
+                                                                        href={getApiUrl(attachment.url)}
+                                                                        download={attachment.originalFileName}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="btn btn-outline-primary btn-sm"
+                                                                        style={{ border: "1px solid" }}
+                                                                        onClick={(event) => event.stopPropagation()}
+                                                                        title={`${attachment.originalFileName} (${formatFileSize(attachment.fileSize)})`}
+                                                                    >
+                                                                        <i className="bi bi-download me-1"></i>
+                                                                        {attachment.originalFileName.length > 30
+                                                                            ? attachment.originalFileName.substring(0, 30) + '...'
+                                                                            : attachment.originalFileName}
+                                                                        <small className="ms-2 text-muted">
+                                                                            ({formatFileSize(attachment.fileSize)})
+                                                                        </small>
+                                                                    </a>
+                                                                ))}
+                                                            </div>
+                                                        </div>
                                                     )}
                                                 </div>
                                             </div>
-                                        ))}
+                                        );
+                                        })}
                                     </div>
 
                                     {/* Phân trang */}

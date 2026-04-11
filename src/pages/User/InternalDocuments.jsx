@@ -113,7 +113,7 @@ const InternalDocuments = () => {
                   }
                 }}
                 onKeyPress={(e) => e.key === "Enter" && handleSearch(e)}
-                style={{ width: "300px" }}
+                style={{ maxWidth: "300px", width: "100%" }}
               />
               <button
                 type="button"

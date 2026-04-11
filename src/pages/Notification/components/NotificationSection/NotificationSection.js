@@ -71,29 +71,35 @@ const NotificationSection = ({ title, notifications, type }) => {
               currentLanguage
             );
 
+            const notificationUrl = currentLanguage === "vi"
+              ? `/thong-bao/${formattedItem.slug}.html`
+              : `/en/notifications/${formattedItem.slug}.html`;
+
             return (
               <article key={notification.id}>
-                <div className="image-wrapper">
-                  <img
-                    src={formattedItem.imageUrl || ""}
-                    alt={formattedItem.title}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
-                  />
-                  {notification.isOutstanding && (
-                    <span className="badge-new">{t('frontend.home.featuredNews')}</span>
-                  )}
-                </div>
+                <Link
+                  to={notificationUrl}
+                  className="image-wrapper-link"
+                  title={formattedItem.title}
+                >
+                  <div className="image-wrapper">
+                    <img
+                      src={formattedItem.imageUrl || ""}
+                      alt={formattedItem.title}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                    />
+                    {notification.isOutstanding && (
+                      <span className="badge-new">{t('frontend.home.featuredNews')}</span>
+                    )}
+                  </div>
+                </Link>
                 <div className="content-wrapper">
                   <h2>
                     <Link
                       className="notification_title"
-                      to={
-                        currentLanguage === "vi"
-                          ? `/thong-bao/${formattedItem.slug}.html`
-                          : `/en/notifications/${formattedItem.slug}.html`
-                      }
+                      to={notificationUrl}
                     >
                       {formattedItem.title}
                     </Link>

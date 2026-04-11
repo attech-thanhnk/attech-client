@@ -1,11 +1,15 @@
 .user-dashboard {
   min-height: 100vh;
   background: #f5f6fa;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .dashboard-sidebar {
@@ -24,6 +28,9 @@
   margin-left: 280px;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  width: calc(100% - 280px);
+  max-width: 100%;
 }
 
 .dashboard-header {
@@ -158,6 +165,9 @@
 .dashboard-content {
   flex: 1;
   padding: 20px;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .sidebar-header {
@@ -416,6 +426,8 @@
 
   .dashboard-main {
     margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
@@ -637,24 +649,58 @@
   .doc-info {
     grid-area: info !important;
     width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
     text-align: left !important;
+    overflow: hidden !important;
   }
 
   .doc-info h5 {
     font-size: 1rem !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
   }
 
   .doc-info p {
     font-size: 0.9rem !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
   }
 
   .doc-info .d-flex {
     flex-wrap: wrap !important;
     gap: 0.35rem 0.75rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .doc-info .d-flex > * {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Fix attachment buttons overflow on mobile */
+  .doc-info .mt-3 {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .doc-info .mt-3 .d-flex {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .doc-info .btn {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
 
   .doc-actions {
@@ -680,6 +726,11 @@
     padding: 0.75rem !important;
   }
 
+  .doc-info {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
   .doc-info h5 {
     font-size: 0.9rem !important;
   }
@@ -691,6 +742,15 @@
   .doc-actions .btn {
     font-size: 0.75rem !important;
     padding: 0.4rem !important;
+  }
+
+  .doc-info .btn {
+    font-size: 0.7rem !important;
+    padding: 0.4rem 0.6rem !important;
+  }
+
+  .doc-info .btn small {
+    display: none !important;
   }
 }
 
@@ -1019,6 +1079,8 @@
 
 .doc-info {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .doc-info h5 {
@@ -1026,12 +1088,18 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 5px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .doc-info p {
   color: #6c757d;
   font-size: 0.85rem;
   margin-bottom: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .doc-status {
@@ -1100,6 +1168,14 @@
   .dashboard-main {
     margin-left: 0;
     padding: 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dashboard-content {
+    padding: 10px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .user-header-content {
@@ -1373,4 +1449,53 @@
   font-size: 0.875rem;
   color: #64748b;
   text-align: center;
+}
+
+/* Fix overflow for internal documents content */
+.internal-documents-content {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.internal-documents-content * {
+  box-sizing: border-box;
+}
+
+/* Ensure containers don't overflow on mobile */
+.documents-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Additional mobile fixes for internal documents */
+@media (max-width: 768px) {
+  .internal-documents-content .user-header-right input[type="text"] {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .internal-documents-content .user-header-right .d-flex {
+    width: 100%;
+  }
+
+  /* Fix for document items to prevent overflow */
+  .internal-documents-content .document-item {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Fix button text wrapping */
+  .internal-documents-content .btn {
+    white-space: nowrap;
+  }
+
+  /* Ensure badge doesn't cause overflow */
+  .internal-documents-content .badge {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

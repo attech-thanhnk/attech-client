@@ -161,7 +161,6 @@ const AccountModal = ({ isOpen, onClose }) => {
         <div className="modal-header">
           <h3>Quản lý tài khoản</h3>
           <button className="close-btn" onClick={handleClose}>
-            <i className="bi bi-x-lg"></i>
           </button>
         </div>
 
@@ -170,14 +169,12 @@ const AccountModal = ({ isOpen, onClose }) => {
             className={`tab-btn ${activeTab === "profile" ? "active" : ""}`}
             onClick={() => setActiveTab("profile")}
           >
-            <i className="bi bi-person"></i>
             Thông tin tài khoản
           </button>
           <button
             className={`tab-btn ${activeTab === "password" ? "active" : ""}`}
             onClick={() => setActiveTab("password")}
           >
-            <i className="bi bi-key"></i>
             Đổi mật khẩu
           </button>
         </div>
@@ -282,12 +279,10 @@ const AccountModal = ({ isOpen, onClose }) => {
                   >
                     {loading ? (
                       <>
-                        <i className="bi bi-arrow-repeat spin"></i>
                         Đang xử lý...
                       </>
                     ) : (
                       <>
-                        <i className="bi bi-check"></i>
                         Đổi mật khẩu
                       </>
                     )}

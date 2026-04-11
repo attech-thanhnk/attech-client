@@ -91,8 +91,16 @@ const UserDashboard = () => {
   const handleSelectResult = (doc) => {
     setShowDropdown(false);
     setHeaderSearchTerm("");
-    if (doc.attachment) {
-      window.open(getApiUrl(doc.attachment.url), "_blank", "noopener,noreferrer");
+    const hasAttachments = doc.attachments && doc.attachments.length > 0;
+
+    if (hasAttachments) {
+      // Nếu chỉ có 1 file, mở trực tiếp
+      if (doc.attachments.length === 1) {
+        window.open(getApiUrl(doc.attachments[0].url), "_blank", "noopener,noreferrer");
+      } else {
+        // Nếu có nhiều files, chuyển đến trang search để user chọn
+        navigate(`/trang-noi-bo/tim-kiem?q=${encodeURIComponent(doc.title)}`);
+      }
     }
   };
 
@@ -397,7 +405,9 @@ const UserDashboard = () => {
                     {searchResults.length > 0 ? (
                       <>
                         <ul className="search-dropdown-list">
-                          {searchResults.map((doc) => (
+                          {searchResults.map((doc) => {
+                            const hasAttachments = doc.attachments && doc.attachments.length > 0;
+                            return (
                             <li
                               key={doc.id}
                               className="search-dropdown-item"
@@ -412,6 +422,11 @@ const UserDashboard = () => {
                                       {CATEGORY_LABELS[doc.category] || doc.category}
                                     </span>
                                   )}
+                                  {hasAttachments && (
+                                    <span className="search-item-category" style={{background: '#e0f2fe', color: '#0284c7'}}>
+                                      <i className="bi bi-paperclip"></i> {doc.attachments.length} file{doc.attachments.length > 1 ? 's' : ''}
+                                    </span>
+                                  )}
                                   <span className={`badge ${doc.expiryStatus === 0 ? 'bg-success' : 'bg-warning text-dark'}`} style={{fontSize: '0.7rem', padding: '2px 6px'}}>
                                     {doc.expiryStatus === 0 ? 'Còn hiệu lực' : 'Hết hiệu lực'}
                                   </span>
@@ -420,13 +435,14 @@ const UserDashboard = () => {
                                   <span className="search-item-desc">{doc.description}</span>
                                 )}
                               </span>
-                              {doc.attachment && (
+                              {hasAttachments && (
                                 <span className="search-item-action">
                                   <i className="bi bi-box-arrow-up-right"></i>
                                 </span>
                               )}
                             </li>
-                          ))}
+                            );
+                          })}
                         </ul>
                         <div className="search-dropdown-footer" onMouseDown={handleViewAll}>
                           <i className="bi bi-list-ul me-1"></i>
