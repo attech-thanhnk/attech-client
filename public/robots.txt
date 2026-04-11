@@ -1,4 +1,4 @@
 ﻿# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
-Sitemap: https://beta.attech.com.vn/sitemap.xml
+Sitemap: https://attech.com.vn/sitemap.xml

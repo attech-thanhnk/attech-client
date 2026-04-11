@@ -86,7 +86,7 @@ jobs:
 
             # Health check
             sleep 10
-            curl -f https://beta.attech.com.vn || exit 1
+            curl -f https://attech.com.vn || exit 1
 
             echo "Frontend deployed successfully!"
 
@@ -96,4 +96,4 @@ jobs:
         run: |
           echo "Deployment thanh cong!"
           echo "Image: ghcr.io/attech-thanhnk/attech-client:${{ github.sha }}"
-          echo "Website: https://beta.attech.com.vn"
+          echo "Website: https://attech.com.vn"
