@@ -94,7 +94,7 @@ const History = () => {
         en: "Aviation Equipment Manufacturing Enterprise",
       },
       address: {
-        vi: "Tổ 6, Phường Long Biên, Thành phố Hà Nội",
+        vi: "Tổ 1, Phường Long Biên, Thành phố Hà Nội",
         en: "Group 6, Long Bien Ward, Hanoi City, Vietnam",
       },
       phone: "024.38759625",
