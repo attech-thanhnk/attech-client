@@ -36,7 +36,6 @@ const DocumentRow = ({ item, t, onViewDocument }) => {
               borderRadius: 4,
               cursor: "pointer",
               fontSize: 14,
-              marginRight: 8,
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
@@ -44,26 +43,6 @@ const DocumentRow = ({ item, t, onViewDocument }) => {
           >
             <i className="fa fa-eye" style={{ marginRight: 6 }}></i>
             {t("frontend.companyInfo.financial.view")}
-          </a>
-          <a
-            href="#"
-            className="btn-download-v1"
-            onClick={handleViewClick}
-            style={{
-              padding: "6px",
-              border: "1px solid #1976d2",
-              background: "#fff",
-              color: "#1976d2",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontSize: 14,
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-            }}
-          >
-            <i className="fa fa-download" style={{ marginRight: 6 }}></i>
-            {t("frontend.companyInfo.financial.download")}
           </a>
         </div>
       </td>
@@ -153,21 +132,9 @@ const Financial = ({ documentType = "financial" }) => {
 
       if (response.success && response.data) {
         if (response.data.documents && response.data.documents.length > 0) {
-          if (response.data.documents.length === 1) {
-            const file = response.data.documents[0];
-            const fullUrl = getApiUrl(file.url);
-            // Create a temporary link and click it to avoid popup blocker on mobile
-            const link = document.createElement('a');
-            link.href = fullUrl;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          } else {
-            setSelectedFiles(response.data.documents);
-            setShowFileModal(true);
-          }
+          const file = response.data.documents[0];
+          const fullUrl = getApiUrl(file.url);
+          window.location.href = fullUrl;
         } else {
           alert(t("frontend.companyInfo.financial.noAttachment"));
         }
@@ -382,43 +349,43 @@ const Financial = ({ documentType = "financial" }) => {
                 {t("frontend.companyInfo.financial.selectFile")}
               </h3>
               <div>
-                {selectedFiles.map((file, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      padding: "12px",
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
-                      marginBottom: "8px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                    onClick={() => {
-                      const fullUrl = getApiUrl(file.url);
-                      // Create a temporary link and click it to avoid popup blocker on mobile
-                      const link = document.createElement('a');
-                      link.href = fullUrl;
-                      link.target = '_blank';
-                      link.rel = 'noopener noreferrer';
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                      setShowFileModal(false);
-                    }}
-                  >
-                    <div>
-                      <div style={{ fontWeight: "bold", marginBottom: 4 }}>
-                        {file.originalFileName}
+                {selectedFiles.map((file, idx) => {
+                  const fullUrl = getApiUrl(file.url);
+                  return (
+                    <a
+                      key={idx}
+                      href={fullUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: "12px",
+                        border: "1px solid #ddd",
+                        borderRadius: "4px",
+                        marginBottom: "8px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        textDecoration: "none",
+                        color: "inherit",
+                        transition: "background 0.2s",
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = "#f5f5f5"}
+                      onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
+                      onClick={() => setShowFileModal(false)}
+                    >
+                      <div>
+                        <div style={{ fontWeight: "bold", marginBottom: 4 }}>
+                          {file.originalFileName}
+                        </div>
+                        <div style={{ fontSize: 12, color: "#666" }}>
+                          {file.contentType} • {(file.fileSize / 1024).toFixed(0)} KB
+                        </div>
                       </div>
-                      <div style={{ fontSize: 12, color: "#666" }}>
-                        {file.contentType} • {(file.fileSize / 1024).toFixed(0)} KB
-                      </div>
-                    </div>
-                    <i className="fa fa-external-link" style={{ color: "#1976d2" }}></i>
-                  </div>
-                ))}
+                      <i className="fa fa-external-link" style={{ color: "#1976d2" }}></i>
+                    </a>
+                  );
+                })}
               </div>
               <div style={{ textAlign: "center", marginTop: 16 }}>
                 <button
