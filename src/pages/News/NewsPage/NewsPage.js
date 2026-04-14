@@ -14,14 +14,14 @@ const NewsPage = () => {
 
   const seoContent = {
     vi: {
-      title: "Trang tin tức | ATTECH",
+      title: "Trang tin tức",
       description:
         "Cập nhật tin tức mới nhất về các hoạt động, sự kiện, thông tin trong lĩnh vực hàng không của Công ty TNHH Kỹ thuật Quản lý bay",
       keywords:
         "tin tức ATTECH, tin hàng không, aviation news, hoạt động ATTECH",
     },
     en: {
-      title: "News | ATTECH",
+      title: "News",
       description:
         "Latest news about ATTECH and Vietnam aviation industry, activities, events and professional information.",
       keywords:

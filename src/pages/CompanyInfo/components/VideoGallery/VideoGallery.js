@@ -16,7 +16,7 @@ const VideoGallery = () => {
   const config = {
     vi: {
       seo: {
-        title: "Thư viện video | ATTECH",
+        title: "Thư viện video",
         description: "Xem các video giới thiệu và hoạt động của ATTECH.",
         keywords: "video ATTECH, giới thiệu Công ty, hoạt động",
       },
@@ -28,7 +28,7 @@ const VideoGallery = () => {
     },
     en: {
       seo: {
-        title: "Video Gallery | ATTECH",
+        title: "Video Gallery",
         description: "Watch ATTECH's introduction and activity videos.",
         keywords: "ATTECH videos, company introduction, activities",
       },

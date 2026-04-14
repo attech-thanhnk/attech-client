@@ -11,7 +11,7 @@ const MediaLibrary = () => {
   const config = {
     vi: {
       seo: {
-        title: "Thư viện Công ty | ATTECH",
+        title: "Thư viện Công ty",
         description: "Xem thư viện ảnh và video của ATTECH.",
         keywords: "thư viện ATTECH, hình ảnh, video, gallery",
       },
@@ -34,7 +34,7 @@ const MediaLibrary = () => {
     },
     en: {
       seo: {
-        title: "Company Media Library | ATTECH",
+        title: "Company Media Library",
         description: "View ATTECH's photo and video library.",
         keywords: "ATTECH library, photos, videos, gallery",
       },

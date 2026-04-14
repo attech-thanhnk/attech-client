@@ -15,14 +15,14 @@ const Iso = () => {
 
   const seoContent = {
     vi: {
-      title: "Hệ thống chứng chỉ ISO | ATTECH",
+      title: "Hệ thống chứng chỉ ISO",
       description:
         "Tìm hiểu về hệ thống quản lý chất lượng ISO 9001:2015, ISO 14001:2015 và các chứng chỉ chất lượng của ATTECH.",
       keywords:
         "ISO ATTECH, ISO 9001, ISO 14001, chứng chỉ chất lượng, quality management",
     },
     en: {
-      title: "ISO Certification System | ATTECH",
+      title: "ISO Certification System",
       description:
         "Learn about ATTECH's quality management system ISO 9001:2015, ISO 14001:2015 and quality certifications.",
       keywords:

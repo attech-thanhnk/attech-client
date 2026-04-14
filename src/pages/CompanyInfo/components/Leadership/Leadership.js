@@ -54,14 +54,14 @@ export default function Leadership() {
 
   const seoContent = {
     vi: {
-      title: "Ban lãnh đạo | ATTECH",
+      title: "Ban lãnh đạo",
       description:
         "Giới thiệu ban lãnh đạo ATTECH gồm Chủ tịch Công ty, Giám đốc và các Phó giám đốc Công ty kỹ thuật quản lý bay.",
       keywords:
         "ban lãnh đạo ATTECH, leadership, management team, giám đốc ATTECH",
     },
     en: {
-      title: "Leadership | ATTECH",
+      title: "Leadership",
       description:
         "Introducing ATTECH's leadership team including Chairman of the Board, Director and Deputy Directors of the air traffic technical company.",
       keywords: "ATTECH leadership, management team, company directors",

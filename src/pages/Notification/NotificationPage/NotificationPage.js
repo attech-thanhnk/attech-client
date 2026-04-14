@@ -57,7 +57,7 @@ const Notification = () => {
     );
   }
 
-  const pageTitle = currentLanguage === "vi" ? "Thông báo | ATTECH" : "Notifications | ATTECH";
+  const pageTitle = currentLanguage === "vi" ? "Thông báo" : "Notifications";
   const pageDescription = currentLanguage === "vi"
     ? "Thông báo và thông tin quan trọng từ ATTECH. Công ty TNHH Kỹ thuật Quản lý bay."
     : "Notifications and important information from ATTECH. Air Traffic Technical Co., Ltd.";

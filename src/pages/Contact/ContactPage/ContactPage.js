@@ -13,14 +13,14 @@ const ContactPage = () => {
 
   const seoContent = {
     vi: {
-      title: "Trang liên hệ | ATTECH",
+      title: "Trang liên hệ",
       description:
         "Liên hệ với ATTECH để được tư vấn về các giải pháp kỹ thuật hàng không, dịch vụ CNS và bay kiểm tra hiệu chuẩn.",
       keywords:
         "liên hệ ATTECH, contact ATTECH, tư vấn hàng không, aviation consulting",
     },
     en: {
-      title: "Contact | ATTECH",
+      title: "Contact",
       description:
         "Contact ATTECH for consultation on aviation technical solutions, CNS services and flight inspection calibration.",
       keywords:

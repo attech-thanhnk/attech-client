@@ -83,12 +83,12 @@ const Financial = ({ documentType = "financial" }) => {
     financial: {
       seo: {
         vi: {
-          title: "Thông tin tài chính | ATTECH",
+          title: "Thông tin tài chính",
           description: "Xem báo cáo tài chính và thông tin tài chính của Công ty TNHH Kỹ thuật Quản lý bay.",
           keywords: "thông tin tài chính ATTECH, báo cáo tài chính, financial reports",
         },
         en: {
-          title: "Financial Information | ATTECH",
+          title: "Financial Information",
           description: "View financial reports and information of ATTECH.",
           keywords: "ATTECH financial information, financial reports, annual reports",
         },
@@ -106,12 +106,12 @@ const Financial = ({ documentType = "financial" }) => {
     other: {
       seo: {
         vi: {
-          title: "Thông tin khác | ATTECH",
+          title: "Thông tin khác",
           description: "Xem các thông tin và tài liệu khác của.",
           keywords: "thông tin khác ATTECH, tài liệu, documents",
         },
         en: {
-          title: "Other Information | ATTECH",
+          title: "Other Information",
           description: "View other information and documents.",
           keywords: "ATTECH other information, documents",
         },

@@ -14,14 +14,14 @@ const History = () => {
 
   const seoContent = {
     vi: {
-      title: "Lịch sử ra đời | ATTECH",
+      title: "Lịch sử ra đời",
       description:
         "Tìm hiểu về lịch sử hình thành và phát triển của ATTECH từ khi thành lập đến nay, những cột mốc quan trọng trong hành trình trở thành Công ty hàng đầu về kỹ thuật hàng không.",
       keywords:
         "lịch sử ATTECH, hành trình phát triển, company history, ATTECH timeline",
     },
     en: {
-      title: "History | ATTECH",
+      title: "History",
       description:
         "Learn about ATTECH's formation and development, important milestones in becoming a leading aviation technology company.",
       keywords:

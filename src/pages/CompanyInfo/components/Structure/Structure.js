@@ -13,14 +13,14 @@ export default function Structure() {
 
   const seoContent = {
     vi: {
-      title: "Cơ cấu tổ chức | ATTECH",
+      title: "Cơ cấu tổ chức",
       description:
         "Xem cơ cấu tổ chức và sơ đồ bộ máy quản lý của ATTECH, Công ty kỹ thuật quản lý bay hàng đầu Việt Nam.",
       keywords:
         "cơ cấu tổ chức ATTECH, sơ đồ tổ chức, organizational structure, company structure",
     },
     en: {
-      title: "Organizational Structure | ATTECH",
+      title: "Organizational Structure",
       description:
         "View the organizational structure and management chart of ATTECH, Vietnam's leading air traffic technical company.",
       keywords:

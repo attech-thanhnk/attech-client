@@ -60,7 +60,7 @@ const Gallery = () => {
 
   return (
     <>
-      <SEO title={text.title + " | ATTECH"} url={location.pathname} />
+      <SEO title={text.title + ""} url={location.pathname} />
 
       <div className="gallery-page">
         <div className="gallery-header">

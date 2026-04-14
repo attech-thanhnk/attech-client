@@ -11,7 +11,7 @@ const InformationAnnouncement = () => {
   const config = {
     vi: {
       seo: {
-        title: "Thông tin công bố | ATTECH",
+        title: "Thông tin công bố",
         description: "Xem các thông tin công bố của ATTECH bao gồm thông tin tài chính và thông tin khác.",
         keywords: "thông tin công bố ATTECH, thông tin tài chính, tài liệu",
       },
@@ -34,7 +34,7 @@ const InformationAnnouncement = () => {
     },
     en: {
       seo: {
-        title: "Information Announcement | ATTECH",
+        title: "Information Announcement",
         description: "View ATTECH's information announcements including financial information and other documents.",
         keywords: "ATTECH information announcement, financial information, documents",
       },

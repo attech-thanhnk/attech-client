@@ -15,14 +15,14 @@ const Business = () => {
 
   const seoContent = {
     vi: {
-      title: "Ngành nghề kinh doanh | ATTECH",
+      title: "Ngành nghề kinh doanh",
       description:
         "Tìm hiểu về các ngành nghề kinh doanh và lĩnh vực hoạt động của ATTECH, bao gồm dịch vụ hỗ trợ hàng không, CNS, sản xuất thiết bị và nhiều lĩnh vực khác.",
       keywords:
         "ngành nghề kinh doanh ATTECH, business fields, lĩnh vực hoạt động, aviation services",
     },
     en: {
-      title: "Business Fields | ATTECH",
+      title: "Business Fields",
       description:
         "Learn about ATTECH's business fields and areas of operation, including aviation support services, CNS, equipment manufacturing and more.",
       keywords:
