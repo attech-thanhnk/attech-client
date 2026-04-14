@@ -15,7 +15,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import { I18nextProvider } from 'react-i18next';
 import i18n, { checkTranslationsVersion, getI18nReadyPromise } from './i18n';
 import { MAINTENANCE_MODE } from './config/maintenanceConfig';
-import { HelmetProvider } from 'react-helmet-async';
 
 const ScrollToTop = ({ children }) => {
   const location = useLocation();
@@ -62,7 +61,7 @@ const App = () => {
     if (!window.__APP_LOADED__) {
       // Check and refresh translations if needed
       // Progressive loading strategy:
-      // Chờ ĐỒNG THỜI: 800ms tối thiểu, i18n check, và i18n background fetch
+      // Chờ 800ms tối thiểu, i18n check, và i18n background fetch
       // → đảm bảo mọi re-render từ i18n xảy ra khi overlay còn hiện (production fix)
       const minDelay = new Promise((resolve) => setTimeout(resolve, 800));
       const i18nReady = Promise.all([
@@ -88,18 +87,16 @@ const App = () => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <HelmetProvider>
-        <Router>
-          <AuthProvider>
-            <ThemeProvider>
-              <LoadingOverlay isLoading={isLoading} />
-              <ScrollToTop>
-                <AppContent />
-              </ScrollToTop>
-            </ThemeProvider>
-          </AuthProvider>
-        </Router>
-      </HelmetProvider>
+      <Router>
+        <AuthProvider>
+          <ThemeProvider>
+            <LoadingOverlay isLoading={isLoading} />
+            <ScrollToTop>
+              <AppContent />
+            </ScrollToTop>
+          </ThemeProvider>
+        </AuthProvider>
+      </Router>
     </I18nextProvider>
   );
 };
