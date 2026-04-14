@@ -8,8 +8,9 @@ import SEO from "../../../../components/SEO/SEO";
 import { useI18n } from "../../../../hooks/useI18n";
 
 const DocumentRow = ({ item, t, onViewDocument }) => {
-  const handleViewClick = async () => {
-    await onViewDocument(item.slug);
+  const handleViewClick = (e) => {
+    e.preventDefault();
+    onViewDocument(item.slug);
   };
 
   return (
@@ -23,7 +24,8 @@ const DocumentRow = ({ item, t, onViewDocument }) => {
       </td>
       <td>
         <div className="report-actions">
-          <button
+          <a
+            href="#"
             className="btn-view-v1"
             onClick={handleViewClick}
             style={{
@@ -35,12 +37,16 @@ const DocumentRow = ({ item, t, onViewDocument }) => {
               cursor: "pointer",
               fontSize: 14,
               marginRight: 8,
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
             }}
           >
             <i className="fa fa-eye" style={{ marginRight: 6 }}></i>
             {t("frontend.companyInfo.financial.view")}
-          </button>
-          <button
+          </a>
+          <a
+            href="#"
             className="btn-download-v1"
             onClick={handleViewClick}
             style={{
@@ -51,11 +57,14 @@ const DocumentRow = ({ item, t, onViewDocument }) => {
               borderRadius: 4,
               cursor: "pointer",
               fontSize: 14,
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
             }}
           >
             <i className="fa fa-download" style={{ marginRight: 6 }}></i>
             {t("frontend.companyInfo.financial.download")}
-          </button>
+          </a>
         </div>
       </td>
     </tr>
