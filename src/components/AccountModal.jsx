@@ -104,6 +104,7 @@ const AccountModal = ({ isOpen, onClose }) => {
       const result = await changePassword({
         currentPassword: passwordForm.currentPassword,
         newPassword: passwordForm.newPassword,
+        confirmPassword: passwordForm.confirmPassword,
       });
 
       if (result.success) {

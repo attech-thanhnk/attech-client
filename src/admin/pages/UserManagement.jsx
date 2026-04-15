@@ -618,13 +618,11 @@ const UserManagement = () => {
                 prev.key === key && prev.direction === "desc" ? "asc" : "desc",
             }));
           }}
-          pagination={{
-            currentPage,
-            totalPages,
-            totalItems,
-            itemsPerPage,
-            onPageChange: setCurrentPage,
-          }}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          onPageChange={setCurrentPage}
           loading={isLoading}
         />
 
