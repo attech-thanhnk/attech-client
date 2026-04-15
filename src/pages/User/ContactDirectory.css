@@ -1,18 +1,21 @@
-/* Contact Directory Specific Styles */
-
 .contact-directory {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 .contact-directory .directory-controls {
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
 }
-
+.contact-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 10px 20px;
+}
 .contact-directory .directory-controls .row {
   display: flex;
   flex-wrap: wrap;
@@ -232,7 +235,7 @@
 .organization-header {
   background: #f8f9fa;
   color: #495057;
-  padding: 0.75rem 1rem;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
   font-weight: 600;
@@ -282,7 +285,7 @@
 
 .department-header {
   background: #f8f9fa;
-  padding: 0.5rem 1rem;
+  padding: 12px 20px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #f0f0f0;
@@ -332,11 +335,12 @@
 }
 
 .contact-item-tree {
-  padding: 0.75rem 1rem;
+  padding: 16px 20px;
   border-bottom: 1px solid #f5f5f5;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .contact-item-tree:hover {
@@ -374,13 +378,43 @@
 
 .contact-actions {
   display: flex;
-  gap: 0.3rem;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .contact-actions .btn {
-  border-radius: 4px;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.75rem;
+  border-radius: 6px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 45px;
+  transition: all 0.2s ease;
+  border-width: 1.5px;
+}
+
+.contact-actions .btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.contact-actions .btn-outline-success:hover {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+  color: white !important;
+}
+
+.contact-actions .btn-outline-primary:hover {
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+  color: white !important;
+}
+
+/* Desktop: hide text, show only icon */
+.contact-actions .btn .btn-text {
+  display: none;
 }
 
 /* Contact Details - Simplified inline */
@@ -413,17 +447,44 @@
   .contact-directory .directory-controls .col-md-4 {
     flex-basis: 35%;
   }
+
+  .contact-item-tree {
+    padding: 12px 16px;
+  }
+
+  .contact-main-info {
+    gap: 12px;
+  }
+
+  .contact-details-simple {
+    gap: 12px;
+    font-size: 0.8rem;
+  }
+
+  .contact-actions {
+    flex-wrap: nowrap;
+  }
+
+  .contact-actions .btn {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+
+  /* Tablet: show text for easier tapping */
+  .contact-actions .btn .btn-text {
+    display: inline;
+  }
 }
 
 @media (max-width: 768px) {
   .contact-directory {
-    padding: 0 10px;
+    padding: 0 16px;
   }
 
   .contact-directory .directory-controls {
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 10px;
   }
 
   .contact-directory .directory-controls .row {
@@ -439,8 +500,8 @@
   }
 
   .contact-directory .search-box input {
-    padding: 12px 15px;
-    font-size: 13px !important;
+    padding: 12px 16px;
+    font-size: 14px !important;
   }
 
   .contact-directory .search-box i {
@@ -448,35 +509,45 @@
   }
 
   .contact-directory .directory-controls .form-select {
-    padding: 12px 15px;
-    font-size: 13px !important;
+    padding: 12px 16px;
+    font-size: 14px !important;
   }
 
   .contact-directory .directory-controls .form-select option {
-    font-size: 13px !important;
-    padding: 6px 8px;
+    font-size: 14px !important;
+    padding: 8px 12px;
+  }
+
+  /* Ensure buttons stay on one line on tablet */
+  .contact-actions {
+    flex-wrap: nowrap;
+  }
+
+  .contact-actions .btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.875rem;
   }
 }
 
 @media (max-width: 576px) {
   .contact-directory {
-    padding: 0 5px;
+    padding: 0 12px;
   }
 
   .contact-directory .directory-controls {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
   }
 
   .contact-directory .directory-controls .row {
-    gap: 10px;
+    gap: 12px;
   }
 
   .contact-directory .search-box input {
-    padding: 10px 12px;
-    font-size: 13px;
-    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 8px;
   }
 
   .contact-directory .search-box i {
@@ -484,9 +555,9 @@
   }
 
   .contact-directory .directory-controls .form-select {
-    padding: 10px 12px;
-    font-size: 13px;
-    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 8px;
   }
 
   .contact-directory .directory-controls .form-select option {
@@ -498,15 +569,15 @@
   .contact-item-tree {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    padding: 12px;
+    gap: 12px;
+    padding: 16px;
   }
 
   .contact-main-info {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .contact-name-pos {
@@ -521,14 +592,34 @@
   }
 
   .contact-actions {
-    width: 100%;
+    width: auto;
     justify-content: flex-start;
-    margin-top: 8px;
+    margin-top: 4px;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .contact-actions .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .contact-actions .btn i {
+    font-size: 0.95rem;
+  }
+
+  /* Mobile: show text labels */
+  .contact-actions .btn .btn-text {
+    display: inline;
   }
 
   /* Tree view mobile adjustments */
   .organization-header {
-    padding: 0.6rem 0.8rem;
+    padding: 12px 16px;
     font-size: 0.9rem;
   }
 
@@ -537,11 +628,23 @@
   }
 
   .department-header {
-    padding: 0.5rem 0.8rem;
+    padding: 10px 16px;
   }
 
   .department-header h5 {
     font-size: 0.8rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 400px) {
+  .contact-actions .btn {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .contact-actions .btn i {
+    font-size: 0.95rem;
   }
 }
 

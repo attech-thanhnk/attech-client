@@ -121,11 +121,11 @@ const ContactDirectory = () => {
   }, [contacts, searchTerm, selectedDepartment]);
 
   const handleCall = (phone) => {
-    window.open(`tel:${phone}`);
-  };
-
-  const handleEmail = (email) => {
-    window.open(`mailto:${email}`);
+    // Remove spaces and special characters except + and numbers
+    const cleanPhone = phone.replace(/[^\d+]/g, '');
+    const link = document.createElement('a');
+    link.href = `tel:${cleanPhone}`;
+    link.click();
   };
 
   const toggleOrganization = (org) => {
@@ -145,7 +145,7 @@ const ContactDirectory = () => {
   return (
     <>
       <div className="internal-page-header mb-4">
-        <h1 className="mt-2">Danh bạ điện thoại</h1>
+        <p className="contact-title">Danh bạ điện thoại</p>
       </div>
 
       <div className="contact-directory">
@@ -302,30 +302,21 @@ const ContactDirectory = () => {
                                     </div>
 
                                     <div className="contact-actions">
-                                      {contact.phone &&
-                                        contact.phone.trim() && (
-                                          <button
-                                            className="btn btn-sm btn-outline-success"
-                                            onClick={() =>
-                                              handleCall(contact.phone)
-                                            }
-                                            title={`Gọi ${contact.phone}`}
-                                          >
-                                            <i className="bi bi-telephone"></i>
-                                          </button>
-                                        )}
-                                      {contact.email &&
-                                        contact.email.trim() && (
-                                          <button
-                                            className="btn btn-sm btn-outline-primary"
-                                            onClick={() =>
-                                              handleEmail(contact.email)
-                                            }
-                                            title={`Email ${contact.email}`}
-                                          >
-                                            <i className="bi bi-envelope"></i>
-                                          </button>
-                                        )}
+                                      {/* Prioritize mobile number, fallback to phone */}
+                                      {(contact.mobile?.trim() || contact.phone?.trim()) && (
+                                        <button
+                                          className="btn btn-sm btn-outline-success contact-btn-call"
+                                          onClick={() =>
+                                            handleCall(contact.mobile?.trim() || contact.phone)
+                                          }
+                                          title={`Gọi ${contact.mobile?.trim() ? `Di động: ${contact.mobile}` : `Điện thoại: ${contact.phone}`}`}
+                                        >
+                                          <i className={`bi ${contact.mobile?.trim() ? 'bi-phone' : 'bi-telephone'}`}></i>
+                                          <span className="btn-text">
+                                            {contact.mobile?.trim() ? 'Di động' : 'Gọi'}
+                                          </span>
+                                        </button>
+                                      )}
                                     </div>
                                   </div>
                                 ))}
