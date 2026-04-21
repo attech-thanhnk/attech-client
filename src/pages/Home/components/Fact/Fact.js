@@ -13,12 +13,17 @@ const Fact = () => {
   // Get fact image with fallback
   const factImageUrl = getFactImage();
 
+  // Don't render if no image from API
+  if (!factImageUrl) {
+    return null;
+  }
+
   return (
     <div className="fact">
       <div className="fact__container">
         <div className="fact__banner" aria-hidden="true">
-          <img 
-            src={factImageUrl} 
+          <img
+            src={factImageUrl}
             alt=""
             className={`fact__image ${imageLoaded ? 'loaded' : ''}`}
             loading="lazy"
