@@ -12,9 +12,9 @@
     border-radius: 4px;
     overflow: hidden;
     transition: transform 0.3s ease;
-    background-color: #f0f0f0; /* Light gray placeholder */
+    background-color: #f0f0f0;
     position: relative;
-    aspect-ratio: 1200 / 120; /* Adjust this ratio based on your banner's dimensions */
+    aspect-ratio: 1210 / 180;
 }
 
 .fact__image {
