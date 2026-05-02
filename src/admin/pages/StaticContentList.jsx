@@ -4,6 +4,7 @@ import FormModal from "../components/FormModal";
 import StaticContentForm from "../components/StaticContentForm";
 import LeadershipForm from "../components/LeadershipForm";
 import CategoryKeysForm from "../components/CategoryKeysForm";
+import IsoDocumentsManager from "../components/IsoDocumentsManager";
 import { useAuth } from "../../contexts/AuthContext";
 import AccessDenied from "../../components/AccessDenied";
 import "./StaticContentList.css";
@@ -12,6 +13,7 @@ const StaticContentList = () => {
   const { user: currentUser, ROLES } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [editingContent, setEditingContent] = useState(null);
+  const [showIsoFilesModal, setShowIsoFilesModal] = useState(false);
 
   // Định nghĩa các trang static cần quản lý
   const staticPages = [
@@ -54,9 +56,17 @@ const StaticContentList = () => {
     setShowModal(true);
   };
 
+  const handleManageIsoFiles = () => {
+    setShowIsoFilesModal(true);
+  };
+
   const handleClose = () => {
     setShowModal(false);
     setEditingContent(null);
+  };
+
+  const handleCloseIsoFiles = () => {
+    setShowIsoFilesModal(false);
   };
 
   const handleSuccess = () => {
@@ -147,20 +157,53 @@ const StaticContentList = () => {
               </div>
 
               <div className="card-actions">
-                <button
-                  className="admin-btn admin-btn-primary"
-                  onClick={() => handleEdit(page)}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <i className="fas fa-edit"></i>
-                  Chỉnh sửa nội dung
-                </button>
+                {page.id === "iso" ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    <button
+                      className="admin-btn admin-btn-primary"
+                      onClick={() => handleEdit(page)}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <i className="fas fa-edit"></i>
+                      Chỉnh sửa nội dung
+                    </button>
+                    <button
+                      className="admin-btn admin-btn-success"
+                      onClick={handleManageIsoFiles}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <i className="fas fa-file-pdf"></i>
+                      Quản lý file chứng chỉ
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="admin-btn admin-btn-primary"
+                    onClick={() => handleEdit(page)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <i className="fas fa-edit"></i>
+                    Chỉnh sửa nội dung
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -203,6 +246,17 @@ const StaticContentList = () => {
               />
             )
           )}
+        </FormModal>
+
+        {/* ISO Files Management Modal */}
+        <FormModal
+          show={showIsoFilesModal}
+          onClose={handleCloseIsoFiles}
+          title="Quản lý File Chứng chỉ ISO"
+          size="xl"
+          showActions={false}
+        >
+          <IsoDocumentsManager onSuccess={handleCloseIsoFiles} />
         </FormModal>
       </div>
     </PageWrapper>

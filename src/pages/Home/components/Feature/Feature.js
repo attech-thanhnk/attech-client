@@ -9,6 +9,7 @@ import LocalizedLink from "../../../../components/Shared/LocalizedLink";
 import { LocalizedTitle } from "../../../../components/Shared/LocalizedContent";
 import {
   getOutstandingNews,
+  getNews,
   getNewsCategories,
   formatNewsForDisplay,
 } from "../../../../services/clientNewsService";
@@ -20,6 +21,7 @@ const Feature = () => {
   const [featuredNews, setFeaturedNews] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isOutstandingNews, setIsOutstandingNews] = useState(true);
   const { getFeatureBackgrounds } = useBannerSettings();
   
   // Get feature background images with fallbacks
@@ -29,19 +31,37 @@ const Feature = () => {
     const loadData = async () => {
       try {
         setLoading(true);
-        const [categoriesData, newsData] = await Promise.all([
-          getNewsCategories(),
-          getOutstandingNews({
+
+        // Load categories first
+        const categoriesData = await getNewsCategories();
+        setCategories(categoriesData);
+
+        // Try to get outstanding news first
+        const outstandingNews = await getOutstandingNews({
+          pageNumber: 1,
+          pageSize: 10,
+          sortBy: "timePosted",
+          sortDirection: "desc",
+        });
+
+        // If no outstanding news, fallback to regular news (5 latest)
+        if (!outstandingNews.items || outstandingNews.items.length === 0) {
+          const regularNews = await getNews({
             pageNumber: 1,
-            pageSize: 10,
+            pageSize: 5,
             sortBy: "timePosted",
             sortDirection: "desc",
-          }),
-        ]);
-
-        setCategories(categoriesData);
-        setFeaturedNews(newsData.items || []);
-      } catch (error) {} finally {
+          });
+          setFeaturedNews(regularNews.items || []);
+          setIsOutstandingNews(false); // Mark as regular news
+        } else {
+          setFeaturedNews(outstandingNews.items || []);
+          setIsOutstandingNews(true); // Mark as outstanding news
+        }
+      } catch (error) {
+        console.error("Error loading featured news:", error);
+        setFeaturedNews([]);
+      } finally {
         setLoading(false);
       }
     };
@@ -188,9 +208,11 @@ const Feature = () => {
                               e.target.src = DEFAULT_NEWS_IMAGE;
                             }}
                           />
-                          <span className="news-badge">
-                            {t("frontend.home.featuredNews")}
-                          </span>
+                          {isOutstandingNews && (
+                            <span className="news-badge">
+                              {t("frontend.home.featuredNews")}
+                            </span>
+                          )}
                         </div>
                         <p className="notify-title" title={formattedItem.title}>
                           {formattedItem.title}

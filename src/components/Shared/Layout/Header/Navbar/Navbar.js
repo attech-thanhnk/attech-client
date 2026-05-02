@@ -321,10 +321,12 @@ const Navbar = () => {
     handleGlobalSearchClose,
   } = useGlobalSearch();
   const { rawMenuData, loading: menuLoading } = useMenuData(currentLanguage);
-  const { getBannerUrl } = useBannerSettings();
+  const { getLogoUrl } = useBannerSettings();
 
-  // Get logo URL from API, fallback to local if not available
-  const logoUrl = getBannerUrl('Logo') || '/assets/images/header/attech-bo-cuc-dau-trang-chu.png';
+  // Get logo URL based on current language
+  // English: uses LogoEn from API, fallback to Logo
+  // Vietnamese: uses Logo from API
+  const logoUrl = getLogoUrl(currentLanguage);
 
   // Debug menu data
 

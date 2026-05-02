@@ -241,6 +241,19 @@ export const useBannerSettings = () => {
     };
   };
 
+  /**
+   * Get logo based on language
+   * @param {string} language - 'vi' or 'en'
+   */
+  const getLogoUrl = (language = 'vi') => {
+    if (language === 'en') {
+      // English: use LogoEn, fallback to Logo
+      return getBannerUrl('LogoEn') || getBannerUrl('Logo') || '/assets/images/header/attech-bo-cuc-dau-trang-chu.png';
+    }
+    // Vietnamese: use Logo
+    return getBannerUrl('Logo') || '/assets/images/header/attech-bo-cuc-dau-trang-chu.png';
+  };
+
   return {
     bannerSettings,
     loading,
@@ -253,6 +266,7 @@ export const useBannerSettings = () => {
     getHomeHeroBackground,
     getStructureChart,
     getLeadershipImages,
+    getLogoUrl,
   };
 };
 

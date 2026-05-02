@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import AOS from "aos";
@@ -7,11 +7,15 @@ import { Download, Award, Shield, CheckCircle2 } from "lucide-react";
 import "./Iso.css";
 import SEO from "../../../../components/SEO/SEO";
 import { useI18n } from "../../../../hooks/useI18n";
+import isoDocumentService from "../../../../services/isoDocumentService";
+import { getApiUrl } from "../../../../config/apiConfig";
 
 const Iso = () => {
   const { t } = useTranslation();
   const { currentLanguage } = useI18n();
   const location = useLocation();
+  const [documents, setDocuments] = useState([]);
+  const [loadingDocuments, setLoadingDocuments] = useState(true);
 
   const seoContent = {
     vi: {
@@ -40,6 +44,47 @@ const Iso = () => {
     });
   }, []);
 
+  // Load ISO documents from API
+  useEffect(() => {
+    const loadIsoDocuments = async () => {
+      try {
+        setLoadingDocuments(true);
+        const result = await isoDocumentService.getPublishedIsoDocuments();
+
+        if (result.success && result.data) {
+          // Map API data to component format
+          const mappedDocs = result.data.map((doc) => {
+            const firstAttachment = doc.attachments && doc.attachments.length > 0
+              ? doc.attachments[0]
+              : null;
+
+            return {
+              name: currentLanguage === "en" && doc.titleEn ? doc.titleEn : doc.titleVi,
+              size: firstAttachment
+                ? `${Math.round(firstAttachment.fileSize / 1024)} KB`
+                : "N/A",
+              link: firstAttachment ? getApiUrl(firstAttachment.url) : "#",
+              year: doc.certificateYear,
+              description: currentLanguage === "en" && doc.descriptionEn
+                ? doc.descriptionEn
+                : doc.descriptionVi,
+            };
+          });
+
+          setDocuments(mappedDocs);
+        }
+      } catch (error) {
+        console.error("Error loading ISO documents:", error);
+        // Fallback to empty array on error
+        setDocuments([]);
+      } finally {
+        setLoadingDocuments(false);
+      }
+    };
+
+    loadIsoDocuments();
+  }, [currentLanguage]);
+
   const timelineData = [
     {
       year: "2005",
@@ -65,24 +110,6 @@ const Iso = () => {
       year: t("frontend.companyInfo.iso.timeline.present"),
       description: t("frontend.companyInfo.iso.timeline.2020"),
       icon: <Award className="timeline-icon" />,
-    },
-  ];
-
-  const documents = [
-    {
-      name: "Hệ thống chứng chỉ ISO 9001:2015",
-      size: "705 KB",
-      link: "/assets/docs/He-thong-chung-chi-ISO-9001-20151.pdf",
-    },
-    {
-      name: "Vilas 482 9-2020",
-      size: "495 KB",
-      link: "/assets/docs/Vilas-482-9-2020.pdf",
-    },
-    {
-      name: "ISO 14001:2015",
-      size: "188 KB",
-      link: "/assets/docs/ISO-14001-2015.pdf",
     },
   ];
 
@@ -158,21 +185,40 @@ const Iso = () => {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            {documents.map((doc, index) => (
-              <a
-                key={index}
-                href={doc.link}
-                className="document-item"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-              >
-                <span className="doc-name">{doc.name}</span>
-                <Download className="download-icon" />
-                <span className="file-size">({doc.size})</span>
-              </a>
-            ))}
+            {loadingDocuments ? (
+              <div className="text-center py-4">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="mt-2 text-muted">
+                  {currentLanguage === "en" ? "Loading documents..." : "Đang tải tài liệu..."}
+                </p>
+              </div>
+            ) : documents.length > 0 ? (
+              documents.map((doc, index) => (
+                <a
+                  key={index}
+                  href={doc.link}
+                  className="document-item"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
+                  <span className="doc-name">{doc.name}</span>
+                  <Download className="download-icon" />
+                  <span className="file-size">({doc.size})</span>
+                </a>
+              ))
+            ) : (
+              <div className="text-center py-4">
+                <p className="text-muted">
+                  {currentLanguage === "en"
+                    ? "No documents available at the moment."
+                    : "Hiện chưa có tài liệu nào."}
+                </p>
+              </div>
+            )}
           </div>
         </section>
       </div>

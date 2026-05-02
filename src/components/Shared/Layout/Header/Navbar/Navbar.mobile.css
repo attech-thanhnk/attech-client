@@ -256,6 +256,7 @@
     padding: 0 20px;
     width: 100%;
     box-sizing: border-box;
+    gap: 12px;
   }
 
   .mobile-menu-header:hover,
@@ -274,13 +275,18 @@
   .mobile-menu-header .logo {
     display: flex;
     align-items: center;
+    flex: 1;
+    min-width: 0;
+    max-width: calc(100% - 60px);
     transition: none !important;
     transform: none !important;
   }
 
   .mobile-menu-header .logo img {
-    height: 40px;
+    height: 60px;
     width: auto;
+    max-width: 100%;
+    object-fit: contain;
     filter: brightness(1.1);
     transition: none !important;
     transform: none !important;
