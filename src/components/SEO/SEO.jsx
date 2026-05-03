@@ -8,7 +8,7 @@ const SEO = ({
   image,
   url,
   type = 'website',
-  author = 'ATTECH Corporation',
+  author = 'ATTECH',
   siteName = 'ATTECH',
   locale = 'vi_VN',
   noIndex = false,

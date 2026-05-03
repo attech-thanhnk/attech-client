@@ -24,9 +24,9 @@ const Home = () => {
       vi: {
         title: "Trang chủ | Công ty TNHH Kỹ thuật Quản lý bay",
         description:
-          "ATTECH là một trong những doanh nghiệp hàng đầu trong lĩnh vực kỹ thuật hàng không tại Việt Nam, chuyên cung cấp dịch vụ CNS, bay kiểm tra hiệu chuẩn và sản xuất thiết bị phục vụ ngành công nghiệp hàng không .",
+          "ATTECH là một trong những doanh nghiệp hàng đầu trong lĩnh vực công nghiệp hàng không tại Việt Nam, chuyên cung cấp dịch vụ CNS, bay kiểm tra hiệu chuẩn và sản xuất thiết bị phục vụ ngành công nghiệp hàng không .",
         keywords:
-          "ATTECH, kỹ thuật hàng không, CNS, quản lý bay, thiết bị hàng không, Vietnam aviation, VATM",
+          "ATTECH, công nghiệp hàng không, CNS, quản lý bay, Vietnam aviation, VATM",
       },
       en: {
         title: "Home | Air Traffic Technical Company",

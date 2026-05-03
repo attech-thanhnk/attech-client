@@ -133,7 +133,7 @@ const ServiceDetail = () => {
       <SEO
         title={service.displayTitle}
         description={service.displayDescription || service.displayTitle}
-        keywords={`${service.displayTitle}, dịch vụ, ATTECH, kỹ thuật hàng không`}
+        keywords={`${service.displayTitle}, dịch vụ, ATTECH, thông tin - dẫn đường - giám sát trong ngành hàng không`}
         image={imageUrl}
         url={typeof window !== 'undefined' ? window.location.pathname : ''}
         locale={currentLanguage === 'en' ? 'en_US' : 'vi_VN'}
